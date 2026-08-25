@@ -1,1 +1,1 @@
-# Laboratorio 1 - DiegoMamani
+# Laboratorio 1 - Diego Mamani
