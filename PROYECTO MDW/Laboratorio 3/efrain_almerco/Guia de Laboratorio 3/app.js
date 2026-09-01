@@ -1,7 +1,8 @@
 "use strict";
+
 const modalRegistro = document.querySelector("#modalRegistro");
 const formRegistro = document.querySelector("#formRegistro");
-const actividadInput = document.querySelector("#actividad");
+const cursoInput = document.querySelector("#curso");
 const nombreInput = document.querySelector("#nombre");
 const estadoFormulario = document.querySelector("#estadoFormulario");
 const anioActual = document.querySelector("#anioActual");
@@ -10,14 +11,11 @@ if (anioActual) {
   anioActual.textContent = new Date().getFullYear();
 }
 
-if (modalRegistro && formRegistro && actividadInput && nombreInput && estadoFormulario) {
-  
+if (modalRegistro && formRegistro && cursoInput && nombreInput && estadoFormulario) {
   modalRegistro.addEventListener("show.bs.modal", (event) => {
     const botonOrigen = event.relatedTarget;
-    const actividad = botonOrigen?.dataset.actividad ?? "Orientación general";
-    
-    actividadInput.value = actividad;
-    
+    const curso = botonOrigen?.dataset.curso ?? "Orientación general";
+    cursoInput.value = curso;
     formRegistro.classList.remove("was-validated");
     estadoFormulario.classList.add("d-none");
     estadoFormulario.textContent = "";
@@ -30,7 +28,7 @@ if (modalRegistro && formRegistro && actividadInput && nombreInput && estadoForm
   formRegistro.addEventListener("submit", (event) => {
     event.preventDefault();
     event.stopPropagation();
-    
+
     formRegistro.classList.add("was-validated");
 
     if (!formRegistro.checkValidity()) {
@@ -39,7 +37,8 @@ if (modalRegistro && formRegistro && actividadInput && nombreInput && estadoForm
       return;
     }
 
-    estadoFormulario.textContent = `Registro de demostración completado para: ${actividadInput.value}.`;
+    estadoFormulario.textContent =
+      `Registro de demostración completado para ${cursoInput.value}.`;
     estadoFormulario.classList.remove("d-none");
     estadoFormulario.focus();
   });
