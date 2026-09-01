@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TechLab - Carrito y Checkout</title>
+  <title>TechLab - Catálogo Gamer</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="css/styles.css">
@@ -283,37 +283,185 @@
   </div>
 </section>
 
-<!-- ===== MODAL ===== -->
-<div class="modal fade" id="modalProducto" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content card-gamer">
-
-      <div class="modal-header">
-        <h5 class="modal-title">Agregar al carrito</h5>
-        <button class="btn-close btn-close-white"
-                data-bs-dismiss="modal"></button>
-      </div>
-
-      <div class="modal-body">
-        <p>¿Deseas agregar este producto al carrito?</p>
-        <div class="alert alert-info">
-          <i class="bi bi-info-circle"></i>
-          Producto seleccionado correctamente.
+<!-- ===== VISTA 3: FICHA DE PRODUCTO (modal) ===== -->
+<div class="modal fade" id="modalProducto" tabindex="-1" aria-labelledby="modalDynamicTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+      <div class="modal-content border-secondary card-gamer" style="background-color: var(--bg-superficie); border: 1px solid var(--borde-gris);">
+        
+        <!-- Cabecera del Modal -->
+        <div class="modal-header bg-dark border-secondary text-white">
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-cpu text-info fs-5" aria-hidden="true"></i>
+            <h2 class="modal-title h5 mb-0 fw-bold">Ficha Técnica de Producto</h2>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar modal"></button>
         </div>
-      </div>
 
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">
-          Cancelar
-        </button>
-        <button class="btn btn-acento" data-bs-dismiss="modal">
-          Confirmar
-        </button>
-      </div>
+        <!-- Cuerpo del Modal -->
+        <div class="modal-body bg-dark text-white p-4">
+          <div class="container-fluid p-0">
+            <div class="row g-4">
+              
+              <!-- Visor de Galería (Izquierda) -->
+              <div class="col-lg-6">
+                <div class="card card-gamer p-3 mb-3 text-center bg-depth d-flex align-items-center justify-content-center" style="min-height: 300px; background-color: var(--bg-fondo);">
+                  <div id="modalMainImageContainer">
+                    <i class="bi bi-motherboard text-info" style="font-size: 8rem; display: block;" aria-hidden="true"></i>
+                    <span class="fw-bold text-uppercase tracking-wider text-secondary small d-block mt-2" id="modalImgTag">Cargando...</span>
+                  </div>
+                </div>
+                <!-- Miniaturas de la Galería -->
+                <div class="row g-2">
+                  <div class="col-4">
+                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb1" aria-label="Ver imagen de referencia">
+                      <!-- Cargado dinámicamente -->
+                    </button>
+                  </div>
+                  <div class="col-4">
+                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb2" aria-label="Ver detalle interno">
+                      <!-- Cargado dinámicamente -->
+                    </button>
+                  </div>
+                  <div class="col-4">
+                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb3" aria-label="Ver empaque oficial">
+                      <!-- Cargado dinámicamente -->
+                    </button>
+                  </div>
+                </div>
+              </div>
 
+              <!-- Información de Compra y Atributos (Derecha) -->
+              <div class="col-lg-6">
+                <!-- Contenedor dinámico de categorías (Badges) -->
+                <div id="modalDynamicTagsContainer" class="d-flex flex-wrap gap-1 mb-2"></div>
+
+                <h1 class="fw-bold text-white h3 mb-2" id="modalDynamicTitle">Cargando Producto...</h1>
+                
+                <!-- Calificación de Estrellas -->
+                <div class="d-flex align-items-center gap-2 mb-3">
+                  <div class="text-warning">
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-half" aria-hidden="true"></i>
+                  </div>
+                  <span class="text-secondary small">(128 opiniones)</span>
+                </div>
+
+                <!-- Caja de Precio Especial -->
+                <div class="p-3 rounded-3 mb-3" style="background-color: var(--bg-fondo); border: 1px solid var(--borde-gris);">
+                  <div class="text-secondary small mb-1">Precio Online</div>
+                  <div class="d-flex align-items-baseline gap-2">
+                    <span class="fs-2 fw-bold" style="color: var(--color-acento);" id="modalDynamicPrice">S/ 0</span>
+                    <span class="text-secondary text-decoration-line-through small">S/ 1,049</span>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <span class="badge bg-success"><i class="bi bi-check-circle me-1" aria-hidden="true"></i> Stock Disponible</span>
+                </div>
+
+                <div class="mb-4">
+                  <h6 class="text-white border-bottom border-secondary pb-2">Descripción Breve:</h6>
+                  <p class="text-secondary small lh-base" id="modalDynamicDescription">Cargando datos...</p>
+                </div>
+
+                <!-- Selector de Cantidad -->
+                <div class="d-flex align-items-center gap-3">
+                  <span class="text-secondary small">Cantidad:</span>
+                  <div class="input-group" style="max-width: 140px;">
+                    <button class="btn btn-qty border-secondary text-white px-3" type="button" onclick="changeModalQty(-1)" aria-label="Restar cantidad">-</button>
+                    <input type="text" class="form-control text-center qty-input" id="modalProductQty" value="1" readonly aria-label="Cantidad">
+                    <button class="btn btn-qty border-secondary text-white px-3" type="button" onclick="changeModalQty(1)" aria-label="Sumar cantidad">+</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel de Pestañas (Descripción / Especificaciones / Reseñas) -->
+            <div class="card card-gamer mt-4" style="background-color: var(--bg-fondo); border: 1px solid var(--borde-gris);">
+              <div class="card-header p-0">
+                <ul class="nav nav-tabs nav-tabs-gamer" id="modalTabs" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="modal-desc-tab" data-bs-toggle="tab" data-bs-target="#modal-desc-pane" type="button" role="tab" aria-controls="modal-desc-pane" aria-selected="true">
+                      Descripción de Élite
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="modal-spec-tab" data-bs-toggle="tab" data-bs-target="#modal-spec-pane" type="button" role="tab" aria-controls="modal-spec-pane" aria-selected="false">
+                      Especificaciones Técnicas
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="modal-reviews-tab" data-bs-toggle="tab" data-bs-target="#modal-reviews-pane" type="button" role="tab" aria-controls="modal-reviews-pane" aria-selected="false">
+                      Reseñas (2)
+                    </button>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <div class="tab-content" id="modalTabContent">
+                  <!-- Pestaña 1: Descripción General -->
+                  <div class="tab-pane fade show active" id="modal-desc-pane" role="tabpanel" aria-labelledby="modal-desc-tab" tabindex="0">
+                    <p class="text-secondary mb-0 small">
+                      Todos los componentes distribuidos por TechLab cuentan con certificación de compatibilidad internacional. Ofrecemos hardware de primer nivel optimizado para entusiastas de la informática y el gaming competitivo.
+                    </p>
+                  </div>
+                  <!-- Pestaña 2: Tabla de Especificaciones Técnicas (Rejilla Semántica) -->
+                  <div class="tab-pane fade" id="modal-spec-pane" role="tabpanel" aria-labelledby="modal-spec-tab" tabindex="0">
+                    <div class="table-responsive">
+                      <table class="table table-dark table-striped table-sm mb-0 align-middle text-start text-secondary">
+                        <caption class="visually-hidden">Detalles mecánicos e internos del hardware seleccionado</caption>
+                        <thead>
+                          <tr>
+                            <th scope="col" class="py-2">Especificación</th>
+                            <th scope="col" class="py-2">Detalle Técnico</th>
+                          </tr>
+                        </thead>
+                        <tbody id="modalDynamicSpecsTableBody">
+                          <!-- Inyectado dinámicamente con JS -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!-- Pestaña 3: Reseñas con estrellas -->
+                  <div class="tab-pane fade" id="modal-reviews-pane" role="tabpanel" aria-labelledby="modal-reviews-tab" tabindex="0">
+                    <div class="row g-3">
+                      <div class="col-12 border-bottom border-secondary pb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                          <span class="text-white fw-bold small">GamerPro_Lima</span>
+                          <span class="text-warning small"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
+                        </div>
+                        <p class="text-secondary small mb-0">Excelente estabilidad térmica y desempeño impecable bajo estrés. 10/10.</p>
+                      </div>
+                      <div class="col-12">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                          <span class="text-white fw-bold small">Dev_Codex</span>
+                          <span class="text-warning small"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i></span>
+                        </div>
+                        <p class="text-secondary small mb-0">Gran calidad de construcción. Configurar el perfil XMP en la BIOS fue pan comido.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Pie de página del Modal -->
+        <div class="modal-footer border-secondary bg-dark">
+          <button type="button" class="btn btn-outline-secondary text-white border-secondary" data-bs-dismiss="modal">Seguir buscando</button>
+          <button type="button" class="btn btn-acento" onclick="confirmAddToCart()" id="btnModalAdd">
+            <i class="bi bi-cart-plus-fill me-1" aria-hidden="true"></i> Añadir S/ <span id="modalBtnPrice">0</span>
+          </button>
+        </div>
+
+      </div>
     </div>
   </div>
-</div>
 
 <!-- ===== FOOTER ===== -->
 <footer class="footer-gamer mt-5 py-4">
@@ -327,3 +475,10 @@
     <small class="text-secundario">© 2026 TechLab</small>
   </div>
 </footer>
+
+  <!-- Bootstrap 5.3.8 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Archivo JS Unificado -->
+  <script src="js/app.js"></script>
+</body>
+</html>
