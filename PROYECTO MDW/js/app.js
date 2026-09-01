@@ -118,7 +118,7 @@ if (modalFicha) {
       const card = triggerButton.closest(".card-gamer");
 
       if (card) {
-        // 1. Extraer los textos e iconos nativos estructurados por tu compañero
+        // 1. Extraer los textos e iconos nativos estructurados
         const rawTitle =
           card.querySelector("h5")?.textContent.trim() ?? "Componente Gamer";
         const brand =
