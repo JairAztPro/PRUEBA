@@ -197,3 +197,20 @@ body {
 .bg-depth {
   background-color: #0c0d10 !important;
 }
+
+
+/* ===== GESTIÓN & SOPORTE / REGISTRO ===== */
+.nav-tabs .nav-link {
+  color: var(--texto-secundario);
+  border: 1px solid transparent;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: var(--bg-superficie);
+  color: var(--color-acento);
+  border-color: var(--borde-gris) var(--borde-gris) transparent;
+}
+
+.accordion-button::after {
+  filter: invert(1);
+}
