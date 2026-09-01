@@ -303,3 +303,45 @@ function configureThumbnails(mainIcon) {
     thumb3.classList.remove("active");
   }
 }
+
+
+// REGISTRO & SOPORTE =====
+const formPerfil = document.querySelector("#formPerfil");
+const perfilNombre = document.querySelector("#perfilNombre");
+const perfilCorreo = document.querySelector("#perfilCorreo");
+
+// Array porque no hay BD ;-;
+const listaUsuarios = [];
+
+if (formPerfil) {
+  formPerfil.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const nombre = perfilNombre.value.trim();
+    const correo = perfilCorreo.value.trim().toLowerCase();
+
+    // 1. Validar el @gmail.com
+    if (!correo.endsWith("@gmail.com")) {
+      perfilCorreo.classList.add("is-invalid");
+      return;
+    }
+
+    perfilCorreo.classList.remove("is-invalid");
+
+    //Crear nuevo usuario
+    const nuevoUsuario = {
+      id: Date.now(),
+      nombre: nombre,
+      correo: correo
+    };
+
+    listaUsuarios.push(nuevoUsuario);
+
+    //Ver en consola
+    console.log("¡Usuario registrado con éxito!");
+    console.log("Lista global de registrados:", listaUsuarios);
+
+    formPerfil.reset();
+  });
+
+}

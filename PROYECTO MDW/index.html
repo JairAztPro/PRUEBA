@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,24 +9,25 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
-  
+
   <div class="container py-5">
     <h2 class="fw-bold mb-4">Finalizar Compra</h2>
-    
+
     <div class="d-flex gap-3 mb-5 border-bottom border-secondary pb-3">
-        <span class="badge bg-primary fs-6">1. Carrito</span>
-        <span class="badge bg-secondary fs-6">2. Envío</span>
-        <span class="badge bg-secondary fs-6">3. Pago</span>
+      <span class="badge bg-primary fs-6">1. Carrito</span>
+      <span class="badge bg-secondary fs-6">2. Envío</span>
+      <span class="badge bg-secondary fs-6">3. Pago</span>
     </div>
 
     <!-- EL FORMULARIO AHORA ENVUELVE TODO -->
     <form id="formCheckout" class="row g-4" novalidate>
-      
+
       <!-- Columna Izquierda: Productos y Datos -->
       <div class="col-lg-8">
         <h4 class="mb-3">Tu Carrito</h4>
-        
+
         <div class="card card-gamer mb-3 p-3 d-flex flex-row align-items-center justify-content-between">
           <div class="d-flex align-items-center gap-3">
             <div style="width: 60px; height: 60px; background-color: var(--bg-fondo); border-radius: 8px;"></div>
@@ -40,7 +42,8 @@
         <h5 class="mt-4 mb-3 text-secundario">Te podría interesar agregar:</h5>
         <div class="card card-gamer mb-5 p-3 d-flex flex-row align-items-center justify-content-between border-primary">
           <div class="d-flex align-items-center gap-3">
-            <div style="width: 50px; height: 50px; background-color: var(--bg-fondo); border-radius: 8px;"><i class="bi bi-lightning-charge text-primary fs-3 ms-2 mt-1 d-block"></i></div>
+            <div style="width: 50px; height: 50px; background-color: var(--bg-fondo); border-radius: 8px;"><i
+                class="bi bi-lightning-charge text-primary fs-3 ms-2 mt-1 d-block"></i></div>
             <div>
               <span class="d-block fw-bold">Cargador Ugreen Nexode 65W GaN</span>
               <span class="text-secundario small">Ideal para carga ultra rápida</span>
@@ -51,39 +54,40 @@
 
         <h4 class="mb-3">Datos de Envío</h4>
         <div class="card card-gamer p-4 mb-5">
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <label class="form-label">Nombres Completos</label>
-                    <input type="text" class="form-control input-gamer" required>
-                    <div class="invalid-feedback">Ingresa tu nombre para el envío.</div>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label">Teléfono de Contacto</label>
-                    <input type="tel" class="form-control input-gamer" required>
-                    <div class="invalid-feedback">Ingresa un número válido.</div>
-                </div>
-                <div class="col-12">
-                    <label class="form-label">Dirección exacta</label>
-                    <input type="text" class="form-control input-gamer" placeholder="Ej. Av. Los Pinos 123, Huascata" required>
-                    <div class="invalid-feedback">Necesitamos tu dirección para entregar tu compra.</div>
-                </div>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Nombres Completos</label>
+              <input type="text" class="form-control input-gamer" required>
+              <div class="invalid-feedback">Ingresa tu nombre para el envío.</div>
             </div>
+            <div class="col-md-6">
+              <label class="form-label">Teléfono de Contacto</label>
+              <input type="tel" class="form-control input-gamer" required>
+              <div class="invalid-feedback">Ingresa un número válido.</div>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Dirección exacta</label>
+              <input type="text" class="form-control input-gamer" placeholder="Ej. Av. Los Pinos 123, Huascata"
+                required>
+              <div class="invalid-feedback">Necesitamos tu dirección para entregar tu compra.</div>
+            </div>
+          </div>
         </div>
 
         <h4 class="mb-3">Método de Pago</h4>
         <div class="card card-gamer p-4 mb-4">
-            <div class="form-check mb-3">
-                <input class="form-check-input" type="radio" name="pago" id="tarjeta" required checked>
-                <label class="form-check-label d-flex align-items-center gap-2" for="tarjeta">
-                    <i class="bi bi-credit-card fs-4"></i> Tarjeta de Crédito / Débito
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="pago" id="yape" required>
-                <label class="form-check-label d-flex align-items-center gap-2" for="yape">
-                    <i class="bi bi-qr-code-scan fs-4"></i> Pago con Yape o Plin
-                </label>
-            </div>
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" name="pago" id="tarjeta" required checked>
+            <label class="form-check-label d-flex align-items-center gap-2" for="tarjeta">
+              <i class="bi bi-credit-card fs-4"></i> Tarjeta de Crédito / Débito
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="pago" id="yape" required>
+            <label class="form-check-label d-flex align-items-center gap-2" for="yape">
+              <i class="bi bi-qr-code-scan fs-4"></i> Pago con Yape o Plin
+            </label>
+          </div>
         </div>
       </div>
 
@@ -120,210 +124,205 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/app.js"></script>
-</body>
-</html>
 
-<!-- ===== VISTA 2: CATALOGO ===== -->
-<section class="container py-5">
 
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="#" class="text-secundario">Inicio</a>
-          </li>
-          <li class="breadcrumb-item active text-white">Catálogo</li>
-        </ol>
-      </nav>
-      <h2 class="fw-bold">Catálogo</h2>
-    </div>
-
-    <select id="orden" class="form-select select-gamer">
-      <option>Ordenar</option>
-      <option>Precio menor</option>
-      <option>Precio mayor</option>
-    </select>
-  </div>
-
-  <div class="row g-4">
-
-    <!-- Filtros -->
-    <aside class="col-12 col-lg-3">
-      <div class="card card-gamer p-3">
-        <h5 class="fw-bold">Filtros</h5>
-
-        <form id="filtros">
-          <label class="form-label mt-2">Marca</label>
-
-          <div class="form-check">
-            <input class="form-check-input marca" type="checkbox"
-                   value="asus">
-            <label class="form-check-label">ASUS</label>
-          </div>
-
-          <div class="form-check">
-            <input class="form-check-input marca" type="checkbox"
-                   value="msi">
-            <label class="form-check-label">MSI</label>
-          </div>
-
-          <label class="form-label mt-3">Precio máximo</label>
-          <input type="range" class="form-range" id="precio"
-                 min="100" max="1500" value="1500">
-
-          <div class="d-flex justify-content-between small">
-            <span class="text-secundario">S/100</span>
-            <span id="precioValor">S/1500</span>
-          </div>
-
-          <div class="form-check mt-3">
-            <input class="form-check-input" type="checkbox" id="stock">
-            <label class="form-check-label">Solo con stock</label>
-          </div>
-
-          <button type="button" id="limpiar"
-                  class="btn btn-outline-secondary btn-sm w-100 mt-3">
-            Limpiar filtros
-          </button>
-        </form>
-      </div>
-    </aside>
-
-    <!-- Productos -->
-    <div class="col-12 col-lg-9">
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3"
-           id="productos">
-
-        <div class="col producto" data-marca="asus"
-             data-precio="899" data-stock="true">
-          <div class="card card-gamer h-100">
-            <div class="producto-img">
-              <span class="badge bg-danger">-20%</span>
-              <i class="bi bi-motherboard"></i>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <small class="text-secundario">ASUS</small>
-              <h5>ROG Strix B550-F</h5>
-              <p class="text-secundario small">
-                Placa madre para gaming.
-              </p>
-              <strong class="precio-catalogo mt-auto">S/ 899</strong>
-              <button class="btn btn-acento mt-3"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalProducto">
-                <i class="bi bi-cart-plus"></i> Agregar
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="col producto" data-marca="msi"
-             data-precio="749" data-stock="true">
-          <div class="card card-gamer h-100">
-            <div class="producto-img">
-              <i class="bi bi-gpu-card"></i>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <small class="text-secundario">MSI</small>
-              <h5>RTX 4060 Gaming</h5>
-              <p class="text-secundario small">
-                Tarjeta gráfica gamer.
-              </p>
-              <strong class="precio-catalogo mt-auto">S/ 749</strong>
-              <button class="btn btn-acento mt-3"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalProducto">
-                <i class="bi bi-cart-plus"></i> Agregar
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <div class="col producto" data-marca="msi"
-             data-precio="459" data-stock="false">
-          <div class="card card-gamer h-100">
-            <div class="producto-img">
-              <i class="bi bi-memory"></i>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <small class="text-secundario">MSI</small>
-              <h5>RAM DDR4 16GB</h5>
-              <p class="text-secundario small">
-                Memoria de alto rendimiento.
-              </p>
-              <strong class="precio-catalogo mt-auto">S/ 459</strong>
-              <button class="btn btn-secondary mt-3" disabled>
-                Sin stock
-              </button>
-            </div>
-          </div>
-        </div>
-
+  <!-- ===== VISTA 2: CATALOGO ===== -->
+  <section class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="#" class="text-secundario">Inicio</a>
+            </li>
+            <li class="breadcrumb-item active text-white">Catálogo</li>
+          </ol>
+        </nav>
+        <h2 class="fw-bold">Catálogo</h2>
       </div>
 
-      <!-- Paginación -->
-      <nav class="mt-4">
-        <ul class="pagination justify-content-center">
-          <li class="page-item disabled">
-            <a class="page-link">Anterior</a>
-          </li>
-          <li class="page-item active">
-            <a class="page-link">1</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">2</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">3</a>
-          </li>
-        </ul>
-      </nav>
+      <select id="orden" class="form-select select-gamer">
+        <option>Ordenar</option>
+        <option>Precio menor</option>
+        <option>Precio mayor</option>
+      </select>
     </div>
-  </div>
-</section>
 
-<!-- ===== VISTA 3: FICHA DE PRODUCTO (modal) ===== -->
-<div class="modal fade" id="modalProducto" tabindex="-1" aria-labelledby="modalDynamicTitle" aria-hidden="true">
+    <div class="row g-4">
+
+      <!-- Filtros -->
+      <aside class="col-12 col-lg-3">
+        <div class="card card-gamer p-3">
+          <h5 class="fw-bold">Filtros</h5>
+
+          <form id="filtros">
+            <label class="form-label mt-2">Marca</label>
+
+            <div class="form-check">
+              <input class="form-check-input marca" type="checkbox" value="asus">
+              <label class="form-check-label">ASUS</label>
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input marca" type="checkbox" value="msi">
+              <label class="form-check-label">MSI</label>
+            </div>
+
+            <label class="form-label mt-3">Precio máximo</label>
+            <input type="range" class="form-range" id="precio" min="100" max="1500" value="1500">
+
+            <div class="d-flex justify-content-between small">
+              <span class="text-secundario">S/100</span>
+              <span id="precioValor">S/1500</span>
+            </div>
+
+            <div class="form-check mt-3">
+              <input class="form-check-input" type="checkbox" id="stock">
+              <label class="form-check-label">Solo con stock</label>
+            </div>
+
+            <button type="button" id="limpiar" class="btn btn-outline-secondary btn-sm w-100 mt-3">
+              Limpiar filtros
+            </button>
+          </form>
+        </div>
+      </aside>
+
+      <!-- Productos -->
+      <div class="col-12 col-lg-9">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3" id="productos">
+
+          <div class="col producto" data-marca="asus" data-precio="899" data-stock="true">
+            <div class="card card-gamer h-100">
+              <div class="producto-img">
+                <span class="badge bg-danger">-20%</span>
+                <i class="bi bi-motherboard"></i>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <small class="text-secundario">ASUS</small>
+                <h5>ROG Strix B550-F</h5>
+                <p class="text-secundario small">
+                  Placa madre para gaming.
+                </p>
+                <strong class="precio-catalogo mt-auto">S/ 899</strong>
+                <button class="btn btn-acento mt-3" data-bs-toggle="modal" data-bs-target="#modalProducto">
+                  <i class="bi bi-cart-plus"></i> Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col producto" data-marca="msi" data-precio="749" data-stock="true">
+            <div class="card card-gamer h-100">
+              <div class="producto-img">
+                <i class="bi bi-gpu-card"></i>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <small class="text-secundario">MSI</small>
+                <h5>RTX 4060 Gaming</h5>
+                <p class="text-secundario small">
+                  Tarjeta gráfica gamer.
+                </p>
+                <strong class="precio-catalogo mt-auto">S/ 749</strong>
+                <button class="btn btn-acento mt-3" data-bs-toggle="modal" data-bs-target="#modalProducto">
+                  <i class="bi bi-cart-plus"></i> Agregar
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col producto" data-marca="msi" data-precio="459" data-stock="false">
+            <div class="card card-gamer h-100">
+              <div class="producto-img">
+                <i class="bi bi-memory"></i>
+              </div>
+              <div class="card-body d-flex flex-column">
+                <small class="text-secundario">MSI</small>
+                <h5>RAM DDR4 16GB</h5>
+                <p class="text-secundario small">
+                  Memoria de alto rendimiento.
+                </p>
+                <strong class="precio-catalogo mt-auto">S/ 459</strong>
+                <button class="btn btn-secondary mt-3" disabled>
+                  Sin stock
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Paginación -->
+        <nav class="mt-4">
+          <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+              <a class="page-link">Anterior</a>
+            </li>
+            <li class="page-item active">
+              <a class="page-link">1</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">2</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="#">3</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VISTA 3: FICHA DE PRODUCTO (modal) ===== -->
+  <div class="modal fade" id="modalProducto" tabindex="-1" aria-labelledby="modalDynamicTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
-      <div class="modal-content border-secondary card-gamer" style="background-color: var(--bg-superficie); border: 1px solid var(--borde-gris);">
-        
+      <div class="modal-content border-secondary card-gamer"
+        style="background-color: var(--bg-superficie); border: 1px solid var(--borde-gris);">
+
         <!-- Cabecera del Modal -->
         <div class="modal-header bg-dark border-secondary text-white">
           <div class="d-flex align-items-center gap-2">
             <i class="bi bi-cpu text-info fs-5" aria-hidden="true"></i>
             <h2 class="modal-title h5 mb-0 fw-bold">Ficha Técnica de Producto</h2>
           </div>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar modal"></button>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+            aria-label="Cerrar modal"></button>
         </div>
 
         <!-- Cuerpo del Modal -->
         <div class="modal-body bg-dark text-white p-4">
           <div class="container-fluid p-0">
             <div class="row g-4">
-              
+
               <!-- Visor de Galería (Izquierda) -->
               <div class="col-lg-6">
-                <div class="card card-gamer p-3 mb-3 text-center bg-depth d-flex align-items-center justify-content-center" style="min-height: 300px; background-color: var(--bg-fondo);">
+                <div
+                  class="card card-gamer p-3 mb-3 text-center bg-depth d-flex align-items-center justify-content-center"
+                  style="min-height: 300px; background-color: var(--bg-fondo);">
                   <div id="modalMainImageContainer">
-                    <i class="bi bi-motherboard text-info" style="font-size: 8rem; display: block;" aria-hidden="true"></i>
-                    <span class="fw-bold text-uppercase tracking-wider text-secondary small d-block mt-2" id="modalImgTag">Cargando...</span>
+                    <i class="bi bi-motherboard text-info" style="font-size: 8rem; display: block;"
+                      aria-hidden="true"></i>
+                    <span class="fw-bold text-uppercase tracking-wider text-secondary small d-block mt-2"
+                      id="modalImgTag">Cargando...</span>
                   </div>
                 </div>
                 <!-- Miniaturas de la Galería -->
                 <div class="row g-2">
                   <div class="col-4">
-                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb1" aria-label="Ver imagen de referencia">
+                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb1"
+                      aria-label="Ver imagen de referencia">
                       <!-- Cargado dinámicamente -->
                     </button>
                   </div>
                   <div class="col-4">
-                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb2" aria-label="Ver detalle interno">
+                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb2"
+                      aria-label="Ver detalle interno">
                       <!-- Cargado dinámicamente -->
                     </button>
                   </div>
                   <div class="col-4">
-                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb3" aria-label="Ver empaque oficial">
+                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb3"
+                      aria-label="Ver empaque oficial">
                       <!-- Cargado dinámicamente -->
                     </button>
                   </div>
@@ -336,7 +335,7 @@
                 <div id="modalDynamicTagsContainer" class="d-flex flex-wrap gap-1 mb-2"></div>
 
                 <h1 class="fw-bold text-white h3 mb-2" id="modalDynamicTitle">Cargando Producto...</h1>
-                
+
                 <!-- Calificación de Estrellas -->
                 <div class="d-flex align-items-center gap-2 mb-3">
                   <div class="text-warning">
@@ -350,7 +349,8 @@
                 </div>
 
                 <!-- Caja de Precio Especial -->
-                <div class="p-3 rounded-3 mb-3" style="background-color: var(--bg-fondo); border: 1px solid var(--borde-gris);">
+                <div class="p-3 rounded-3 mb-3"
+                  style="background-color: var(--bg-fondo); border: 1px solid var(--borde-gris);">
                   <div class="text-secondary small mb-1">Precio Online</div>
                   <div class="d-flex align-items-baseline gap-2">
                     <span class="fs-2 fw-bold" style="color: var(--color-acento);" id="modalDynamicPrice">S/ 0</span>
@@ -359,7 +359,8 @@
                 </div>
 
                 <div class="mb-3">
-                  <span class="badge bg-success"><i class="bi bi-check-circle me-1" aria-hidden="true"></i> Stock Disponible</span>
+                  <span class="badge bg-success"><i class="bi bi-check-circle me-1" aria-hidden="true"></i> Stock
+                    Disponible</span>
                 </div>
 
                 <div class="mb-4">
@@ -371,30 +372,39 @@
                 <div class="d-flex align-items-center gap-3">
                   <span class="text-secondary small">Cantidad:</span>
                   <div class="input-group" style="max-width: 140px;">
-                    <button class="btn btn-qty border-secondary text-white px-3" type="button" onclick="changeModalQty(-1)" aria-label="Restar cantidad">-</button>
-                    <input type="text" class="form-control text-center qty-input" id="modalProductQty" value="1" readonly aria-label="Cantidad">
-                    <button class="btn btn-qty border-secondary text-white px-3" type="button" onclick="changeModalQty(1)" aria-label="Sumar cantidad">+</button>
+                    <button class="btn btn-qty border-secondary text-white px-3" type="button"
+                      onclick="changeModalQty(-1)" aria-label="Restar cantidad">-</button>
+                    <input type="text" class="form-control text-center qty-input" id="modalProductQty" value="1"
+                      readonly aria-label="Cantidad">
+                    <button class="btn btn-qty border-secondary text-white px-3" type="button"
+                      onclick="changeModalQty(1)" aria-label="Sumar cantidad">+</button>
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- Panel de Pestañas (Descripción / Especificaciones / Reseñas) -->
-            <div class="card card-gamer mt-4" style="background-color: var(--bg-fondo); border: 1px solid var(--borde-gris);">
+            <div class="card card-gamer mt-4"
+              style="background-color: var(--bg-fondo); border: 1px solid var(--borde-gris);">
               <div class="card-header p-0">
                 <ul class="nav nav-tabs nav-tabs-gamer" id="modalTabs" role="tablist">
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="modal-desc-tab" data-bs-toggle="tab" data-bs-target="#modal-desc-pane" type="button" role="tab" aria-controls="modal-desc-pane" aria-selected="true">
+                    <button class="nav-link active" id="modal-desc-tab" data-bs-toggle="tab"
+                      data-bs-target="#modal-desc-pane" type="button" role="tab" aria-controls="modal-desc-pane"
+                      aria-selected="true">
                       Descripción de Élite
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="modal-spec-tab" data-bs-toggle="tab" data-bs-target="#modal-spec-pane" type="button" role="tab" aria-controls="modal-spec-pane" aria-selected="false">
+                    <button class="nav-link" id="modal-spec-tab" data-bs-toggle="tab" data-bs-target="#modal-spec-pane"
+                      type="button" role="tab" aria-controls="modal-spec-pane" aria-selected="false">
                       Especificaciones Técnicas
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="modal-reviews-tab" data-bs-toggle="tab" data-bs-target="#modal-reviews-pane" type="button" role="tab" aria-controls="modal-reviews-pane" aria-selected="false">
+                    <button class="nav-link" id="modal-reviews-tab" data-bs-toggle="tab"
+                      data-bs-target="#modal-reviews-pane" type="button" role="tab" aria-controls="modal-reviews-pane"
+                      aria-selected="false">
                       Reseñas (2)
                     </button>
                   </li>
@@ -403,16 +413,23 @@
               <div class="card-body">
                 <div class="tab-content" id="modalTabContent">
                   <!-- Pestaña 1: Descripción General -->
-                  <div class="tab-pane fade show active" id="modal-desc-pane" role="tabpanel" aria-labelledby="modal-desc-tab" tabindex="0">
+                  <div class="tab-pane fade show active" id="modal-desc-pane" role="tabpanel"
+                    aria-labelledby="modal-desc-tab" tabindex="0">
                     <p class="text-secondary mb-0 small">
-                      Todos los componentes distribuidos por TechLab cuentan con certificación de compatibilidad internacional. Ofrecemos hardware de primer nivel optimizado para entusiastas de la informática y el gaming competitivo.
+                      Todos los componentes distribuidos por TechLab cuentan con certificación de compatibilidad
+                      internacional. Ofrecemos hardware de primer nivel optimizado para entusiastas de la informática y
+                      el
+                      gaming competitivo.
                     </p>
                   </div>
                   <!-- Pestaña 2: Tabla de Especificaciones Técnicas (Rejilla Semántica) -->
-                  <div class="tab-pane fade" id="modal-spec-pane" role="tabpanel" aria-labelledby="modal-spec-tab" tabindex="0">
+                  <div class="tab-pane fade" id="modal-spec-pane" role="tabpanel" aria-labelledby="modal-spec-tab"
+                    tabindex="0">
                     <div class="table-responsive">
-                      <table class="table table-dark table-striped table-sm mb-0 align-middle text-start text-secondary">
-                        <caption class="visually-hidden">Detalles mecánicos e internos del hardware seleccionado</caption>
+                      <table
+                        class="table table-dark table-striped table-sm mb-0 align-middle text-start text-secondary">
+                        <caption class="visually-hidden">Detalles mecánicos e internos del hardware seleccionado
+                        </caption>
                         <thead>
                           <tr>
                             <th scope="col" class="py-2">Especificación</th>
@@ -426,21 +443,29 @@
                     </div>
                   </div>
                   <!-- Pestaña 3: Reseñas con estrellas -->
-                  <div class="tab-pane fade" id="modal-reviews-pane" role="tabpanel" aria-labelledby="modal-reviews-tab" tabindex="0">
+                  <div class="tab-pane fade" id="modal-reviews-pane" role="tabpanel" aria-labelledby="modal-reviews-tab"
+                    tabindex="0">
                     <div class="row g-3">
                       <div class="col-12 border-bottom border-secondary pb-3">
                         <div class="d-flex justify-content-between align-items-center mb-1">
                           <span class="text-white fw-bold small">GamerPro_Lima</span>
-                          <span class="text-warning small"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
+                          <span class="text-warning small"><i class="bi bi-star-fill"></i><i
+                              class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                              class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
                         </div>
-                        <p class="text-secondary small mb-0">Excelente estabilidad térmica y desempeño impecable bajo estrés. 10/10.</p>
+                        <p class="text-secondary small mb-0">Excelente estabilidad térmica y desempeño impecable bajo
+                          estrés. 10/10.</p>
                       </div>
                       <div class="col-12">
                         <div class="d-flex justify-content-between align-items-center mb-1">
                           <span class="text-white fw-bold small">Dev_Codex</span>
-                          <span class="text-warning small"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i></span>
+                          <span class="text-warning small"><i class="bi bi-star-fill"></i><i
+                              class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                              class="bi bi-star-fill"></i><i class="bi bi-star"></i></span>
                         </div>
-                        <p class="text-secondary small mb-0">Gran calidad de construcción. Configurar el perfil XMP en la BIOS fue pan comido.</p>
+                        <p class="text-secondary small mb-0">Gran calidad de construcción. Configurar el perfil XMP en
+                          la
+                          BIOS fue pan comido.</p>
                       </div>
                     </div>
                   </div>
@@ -453,7 +478,8 @@
 
         <!-- Pie de página del Modal -->
         <div class="modal-footer border-secondary bg-dark">
-          <button type="button" class="btn btn-outline-secondary text-white border-secondary" data-bs-dismiss="modal">Seguir buscando</button>
+          <button type="button" class="btn btn-outline-secondary text-white border-secondary"
+            data-bs-dismiss="modal">Seguir buscando</button>
           <button type="button" class="btn btn-acento" onclick="confirmAddToCart()" id="btnModalAdd">
             <i class="bi bi-cart-plus-fill me-1" aria-hidden="true"></i> Añadir S/ <span id="modalBtnPrice">0</span>
           </button>
@@ -463,22 +489,99 @@
     </div>
   </div>
 
-<!-- ===== FOOTER ===== -->
-<footer class="footer-gamer mt-5 py-4">
-  <div class="container text-center">
-    <h5 class="fw-bold">
-      <i class="bi bi-cpu"></i> TechLab
-    </h5>
-    <p class="text-secundario mb-0">
-      Tecnología para tu setup gamer.
-    </p>
-    <small class="text-secundario">© 2026 TechLab</small>
-  </div>
-</footer>
+  <!-- ===== VISTA 5: REGISTRO & SOPORTE ===== -->
+  <section class="container py-5" id="seccion-gestion-soporte">
+    <div class="mb-4">
+      <h2 class="fw-bold"><i class="bi bi-person-plus text-primary me-2"></i>Registro & Soporte</h2>
+      <p class="text-secundario">Crea tu cuenta de usuario y resuelve dudas sobre el proceso de compra.</p>
+    </div>
+
+    <ul class="nav nav-tabs border-secondary mb-4" id="soporteTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active fw-bold" id="perfil-tab" data-bs-toggle="tab" data-bs-target="#perfil-pane"
+          type="button" role="tab">
+          <i class="bi bi-person-badge me-1"></i> Regístrate
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link fw-bold" id="soporte-tab" data-bs-toggle="tab" data-bs-target="#soporte-pane"
+          type="button" role="tab">
+          <i class="bi bi-headset me-1"></i> Centro de Ayuda
+        </button>
+      </li>
+    </ul>
+
+    <div class="tab-content" id="soporteTabsContent">
+      <div class="tab-pane fade show active" id="perfil-pane" role="tabpanel">
+        <div class="card card-gamer p-4">
+          <h4 class="fw-bold mb-3">Crear nueva cuenta</h4>
+          <form id="formPerfil" class="row g-3" novalidate>
+            <div class="col-md-6">
+              <label class="form-label">Nombre de Usuario</label>
+              <input type="text" class="form-control input-gamer" id="perfilNombre" placeholder="Ej. GamerUser_01"
+                required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Correo Electrónico (Solo Gmail)</label>
+              <input type="email" class="form-control input-gamer" id="perfilCorreo" placeholder="usuario@gmail.com"
+                required>
+              <div class="invalid-feedback">Ingresa un correo válido que termine estrictamente en @gmail.com</div>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-acento"><i class="bi bi-person-check me-1"></i> Crear Cuenta</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="soporte-pane" role="tabpanel">
+        <div class="card card-gamer p-4">
+          <h4 class="fw-bold mb-3">Preguntas Frecuentes</h4>
+          <div class="accordion accordion-flush" id="faqAccordion">
+            <div class="accordion-item bg-transparent text-white border-secondary">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-transparent text-white" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#faqItem1">¿Cómo funciona la garantía de los
+                  componentes?</button>
+              </h2>
+              <div id="faqItem1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body text-secundario">Todos nuestros productos cuentan con 12 meses de garantía
+                  directa por fallas de fábrica.</div>
+              </div>
+            </div>
+            <div class="accordion-item bg-transparent text-white border-secondary">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed bg-transparent text-white" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#faqItem2">¿Cuáles son los tiempos de entrega?</button>
+              </h2>
+              <div id="faqItem2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body text-secundario">Los envíos dentro de Lima demoran 24 horas y a provincias de
+                  48 a 72 horas hábiles.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer-gamer mt-5 py-4">
+    <div class="container text-center">
+      <h5 class="fw-bold">
+        <i class="bi bi-cpu"></i> TechLab
+      </h5>
+      <p class="text-secundario mb-0">
+        Tecnología para tu setup gamer.
+      </p>
+      <small class="text-secundario">© 2026 TechLab</small>
+    </div>
+  </footer>
 
   <!-- Bootstrap 5.3.8 JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
   <!-- Archivo JS Unificado -->
   <script src="js/app.js"></script>
 </body>
+
 </html>
