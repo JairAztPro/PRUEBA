@@ -1,0 +1,51 @@
+
+/* carrito (mi estilo/parte) */
+
+:root {
+  --bg-fondo: #0F1115;
+  --bg-superficie: #1A1D24;
+  --color-primario: #7C3AED;
+  --color-acento: #22D3EE;
+  --texto-blanco: #F1F2F4;
+  --texto-secundario: #9AA0AC;
+  --borde-gris: #2A2E38;
+}
+
+body {
+  background-color: var(--bg-fondo);
+  color: var(--texto-blanco);
+}
+
+.card-gamer {
+  background-color: var(--bg-superficie);
+  border: 1px solid var(--borde-gris);
+  color: var(--texto-blanco);
+}
+
+.text-secundario {
+  color: var(--texto-secundario);
+}
+
+.btn-acento {
+  background-color: var(--color-acento);
+  color: #0F1115;
+  font-weight: 600;
+  border: none;
+}
+
+.btn-acento:hover {
+  background-color: #1cb5cc;
+}
+
+.input-gamer {
+  background-color: var(--bg-fondo);
+  border: 1px solid var(--borde-gris);
+  color: var(--texto-blanco);
+}
+
+.input-gamer:focus {
+  background-color: var(--bg-fondo);
+  color: var(--texto-blanco);
+  border-color: var(--color-primario);
+  box-shadow: 0 0 0 0.25rem rgba(124, 58, 237, 0.25);
+}
