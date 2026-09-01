@@ -49,3 +49,79 @@ body {
   border-color: var(--color-primario);
   box-shadow: 0 0 0 0.25rem rgba(124, 58, 237, 0.25);
 }
+
+/* ===== CATALOGO ===== */
+
+.navbar-gamer {
+  background: var(--bg-superficie);
+  border-bottom: 1px solid var(--borde-gris);
+}
+
+.select-gamer {
+  width: 160px;
+  background: var(--bg-superficie);
+  color: var(--texto-blanco);
+  border-color: var(--borde-gris);
+}
+
+.producto-img {
+  height: 140px;
+  background: var(--bg-fondo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: var(--color-primario);
+  font-size: 4rem;
+  border-bottom: 1px solid var(--borde-gris);
+}
+
+.producto-img .badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.card-gamer:hover {
+  border-color: var(--color-primario);
+}
+
+.precio-catalogo {
+  color: var(--color-acento);
+  font-size: 1.2rem;
+}
+
+.page-link {
+  background: var(--bg-superficie);
+  border-color: var(--borde-gris);
+  color: var(--texto-blanco);
+}
+
+.page-item.active .page-link {
+  background: var(--color-primario);
+  border-color: var(--color-primario);
+}
+
+.modal-content {
+  border: 1px solid var(--borde-gris);
+}
+
+.modal-header,
+.modal-footer {
+  border-color: var(--borde-gris);
+}
+
+.footer-gamer {
+  background: var(--bg-superficie);
+  border-top: 1px solid var(--borde-gris);
+}
+
+@media (max-width: 767px) {
+  .producto-img {
+    height: 180px;
+  }
+
+  .select-gamer {
+    width: 130px;
+  }
+}

@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TechLab - Carrito y Checkout</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  
+  <div class="container py-5">
+    <h2 class="fw-bold mb-4">Finalizar Compra</h2>
+    
+    <div class="d-flex gap-3 mb-5 border-bottom border-secondary pb-3">
+        <span class="badge bg-primary fs-6">1. Carrito</span>
+        <span class="badge bg-secondary fs-6">2. Envío</span>
+        <span class="badge bg-secondary fs-6">3. Pago</span>
+    </div>
+
+    <!-- EL FORMULARIO AHORA ENVUELVE TODO -->
+    <form id="formCheckout" class="row g-4" novalidate>
+      
+      <!-- Columna Izquierda: Productos y Datos -->
+      <div class="col-lg-8">
+        <h4 class="mb-3">Tu Carrito</h4>
+        
+        <div class="card card-gamer mb-3 p-3 d-flex flex-row align-items-center justify-content-between">
+          <div class="d-flex align-items-center gap-3">
+            <div style="width: 60px; height: 60px; background-color: var(--bg-fondo); border-radius: 8px;"></div>
+            <span>Placa Madre ASUS ROG Strix B550-F x1</span>
+          </div>
+          <div class="d-flex align-items-center gap-3">
+            <span class="fw-bold">S/ 899</span>
+            <i class="bi bi-trash text-secundario" style="cursor: pointer;"></i>
+          </div>
+        </div>
+
+        <h5 class="mt-4 mb-3 text-secundario">Te podría interesar agregar:</h5>
+        <div class="card card-gamer mb-5 p-3 d-flex flex-row align-items-center justify-content-between border-primary">
+          <div class="d-flex align-items-center gap-3">
+            <div style="width: 50px; height: 50px; background-color: var(--bg-fondo); border-radius: 8px;"><i class="bi bi-lightning-charge text-primary fs-3 ms-2 mt-1 d-block"></i></div>
+            <div>
+              <span class="d-block fw-bold">Cargador Ugreen Nexode 65W GaN</span>
+              <span class="text-secundario small">Ideal para carga ultra rápida</span>
+            </div>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-primary">+ Agregar S/ 150</button>
+        </div>
+
+        <h4 class="mb-3">Datos de Envío</h4>
+        <div class="card card-gamer p-4 mb-5">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Nombres Completos</label>
+                    <input type="text" class="form-control input-gamer" required>
+                    <div class="invalid-feedback">Ingresa tu nombre para el envío.</div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Teléfono de Contacto</label>
+                    <input type="tel" class="form-control input-gamer" required>
+                    <div class="invalid-feedback">Ingresa un número válido.</div>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Dirección exacta</label>
+                    <input type="text" class="form-control input-gamer" placeholder="Ej. Av. Los Pinos 123, Huascata" required>
+                    <div class="invalid-feedback">Necesitamos tu dirección para entregar tu compra.</div>
+                </div>
+            </div>
+        </div>
+
+        <h4 class="mb-3">Método de Pago</h4>
+        <div class="card card-gamer p-4 mb-4">
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="radio" name="pago" id="tarjeta" required checked>
+                <label class="form-check-label d-flex align-items-center gap-2" for="tarjeta">
+                    <i class="bi bi-credit-card fs-4"></i> Tarjeta de Crédito / Débito
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="pago" id="yape" required>
+                <label class="form-check-label d-flex align-items-center gap-2" for="yape">
+                    <i class="bi bi-qr-code-scan fs-4"></i> Pago con Yape o Plin
+                </label>
+            </div>
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Resumen de Compra -->
+      <div class="col-lg-4">
+        <div class="card card-gamer p-4 sticky-top" style="top: 20px;">
+          <h5 class="fw-bold mb-4">Resumen de Orden</h5>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-secundario">Subtotal</span>
+            <span>S/ 899</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-secundario">Descuentos</span>
+            <span class="text-success">- S/ 0</span>
+          </div>
+          <div class="d-flex justify-content-between mb-3 border-bottom border-secondary pb-3">
+            <span class="text-secundario">Envío</span>
+            <span>S/ 15</span>
+          </div>
+          <div class="d-flex justify-content-between fw-bold fs-4 mb-4 text-primary">
+            <span>Total</span>
+            <span>S/ 914</span>
+          </div>
+          <!-- Botón de Submit -->
+          <button type="submit" class="btn btn-acento w-100 py-3 fs-5">Pagar Pedido</button>
+          <div class="text-center mt-3 text-secundario small">
+            <i class="bi bi-shield-lock me-1"></i> Transacción 100% segura
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
+
+<!-- ===== VISTA 2: CATALOGO ===== -->
+<section class="container py-5">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="#" class="text-secundario">Inicio</a>
+          </li>
+          <li class="breadcrumb-item active text-white">Catálogo</li>
+        </ol>
+      </nav>
+      <h2 class="fw-bold">Catálogo</h2>
+    </div>
+
+    <select id="orden" class="form-select select-gamer">
+      <option>Ordenar</option>
+      <option>Precio menor</option>
+      <option>Precio mayor</option>
+    </select>
+  </div>
+
+  <div class="row g-4">
+
+    <!-- Filtros -->
+    <aside class="col-12 col-lg-3">
+      <div class="card card-gamer p-3">
+        <h5 class="fw-bold">Filtros</h5>
+
+        <form id="filtros">
+          <label class="form-label mt-2">Marca</label>
+
+          <div class="form-check">
+            <input class="form-check-input marca" type="checkbox"
+                   value="asus">
+            <label class="form-check-label">ASUS</label>
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input marca" type="checkbox"
+                   value="msi">
+            <label class="form-check-label">MSI</label>
+          </div>
+
+          <label class="form-label mt-3">Precio máximo</label>
+          <input type="range" class="form-range" id="precio"
+                 min="100" max="1500" value="1500">
+
+          <div class="d-flex justify-content-between small">
+            <span class="text-secundario">S/100</span>
+            <span id="precioValor">S/1500</span>
+          </div>
+
+          <div class="form-check mt-3">
+            <input class="form-check-input" type="checkbox" id="stock">
+            <label class="form-check-label">Solo con stock</label>
+          </div>
+
+          <button type="button" id="limpiar"
+                  class="btn btn-outline-secondary btn-sm w-100 mt-3">
+            Limpiar filtros
+          </button>
+        </form>
+      </div>
+    </aside>
+
+    <!-- Productos -->
+    <div class="col-12 col-lg-9">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3"
+           id="productos">
+
+        <div class="col producto" data-marca="asus"
+             data-precio="899" data-stock="true">
+          <div class="card card-gamer h-100">
+            <div class="producto-img">
+              <span class="badge bg-danger">-20%</span>
+              <i class="bi bi-motherboard"></i>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <small class="text-secundario">ASUS</small>
+              <h5>ROG Strix B550-F</h5>
+              <p class="text-secundario small">
+                Placa madre para gaming.
+              </p>
+              <strong class="precio-catalogo mt-auto">S/ 899</strong>
+              <button class="btn btn-acento mt-3"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalProducto">
+                <i class="bi bi-cart-plus"></i> Agregar
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col producto" data-marca="msi"
+             data-precio="749" data-stock="true">
+          <div class="card card-gamer h-100">
+            <div class="producto-img">
+              <i class="bi bi-gpu-card"></i>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <small class="text-secundario">MSI</small>
+              <h5>RTX 4060 Gaming</h5>
+              <p class="text-secundario small">
+                Tarjeta gráfica gamer.
+              </p>
+              <strong class="precio-catalogo mt-auto">S/ 749</strong>
+              <button class="btn btn-acento mt-3"
+                      data-bs-toggle="modal"
+                      data-bs-target="#modalProducto">
+                <i class="bi bi-cart-plus"></i> Agregar
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col producto" data-marca="msi"
+             data-precio="459" data-stock="false">
+          <div class="card card-gamer h-100">
+            <div class="producto-img">
+              <i class="bi bi-memory"></i>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <small class="text-secundario">MSI</small>
+              <h5>RAM DDR4 16GB</h5>
+              <p class="text-secundario small">
+                Memoria de alto rendimiento.
+              </p>
+              <strong class="precio-catalogo mt-auto">S/ 459</strong>
+              <button class="btn btn-secondary mt-3" disabled>
+                Sin stock
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Paginación -->
+      <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+          <li class="page-item disabled">
+            <a class="page-link">Anterior</a>
+          </li>
+          <li class="page-item active">
+            <a class="page-link">1</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">2</a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="#">3</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MODAL ===== -->
+<div class="modal fade" id="modalProducto" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content card-gamer">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Agregar al carrito</h5>
+        <button class="btn-close btn-close-white"
+                data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <p>¿Deseas agregar este producto al carrito?</p>
+        <div class="alert alert-info">
+          <i class="bi bi-info-circle"></i>
+          Producto seleccionado correctamente.
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+        <button class="btn btn-acento" data-bs-dismiss="modal">
+          Confirmar
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer-gamer mt-5 py-4">
+  <div class="container text-center">
+    <h5 class="fw-bold">
+      <i class="bi bi-cpu"></i> TechLab
+    </h5>
+    <p class="text-secundario mb-0">
+      Tecnología para tu setup gamer.
+    </p>
+    <small class="text-secundario">© 2026 TechLab</small>
+  </div>
+</footer>
