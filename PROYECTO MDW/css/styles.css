@@ -439,6 +439,19 @@ button:focus-visible,
   filter: invert(70%) sepia(50%) saturate(3000%) hue-rotate(150deg) brightness(100%) !important;
 }
 
+/* ===== GESTIÓN & SOPORTE / REGISTRO ===== */
+.nav-tabs .nav-link {
+  color: var(--texto-secundario);
+  border: 1px solid transparent;
+}
+
+.nav-tabs .nav-link.active {
+  background-color: var(--bg-superficie);
+  color: var(--color-acento);
+  border-color: var(--borde-gris) var(--borde-gris) transparent;
+}
+
+
 /* ==========================================================================
    RESPONSIVE DESIGN (Media Queries)
    ========================================================================== */
