@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ==========================================
-  //  VISTA 3: INTERACTIVIDAD DE LA FICHA EN MODAL
+  //  VISTA 3: FICHA EN MODAL
   // ==========================================
   const modalFicha = document.getElementById("modalFichaProducto");
   const modalTitle = document.getElementById("modalDynamicTitle");
@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalTagsContainer = document.getElementById("modalDynamicTagsContainer");
 
   let basePrice = 899;
-  // Cambiamos currentProductIcon por un array de imágenes
+  // array de imágenes
   let currentProductImages = [];
 
   if (modalFicha) {
@@ -245,7 +245,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // ==========================================
-  // VISOR DE IMÁGENES ACTUALIZADO
+  // VISOR DE IMÁGENES 
   // ==========================================
   window.changeModalImage = function (element, viewType, imageUrl) {
     const container = document.getElementById("modalMainImageContainer");
@@ -276,8 +276,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const thumb2 = document.getElementById("thumb2");
     const thumb3 = document.getElementById("thumb3");
 
-    // Si solo pasas 1 imagen, repetimos la primera en las demás para evitar errores.
-    // Si pasas 3 separadas por coma, usará cada una.
+    // Si solo se pasa 1 imagen, se repite la primera en las demás para evitar errores.
+    // Si se pasa 3 separadas por coma, usará cada una.
     let img1 = imagesArray[0] ? imagesArray[0].trim() : '';
     let img2 = imagesArray[1] ? imagesArray[1].trim() : img1;
     let img3 = imagesArray[2] ? imagesArray[2].trim() : img1;
