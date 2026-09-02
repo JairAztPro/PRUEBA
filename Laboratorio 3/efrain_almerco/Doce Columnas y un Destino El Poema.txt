@@ -1,0 +1,99 @@
+Doce Columnas y un Destino: El Poema de Bootstrap
+
+Parte 1: El Origen y la Estructura (Integrante 1)
+
+Nació la web como un lienzo salvaje,
+
+donde cada píxel cobraba su peaje.
+
+El diseño adaptable llegó al mundo moderno,
+
+y ajustar Flexbox a mano se volvió un infierno.
+
+Pero entre el caos y la tormenta,
+
+llega un sistema que todo lo sienta:
+
+Doce columnas dividen la pantalla,
+
+una malla invisible que jamás falla.
+
+---
+
+Parte 2: Contención, Estilos y Colores (Integrante 2)
+
+El .container abraza, la .row sostiene,
+
+y la .col decide qué espacio mantiene.
+
+No reinventes la rueda para un simple botón:
+
+aplica .btn-primary o .btn-success con sazón.
+
+Con utilidades rítmicas de espacio y color,
+
+m-3, p-2 o .text-danger le dan sabor.
+
+Alineas al centro con un simple paso,
+
+sin escribir un solo CSS de fracaso.
+
+---
+
+Parte 3: Usos Avanzados y Accesibilidad (Integrante 3)
+
+Pero Bootstrap es más que cajas en la red,
+
+es la herramienta oculta que apaga tu sed.
+
+Piensa en accesibilidad sin perder el estilo,
+
+con  .visually-hidden` tu código queda tranquilo.
+
+Maneja los estados con elegancia y control,
+
+mientras .ratio ajusta tu video o tu gol.
+
+Con componentes dinámicos que cobran vida,
+
+incluso una modesta alerta queda atendida.
+
+---
+
+Parte 4: Temas, Variables y Personalización (Integrante 4)
+
+¿Usar solo el estilo azul tradicional?
+
+¡Qué va! Bootstrap hoy es un lienzo total.
+
+Con variables de CSS a nivel de raíz,
+
+cambias paletas y fuentes para hacerte feliz.
+
+Con un simple atributo activo en el navegador,
+
+cambias de Light a Dark Mode con puro rigor.
+
+No estás atado al diseño que viene por defecto,
+
+puedes compilar Sass y volverlo perfecto.
+
+---
+
+Parte 5: Cierre, JavaScript y Filosofía (Integrante 5)
+
+Un modal, un offcanvas o un menú desplegable,
+
+se activan con data-attributes de forma impecable.
+
+Sin escribir extensos guiones en JavaScript,
+
+Bootstrap resuelve la lógica en un solo script.
+
+No son solo cajas en un tablero,
+
+es la rapidez del maquetador certero.
+
+Es entregar a la audiencia, en cualquier pantalla,
+
+una interfaz impecable... ¡que nunca desmaya!G
