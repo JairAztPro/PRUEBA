@@ -74,138 +74,316 @@
   </header>
 
   <!-- ======================== VISTA 2: CATÁLOGO CON FILTROS ============================ -->
-  <main id="contenido-principal">
-    <section class="container py-5">
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb m-0">
-              <li class="breadcrumb-item"><a href="inicio.html" class="text-secundario text-decoration-none">Inicio</a></li>
-              <li class="breadcrumb-item active text-white" aria-current="page">Catálogo</li>
-            </ol>
-          </nav>
-          <h2 class="fw-bold mt-2">Catálogo</h2>
-        </div>
-        <select id="orden" class="form-select select-gamer" aria-label="Ordenar productos">
-          <option>Ordenar</option>
-          <option>Precio menor</option>
-          <option>Precio mayor</option>
-        </select>
+<main id="contenido-principal">
+  <section class="container py-5">
+    <!-- Cabecera del Catálogo -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item"><a href="inicio.html" class="text-secundario text-decoration-none">Inicio</a></li>
+            <li class="breadcrumb-item active text-white" aria-current="page">Catálogo</li>
+          </ol>
+        </nav>
+        <h2 class="fw-bold mt-2">Catálogo</h2>
       </div>
+      <select id="orden" class="form-select select-gamer" aria-label="Ordenar productos">
+        <option>Ordenar</option>
+        <option>Precio menor</option>
+        <option>Precio mayor</option>
+      </select>
+    </div>
 
-      <div class="row g-4">
-        <!-- Panel Lateral de Filtros (Vista 2) -->
-        <aside class="col-12 col-lg-3">
-          <div class="card card-gamer p-3">
-            <h3 class="fw-bold h5 mb-3">Filtros</h3>
-            <form id="filtros">
-              <label class="form-label mt-2 fw-semibold text-secondary">Marca</label>
-              <div class="form-check">
-                <input class="form-check-input marca" type="checkbox" value="asus" id="marcaAsus">
-                <label class="form-check-label" for="marcaAsus">ASUS</label>
-              </div>
-              <div class="form-check text-white">
-                <input class="form-check-input marca" type="checkbox" value="msi" id="marcaMsi">
-                <label class="form-check-label" for="marcaMsi">MSI</label>
-              </div>
+    <div class="row g-4">
+      <!-- Panel Lateral de Filtros -->
+      <aside class="col-12 col-lg-3">
+        <div class="card card-gamer p-3">
+          <h3 class="fw-bold h5 mb-3">Filtros</h3>
+          <form id="filtros">
+            <label class="form-label mt-2 fw-semibold text-secondary">Marca</label>
+            <div class="form-check">
+              <input class="form-check-input marca" type="checkbox" value="asus" id="marcaAsus">
+              <label class="form-check-label" for="marcaAsus">ASUS</label>
+            </div>
+            <div class="form-check text-white">
+              <input class="form-check-input marca" type="checkbox" value="msi" id="marcaMsi">
+              <label class="form-check-label" for="marcaMsi">MSI</label>
+            </div>
 
-              <label class="form-label mt-4 fw-semibold text-secondary" for="precio">Precio máximo</label>
-              <input type="range" class="form-range" id="precio" min="100" max="1500" value="1500">
-              <div class="d-flex justify-content-between small mb-3">
-                <span class="text-secundario">S/ 100</span>
-                <span id="precioValor">S/ 1500</span>
-              </div>
+            <label class="form-label mt-4 fw-semibold text-secondary" for="precio">Precio máximo</label>
+            <input type="range" class="form-range" id="precio" min="100" max="1500" value="1500">
+            <div class="d-flex justify-content-between small mb-3">
+              <span class="text-secundario">S/ 100</span>
+              <span id="precioValor">S/ 1500</span>
+            </div>
 
-              <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" id="stock">
-                <label class="form-check-label" for="stock">Solo con stock</label>
-              </div>
-              <button type="button" id="limpiar" class="btn btn-outline-secondary btn-sm w-100 mt-2">
-                Limpiar filtros
-              </button>
-            </form>
-          </div>
-        </aside>
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" id="stock">
+              <label class="form-check-label" for="stock">Solo con stock</label>
+            </div>
+            <button type="button" id="limpiar" class="btn btn-outline-secondary btn-sm w-100 mt-2">
+              Limpiar filtros
+            </button>
+          </form>
+        </div>
+      </aside>
 
-        <!-- Grilla de Productos (Vista 2) -->
-        <div class="col-12 col-lg-9">
-          <!-- Alerta opcional de filtrado por URL activa -->
-          <div id="filterAlertPlaceholder" class="mb-3 d-none"></div>
+      <!-- Grilla de Productos (Derecha) -->
+      <div class="col-12 col-lg-9">
+        <div id="filterAlertPlaceholder" class="mb-3 d-none"></div>
 
-          <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3" id="productos">
-            
+        <!-- Grilla donde se colocan los 9 productos -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3" id="productos">
+          <!-- Aquí van tus 9 tarjetas de productos corregidas con h-100 d-flex flex-column -->
+        </div>
+      
             <!-- Producto 1: ASUS ROG Strix B550-F -->
             <div class="col producto" data-marca="asus" data-precio="899" data-stock="true" data-categoria="gaming">
-              <div class="card card-gamer h-100">
-                <div class="producto-img">
-                  <span class="badge bg-danger">-20%</span>
-                  <i class="bi bi-motherboard" aria-hidden="true"></i>
+              <div class="card card-gamer h-100 d-flex flex-column">
+                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0" style="height: 150px;">
+                  <span class="badge bg-danger position-absolute top-0 start-0 m-2" style="z-index: 2;">-20%</span>
+                  <img src="https://dlcdnwebimgs.asus.com/files/media/A9730D0E-D1A6-40C1-9282-F1BA1B13BFB4/v1/img/spec/connectivity.jpg" alt="ROG Strix B550-F" class="w-100 h-100 object-fit-cover">
                 </div>
-                <div class="card-body d-flex flex-column">
+                <div class="card-body d-flex flex-column p-3 flex-grow-1">
                   <small class="text-secundario">ASUS</small>
                   <h4 class="h5 fw-bold text-white mb-1">ROG Strix B550-F</h4>
-                  <p class="text-secundario small">Placa madre para gaming de alto rendimiento.</p>
-                  <strong class="precio-catalogo mt-auto mb-3">S/ 899</strong>
-                  <button class="btn btn-acento w-100"
-                          data-bs-toggle="modal"
-                          data-bs-target="#modalFichaProducto"
-                          data-producto="Placa Madre ASUS ROG Strix B550-F Gaming"
-                          data-precio="899"
-                          data-icono="bi-motherboard"
-                          data-tags="AMD AM4, PCIe 4.0, DDR4"
-                          data-desc="La placa madre ROG Strix B550-F Gaming encarna la esencia pura de Republic of Gamers. Ofrece una entrega de potencia de última generación y una disipación térmica sumamente eficiente para los procesadores Ryzen."
-                          data-specs="Socket:AMD AM4;Chipset:AMD B550;Ranuras RAM:4 x DIMM DDR4 (Máx 128GB);Red:Intel® 2.5Gb Ethernet;Factor:ATX (30.5 cm x 24.4 cm)">
-                    <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
-                  </button>
+                  <p class="text-secundario small mb-3">Placa madre para gaming de alto rendimiento.</p>
+                  <div class="mt-auto pt-2">
+                    <strong class="precio-catalogo d-block mb-2">S/ 899</strong>
+                    <button class="btn btn-acento w-100"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalFichaProducto"
+                            data-producto="Placa Madre ASUS ROG Strix B550-F Gaming"
+                            data-precio="899"
+                            data-imagen="https://dlcdnwebimgs.asus.com/files/media/A9730D0E-D1A6-40C1-9282-F1BA1B13BFB4/v1/img/spec/connectivity.jpg"
+                            data-tags="AMD AM4, PCIe 4.0, DDR4"
+                            data-desc="La placa madre ROG Strix B550-F Gaming encarna la esencia pura de Republic of Gamers..."
+                            data-specs="Socket:AMD AM4;Chipset:AMD B550;Ranuras RAM:4 x DIMM DDR4 (Máx 128GB);Red:Intel® 2.5Gb Ethernet;Factor:ATX">
+                      <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
 
             <!-- Producto 2: RTX 4060 Gaming -->
             <div class="col producto" data-marca="msi" data-precio="749" data-stock="true" data-categoria="gaming">
-              <div class="card card-gamer h-100">
-                <div class="producto-img">
-                  <i class="bi bi-gpu-card" aria-hidden="true"></i>
+              <div class="card card-gamer h-100 d-flex flex-column">
+                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0" style="height: 150px;">
+                  <img src="https://http2.mlstatic.com/D_NQ_NP_976872-MPE73652908309_122023-O.webp" alt="RTX 4060 Gaming" class="w-100 h-100 object-fit-cover">
                 </div>
-                <div class="card-body d-flex flex-column">
+                <div class="card-body d-flex flex-column p-3 flex-grow-1">
                   <small class="text-secundario">MSI</small>
                   <h4 class="h5 fw-bold text-white mb-1">RTX 4060 Gaming</h4>
-                  <p class="text-secundario small">Tarjeta gráfica optimizada para Ray Tracing.</p>
-                  <strong class="precio-catalogo mt-auto mb-3">S/ 749</strong>
-                  <button class="btn btn-acento w-100"
-                          data-bs-toggle="modal"
-                          data-bs-target="#modalFichaProducto"
-                          data-producto="Tarjeta Gráfica MSI RTX 4060 Gaming"
-                          data-precio="749"
-                          data-icono="bi-gpu-card"
-                          data-tags="Ray Tracing, DLSS 3, GDDR6"
-                          data-desc="Experimenta mundos virtuales sumamente realistas con la GPU MSI RTX 4060 Gaming. Cuenta con el avanzado sistema térmico TWIN FROZR 9 para un flujo de aire y enfriamiento eficientes."
-                          data-specs="Arquitectura:NVIDIA Ada Lovelace;Memoria:8GB GDDR6;Frecuencia OC:2460 MHz;Interfaz:PCI Express 4.0;Salidas:3x DP / 1x HDMI">
-                    <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
-                  </button>
+                  <p class="text-secundario small mb-3">Tarjeta gráfica optimizada para Ray Tracing.</p>
+                  <div class="mt-auto pt-2">
+                    <strong class="precio-catalogo d-block mb-2">S/ 749</strong>
+                    <button class="btn btn-acento w-100"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalFichaProducto"
+                            data-producto="Tarjeta Gráfica MSI RTX 4060 Gaming"
+                            data-precio="749"
+                            data-imagen="https://http2.mlstatic.com/D_NQ_NP_976872-MPE73652908309_122023-O.webp"
+                            data-tags="Ray Tracing, DLSS 3, GDDR6"
+                            data-desc="Experimenta mundos virtuales sumamente realistas con la GPU MSI RTX 4060 Gaming..."
+                            data-specs="Arquitectura:NVIDIA Ada Lovelace;Memoria:8GB GDDR6;Frecuencia OC:2460 MHz;Interfaz:PCI Express 4.0;Salidas:3x DP / 1x HDMI">
+                      <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
 
             <!-- Producto 3: RAM DDR4 16GB (Sin Stock) -->
             <div class="col producto" data-marca="msi" data-precio="459" data-stock="false" data-categoria="accesorios">
-              <div class="card card-gamer h-100">
-                <div class="producto-img">
-                  <i class="bi bi-memory" aria-hidden="true"></i>
+              <div class="card card-gamer h-100 d-flex flex-column">
+                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0" style="height: 150px;">
+                  <img src="https://media.falabella.com/falabellaPE/117795430_01/w=1500,h=1500,fit=cover" alt="RAM DDR4 16GB" class="w-100 h-100 object-fit-cover">
                 </div>
-                <div class="card-body d-flex flex-column">
+                <div class="card-body d-flex flex-column p-3 flex-grow-1">
                   <small class="text-secundario">MSI</small>
                   <h4 class="h5 fw-bold text-white mb-1">RAM DDR4 16GB</h4>
-                  <p class="text-secundario small">Memoria de alto rendimiento para gaming competitivo.</p>
-                  <strong class="precio-catalogo mt-auto mb-3">S/ 459</strong>
-                  <button class="btn btn-secondary w-100" disabled>
-                    Sin stock
-                  </button>
+                  <p class="text-secundario small mb-3">Memoria de alto rendimiento para gaming competitivo.</p>
+                  <div class="mt-auto pt-2">
+                    <strong class="precio-catalogo d-block mb-2">S/ 459</strong>
+                    <button class="btn btn-secondary w-100" disabled>
+                      Sin stock
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
 
-          </div>
+            <!-- Producto 4: Procesador AMD Ryzen 7 -->
+            <div class="col producto" data-marca="asus" data-precio="1299" data-stock="true" data-categoria="gaming">
+              <div class="card card-gamer h-100 d-flex flex-column">
+                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0" style="height: 150px;">
+                  <span class="badge bg-success position-absolute top-0 start-0 m-2" style="z-index: 2;">Nuevo</span>
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLurUPMj2F0zS9vvrXaO3aXfhmaqduRNNGkCm-dKCgb1qADNoiM8stSps&s=10" alt="Ryzen 7 5800X3D" class="w-100 h-100 object-fit-cover">
+                </div>
+                <div class="card-body d-flex flex-column p-3 flex-grow-1">
+                  <small class="text-secundario">ASUS / AMD</small>
+                  <h4 class="h5 fw-bold text-white mb-1">Ryzen 7 5800X3D</h4>
+                  <p class="text-secundario small mb-3">Procesador diseñado para máximo rendimiento en juegos.</p>
+                  <div class="mt-auto pt-2">
+                    <strong class="precio-catalogo d-block mb-2">S/ 1,299</strong>
+                    <button class="btn btn-acento w-100"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalFichaProducto"
+                            data-producto="Procesador AMD Ryzen 7 5800X3D"
+                            data-precio="1299"
+                            data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLurUPMj2F0zS9vvrXaO3aXfhmaqduRNNGkCm-dKCgb1qADNoiM8stSps&s=10"
+                            data-tags="Socket AM4, 3D V-Cache, 8 Núcleos"
+                            data-desc="El procesador AMD Ryzen 7 5800X3D ofrece una tecnología de caché avanzada..."
+                            data-specs="Arquitectura:Zen 3;Núcleos/Hilos:8 / 16;Caché L3:96MB;Velocidad Base:3.4 GHz;TDP:105W">
+                      <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Producto 5: Teclado Mecánico RGB -->
+            <div class="col producto" data-marca="msi" data-precio="320" data-stock="true" data-categoria="accesorios">
+              <div class="card card-gamer h-100 d-flex flex-column">
+                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0" style="height: 150px;">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXYCvkZKNggV-tKWA5Ac6c3J4lATVPYDRl5YCVYC8bpAPYoK8_W0ZAZKQ&s=10" alt="Teclado Vigor GK30" class="w-100 h-100 object-fit-cover">
+                </div>
+                <div class="card-body d-flex flex-column p-3 flex-grow-1">
+                  <small class="text-secundario">MSI</small>
+                  <h4 class="h5 fw-bold text-white mb-1">Teclado Vigor GK30</h4>
+                  <p class="text-secundario small mb-3">Teclado mecánico retroiluminado con switches táctiles.</p>
+                  <div class="mt-auto pt-2">
+                    <strong class="precio-catalogo d-block mb-2">S/ 320</strong>
+                    <button class="btn btn-acento w-100"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalFichaProducto"
+                            data-producto="Teclado Mecánico MSI Vigor GK30"
+                            data-precio="320"
+                            data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXYCvkZKNggV-tKWA5Ac6c3J4lATVPYDRl5YCVYC8bpAPYoK8_W0ZAZKQ&s=10"
+                            data-tags="RGB Mystic Light, Antighosting, Resistente"
+                            data-desc="Diseñado para la competición, el teclado MSI Vigor GK30 cuenta con iluminación RGB..."
+                            data-specs="Tipo de Switch:Mecánico Táctil;Iluminación:RGB por zonas;Conexión:USB 2.0 mallado;Peso:1042g;Compatibilidad:Windows 10/11">
+                      <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Producto 6: Monitor Gamer 27 pulgadas -->
+            <div class="col producto" data-marca="asus" data-precio="1450" data-stock="true" data-categoria="gaming">
+              <div class="card card-gamer h-100 d-flex flex-column">
+                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0" style="height: 150px;">
+                  <span class="badge bg-danger position-absolute top-0 start-0 m-2" style="z-index: 2;">-15%</span>
+                  <img src="https://www.infotec.com.pe/101189-large_default/monitor-gamer-asus-27-tuf-vg279q5r-panel-fast-ips-200hz-03ms-hdmi-dp.jpg" alt="Monitor ASUS TUF 27" class="w-100 h-100 object-fit-cover">
+                </div>
+                <div class="card-body d-flex flex-column p-3 flex-grow-1">
+                  <small class="text-secundario">ASUS</small>
+                  <h4 class="h5 fw-bold text-white mb-1">Monitor TUF 27&quot; 170Hz</h4>
+                  <p class="text-secundario small mb-3">Pantalla IPS con tasa de refresco ultra rápida.</p>
+                  <div class="mt-auto pt-2">
+                    <strong class="precio-catalogo d-block mb-2">S/ 1,450</strong>
+                    <button class="btn btn-acento w-100"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalFichaProducto"
+                            data-producto="Monitor ASUS TUF Gaming 27&quot; 170Hz"
+                            data-precio="1450"
+                            data-imagen="https://www.infotec.com.pe/101189-large_default/monitor-gamer-asus-27-tuf-vg279q5r-panel-fast-ips-200hz-03ms-hdmi-dp.jpg"
+                            data-tags="IPS Full HD, 1ms MPRT, FreeSync Premium"
+                            data-desc="Disfruta de una fluidez visual insuperable con el monitor ASUS TUF Gaming..."
+                            data-specs="Tamaño:27 pulgadas;Resolución:1920 x 1080;Frecuencia:170Hz;Tiempo de respuesta:1ms;Puertos:DisplayPort / 2x HDMI">
+                      <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Producto 7: Fuente de Poder 750W Gold -->
+            <div class="col producto" data-marca="msi" data-precio="450" data-stock="true" data-categoria="accesorios">
+              <div class="card card-gamer h-100 d-flex flex-column">
+                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0" style="height: 150px;">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8ZggilGieQahiFGG-iFUUp-HgLYnMwJdLOH7wa7qdyxpO6UoXoC0MOtWS&s=10" alt="Fuente 750W Gold" class="w-100 h-100 object-fit-cover">
+                </div>
+                <div class="card-body d-flex flex-column p-3 flex-grow-1">
+                  <small class="text-secundario">MSI</small>
+                  <h4 class="h5 fw-bold text-white mb-1">Fuente 750W Gold</h4>
+                  <p class="text-secundario small mb-3">Certificación 80 Plus Gold modular para máxima eficiencia.</p>
+                  <div class="mt-auto pt-2">
+                    <strong class="precio-catalogo d-block mb-2">S/ 450</strong>
+                    <button class="btn btn-acento w-100"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalFichaProducto"
+                            data-producto="Fuente de Poder MSI 750W Gold"
+                            data-precio="450"
+                            data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8ZggilGieQahiFGG-iFUUp-HgLYnMwJdLOH7wa7qdyxpO6UoXoC0MOtWS&s=10"
+                            data-tags="80 Plus Gold, Modular, Silenciosa"
+                            data-desc="Energía estable y limpia para todo tu hardware de alto rendimiento..."
+                            data-specs="Potencia:750W;Certificación:80 Plus Gold;Ventilador:120mm silencioso;Protecciones:OPP/OVP/SCP;Garantía:5 años">
+                      <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Producto 8: Silla Gamer Profesional -->
+            <div class="col producto" data-marca="asus" data-precio="999" data-stock="true" data-categoria="accesorios">
+              <div class="card card-gamer h-100 d-flex flex-column">
+                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0" style="height: 150px;">
+                  <span class="badge bg-danger position-absolute top-0 start-0 m-2" style="z-index: 2;">-10%</span>
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCF5A-ktfG4dyUyYQRu4WB2ip7AIZVn6_9W_faUY6NTaTzafVamDfHAKU&s=10" alt="Silla ROG Chariot" class="w-100 h-100 object-fit-cover">
+                </div>
+                <div class="card-body d-flex flex-column p-3 flex-grow-1">
+                  <small class="text-secundario">ASUS</small>
+                  <h4 class="h5 fw-bold text-white mb-1">Silla ROG Chariot</h4>
+                  <p class="text-secundario small mb-3">Ergonomía superior para largas jornadas de juego.</p>
+                  <div class="mt-auto pt-2">
+                    <strong class="precio-catalogo d-block mb-2">S/ 999</strong>
+                    <button class="btn btn-acento w-100"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalFichaProducto"
+                            data-producto="Silla Gamer ASUS ROG Chariot"
+                            data-precio="999"
+                            data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCF5A-ktfG4dyUyYQRu4WB2ip7AIZVn6_9W_faUY6NTaTzafVamDfHAKU&s=10"
+                            data-tags="Ergonómica, Espuma Viscoelástica, Soporte Lumbar"
+                            data-desc="Diseñada para ofrecer el máximo confort ergonómico..."
+                            data-specs="Material:Cuero sintético respirable;Estructura:Acero reforzado;Pistón de gas:Clase 4;Inclinación:Hasta 145 grados;Peso máximo:150 kg">
+                      <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Producto 9: Kit de Refrigeración Líquida -->
+            <div class="col producto" data-marca="msi" data-precio="620" data-stock="true" data-categoria="gaming">
+              <div class="card card-gamer h-100 d-flex flex-column">
+                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0" style="height: 150px;">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMNwhgAMqKC7evc7J8ByqzwCwfzUA0xuWcLlIzyDlhxT1UFz7OW55H55B8&s=10" alt="Cooler Líquido MAG 240" class="w-100 h-100 object-fit-cover">
+                </div>
+                <div class="card-body d-flex flex-column p-3 flex-grow-1">
+                  <small class="text-secundario">MSI</small>
+                  <h4 class="h5 fw-bold text-white mb-1">Cooler Líquido MAG 240</h4>
+                  <p class="text-secundario small mb-3">Disipación líquida AIO con iluminación ARGB integrada.</p>
+                  <div class="mt-auto pt-2">
+                    <strong class="precio-catalogo d-block mb-2">S/ 620</strong>
+                    <button class="btn btn-acento w-100"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalFichaProducto"
+                            data-producto="Refrigeración Líquida MSI MAG 240"
+                            data-precio="620"
+                            data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMNwhgAMqKC7evc7J8ByqzwCwfzUA0xuWcLlIzyDlhxT1UFz7OW55H55B8&s=10"
+                            data-tags="Radiador 240mm, ARGB, Bomba silenciosa"
+                            data-desc="Mantén las temperaturas de tu CPU bajo control..."
+                            data-specs="Radiador:Aluminio 240mm;Ventiladores:2 x 120mm ARGB;Velocidad del ventilador:500-2000 RPM;Nivel de ruido:max 34.3 dBA;Sockets compatibles:Intel / AMD">
+                      <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
           <!-- Paginación (Vista 2) -->
           <nav class="mt-4" aria-label="Navegación del catálogo">
@@ -564,160 +742,3 @@
       </div>
     </div>
   </section>
-
-  <!-- Producto 4: Procesador AMD Ryzen 7 -->
-            <div class="col producto" data-marca="asus" data-precio="1299" data-stock="true" data-categoria="gaming">
-              <div class="card card-gamer h-100">
-                <div class="producto-img">
-                  <span class="badge bg-success">Nuevo</span>
-                  <i class="bi bi-cpu" aria-hidden="true"></i>
-                </div>
-                <div class="card-body d-flex flex-column">
-                  <small class="text-secundario">ASUS / AMD</small>
-                  <h4 class="h5 fw-bold text-white mb-1">Ryzen 7 5800X3D</h4>
-                  <p class="text-secundario small">Procesador diseñado para máximo rendimiento en juegos.</p>
-                  <strong class="precio-catalogo mt-auto mb-3">S/ 1,299</strong>
-                  <button class="btn btn-acento w-100"
-                          data-bs-toggle="modal"
-                          data-bs-target="#modalFichaProducto"
-                          data-producto="Procesador AMD Ryzen 7 5800X3D"
-                          data-precio="1299"
-                          data-icono="bi-cpu"
-                          data-tags="Socket AM4, 3D V-Cache, 8 Núcleos"
-                          data-desc="El procesador AMD Ryzen 7 5800X3D ofrece una tecnología de caché avanzada que acelera de forma radical los fotogramas por segundo en tus juegos favoritos."
-                          data-specs="Arquitectura:Zen 3;Núcleos/Hilos:8 / 16;Caché L3:96MB;Velocidad Base:3.4 GHz;TDP:105W">
-                    <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Producto 5: Teclado Mecánico RGB -->
-            <div class="col producto" data-marca="msi" data-precio="320" data-stock="true" data-categoria="accesorios">
-              <div class="card card-gamer h-100">
-                <div class="producto-img">
-                  <i class="bi bi-keyboard" aria-hidden="true"></i>
-                </div>
-                <div class="card-body d-flex flex-column">
-                  <small class="text-secundario">MSI</small>
-                  <h4 class="h5 fw-bold text-white mb-1">Teclado Vigor GK30</h4>
-                  <p class="text-secundario small">Teclado mecánico retroiluminado con switches táctiles.</p>
-                  <strong class="precio-catalogo mt-auto mb-3">S/ 320</strong>
-                  <button class="btn btn-acento w-100"
-                          data-bs-toggle="modal"
-                          data-bs-target="#modalFichaProducto"
-                          data-producto="Teclado Mecánico MSI Vigor GK30"
-                          data-precio="320"
-                          data-icono="bi-keyboard"
-                          data-tags="RGB Mystic Light, Antighosting, Resistente"
-                          data-desc="Diseñado para la competición, el teclado MSI Vigor GK30 cuenta con iluminación RGB personalizable y una estructura robusta para soportar largas sesiones de juego."
-                          data-specs="Tipo de Switch:Mecánico Táctil;Iluminación:RGB por zonas;Conexión:USB 2.0 mallado;Peso:1042g;Compatibilidad:Windows 10/11">
-                    <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Producto 6: Monitor Gamer 27 pulgadas -->
-            <div class="col producto" data-marca="asus" data-precio="1450" data-stock="true" data-categoria="gaming">
-              <div class="card card-gamer h-100">
-                <div class="producto-img">
-                  <span class="badge bg-danger">-15%</span>
-                  <i class="bi bi-display" aria-hidden="true"></i>
-                </div>
-                <div class="card-body d-flex flex-column">
-                  <small class="text-secundario">ASUS</small>
-                  <h4 class="h5 fw-bold text-white mb-1">Monitor TUF 27&quot; 170Hz</h4>
-                  <p class="text-secundario small">Pantalla IPS con tasa de refresco ultra rápida.</p>
-                  <strong class="precio-catalogo mt-auto mb-3">S/ 1,450</strong>
-                  <button class="btn btn-acento w-100"
-                          data-bs-toggle="modal"
-                          data-bs-target="#modalFichaProducto"
-                          data-producto="Monitor ASUS TUF Gaming 27&quot; 170Hz"
-                          data-precio="1450"
-                          data-icono="bi-display"
-                          data-tags="IPS Full HD, 1ms MPRT, FreeSync Premium"
-                          data-desc="Disfruta de una fluidez visual insuperable con el monitor ASUS TUF Gaming. Diseñado para eliminar el retraso de imagen y ofrecer colores sumamente precisos."
-                          data-specs="Tamaño:27 pulgadas;Resolución:1920 x 1080;Frecuencia:170Hz;Tiempo de respuesta:1ms;Puertos:DisplayPort / 2x HDMI">
-                    <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
-                  </button>
-                </div>
-              </div>
-            </div>
-            <!-- Producto 7: Fuente de Poder 750W Gold -->
-            <div class="col producto" data-marca="msi" data-precio="450" data-stock="true" data-categoria="accesorios">
-              <div class="card card-gamer h-100">
-                <div class="producto-img">
-                  <i class="bi bi-lightning-charge" aria-hidden="true"></i>
-                </div>
-                <div class="card-body d-flex flex-column">
-                  <small class="text-secundario">MSI</small>
-                  <h4 class="h5 fw-bold text-white mb-1">Fuente 750W Gold</h4>
-                  <p class="text-secundario small">Certificación 80 Plus Gold modular para máxima eficiencia.</p>
-                  <strong class="precio-catalogo mt-auto mb-3">S/ 450</strong>
-                  <button class="btn btn-acento w-100"
-                          data-bs-toggle="modal"
-                          data-bs-target="#modalFichaProducto"
-                          data-producto="Fuente de Poder MSI 750W Gold"
-                          data-precio="450"
-                          data-icono="bi-lightning-charge"
-                          data-tags="80 Plus Gold, Modular, Silenciosa"
-                          data-desc="Energía estable y limpia para todo tu hardware de alto rendimiento. Cuenta con componentes de alta durabilidad y diseño totalmente modular."
-                          data-specs="Potencia:750W;Certificación:80 Plus Gold;Ventilador:120mm silencioso;Protecciones:OPP/OVP/SCP;Garantía:5 años">
-                    <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
-                  </button>
-                </div>
-              </div>
-            </div
-            <!-- Producto 8: Silla Gamer Profesional -->
-            <div class="col producto" data-marca="asus" data-precio="999" data-stock="true" data-categoria="accesorios">
-              <div class="card card-gamer h-100">
-                <div class="producto-img">
-                  <span class="badge bg-danger">-10%</span>
-                  <i class="bi bi-controller" aria-hidden="true"></i>
-                </div>
-                <div class="card-body d-flex flex-column">
-                  <small class="text-secundario">ASUS</small>
-                  <h4 class="h5 fw-bold text-white mb-1">Silla ROG Chariot</h4>
-                  <p class="text-secundario small">Ergonomía superior para largas jornadas de juego.</p>
-                  <strong class="precio-catalogo mt-auto mb-3">S/ 999</strong>
-                  <button class="btn btn-acento w-100"
-                          data-bs-toggle="modal"
-                          data-bs-target="#modalFichaProducto"
-                          data-producto="Silla Gamer ASUS ROG Chariot"
-                          data-precio="999"
-                          data-icono="bi-controller"
-                          data-tags="Ergonómica, Espuma Viscoelástica, Soporte Lumbar"
-                          data-desc="Diseñada para ofrecer el máximo confort ergonómico. Incluye soporte lumbar de espuma viscoelástica y reposabrazos ajustables en 4 dimensiones."
-                          data-specs="Material:Cuero sintético respirable;Estructura:Acero reforzado;Pistón de gas:Clase 4;Inclinación:Hasta 145 grados;Peso máximo:150 kg">
-                    <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Producto 9: Kit de Refrigeración Líquida -->
-            <div class="col producto" data-marca="msi" data-precio="620" data-stock="true" data-categoria="gaming">
-              <div class="card card-gamer h-100">
-                <div class="producto-img">
-                  <i class="bi bi-fan" aria-hidden="true"></i>
-                </div>
-                <div class="card-body d-flex flex-column">
-                  <small class="text-secundario">MSI</small>
-                  <h4 class="h5 fw-bold text-white mb-1">Cooler Líquido MAG 240</h4>
-                  <p class="text-secundario small">Disipación líquida AIO con iluminación ARGB integrada.</p>
-                  <strong class="precio-catalogo mt-auto mb-3">S/ 620</strong>
-                  <button class="btn btn-acento w-100"
-                          data-bs-toggle="modal"
-                          data-bs-target="#modalFichaProducto"
-                          data-producto="Refrigeración Líquida MSI MAG 240"
-                          data-precio="620"
-                          data-icono="bi-fan"
-                          data-tags="Radiador 240mm, ARGB, Bomba silenciosa"
-                          data-desc="Mantén las temperaturas de tu CPU bajo control incluso bajo overclocking extremo gracias a este sistema de refrigeración líquida de alto rendimiento."
-                          data-specs="Radiador:Aluminio 240mm;Ventiladores:2 x 120mm ARGB;Velocidad del ventilador:500-2000 RPM;Nivel de ruido:max 34.3 dBA;Sockets compatibles:Intel / AMD">
-                    <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
-                  </button>
-                </div>
-              </div>
-            </div>
