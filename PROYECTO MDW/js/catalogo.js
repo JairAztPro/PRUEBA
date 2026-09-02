@@ -188,17 +188,27 @@ document.addEventListener("DOMContentLoaded", () => {
         if (modalSpecsTableBody) {
           modalSpecsTableBody.innerHTML = "";
           if (productSpecsStr) {
-            productSpecsStr.split(";").forEach(spec => {
-              const parts = spec.split(":");
-              if (parts.length === 2) {
+            if (productSpecsStr) {
+              productSpecsStr.split(";").forEach(spec => {
+                const parts = spec.split(":");
+                if (parts.length === 2) {
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
-                  <th scope="row" class="text-white small py-2" style="width: 40%;">${parts.trim()}</th>
-                  <td class="text-secondary small py-2">${parts[1].trim()}</td>
+                <th scope="row"
+               class="text-white small py-2"
+                style="width: 40%;">
+                ${parts[0].trim()}
+                </th>
+                <td class="text-secondary small py-2">
+                 ${parts[1].trim()}
+                </td>
                 `;
-                modalSpecsTableBody.appendChild(tr);
-              }
-            });
+
+      modalSpecsTableBody.appendChild(tr);
+    }
+  });
+}
+
           }
         }
       }
