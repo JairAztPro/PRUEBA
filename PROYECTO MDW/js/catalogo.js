@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentProductIcon = "bi-motherboard";
 
   if (modalFicha) {
-    // show.bs.modal: Ocurre antes de la transición para inyectar datos de forma inmediata (S3)
+    // show.bs.modal: Ocurre antes de la transición para inyectar datos de forma inmediata
     modalFicha.addEventListener("show.bs.modal", (event) => {
       const triggerButton = event.relatedTarget;
       if (triggerButton) {
@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // shown.bs.modal: Establecer foco accesible por teclado una vez abierto (Rúbrica de la Semana 3)
+    // shown.bs.modal: Establecer foco accesible por teclado una vez abierto
     modalFicha.addEventListener("shown.bs.modal", () => {
       if (btnModalAdd) btnModalAdd.focus();
     });
