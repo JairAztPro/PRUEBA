@@ -1,3 +1,203 @@
+/* =========================================================
+  TechLab — INICIO
+========================================================= */
+[data-bs-theme="dark"],
+:root {
+  --bs-primary: #7C3AED;
+  --bs-primary-rgb: 124, 58, 237;
+  --bs-body-bg: #0F1115;
+  --bs-body-color: #F1F2F4;
+  --bs-secondary-color: #9AA0AC;
+  --bs-border-color: #2A2E38;
+  --bs-tertiary-bg: #1A1D24;
+
+  --nt-accent: #22D3EE;
+  --nt-accent-rgb: 34, 211, 238;
+  --nt-surface: #1A1D24;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  min-width: 320px;
+}
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+/* Utilidades propias de acento (cian), ya que Bootstrap no trae este color */
+.text-accent { color: var(--nt-accent) !important; }
+.bg-accent   { background-color: var(--nt-accent) !important; color: #071016; }
+.btn-accent {
+  background-color: var(--nt-accent);
+  border-color: var(--nt-accent);
+  color: #071016;
+  font-weight: 600;
+}
+.btn-accent:hover,
+.btn-accent:focus {
+  background-color: #17b7ce;
+  border-color: #17b7ce;
+  color: #071016;
+}
+
+/* Hero */
+.hero {
+  background: radial-gradient(120% 140% at 15% 20%, rgba(124, 58, 237, 0.28), transparent 60%),
+              var(--bs-body-bg);
+}
+.eyebrow {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--nt-accent);
+}
+.hero-image {
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  width: 100%;
+}
+
+/* Banner de oferta: alert propio, no el genérico de Bootstrap */
+.alert-offer {
+  background-color: rgba(124, 58, 237, 0.16);
+  border: 1px solid rgba(124, 58, 237, 0.4);
+  color: #E7DBFF;
+  border-radius: 0.75rem;
+}
+.alert-offer .alert-link {
+  color: var(--nt-accent);
+  font-weight: 600;
+}
+
+/* Categorías destacadas */
+.category-card {
+  background: var(--nt-surface);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.9rem;
+  padding: 1.4rem 1rem;
+  text-align: center;
+  color: var(--bs-body-color);
+  transition: border-color 160ms ease, transform 160ms ease;
+}
+.category-card:hover,
+.category-card:focus-visible {
+  border-color: var(--nt-accent);
+  transform: translateY(-0.2rem);
+}
+.category-icon {
+  display: block;
+  font-size: 1.8rem;
+  margin-bottom: 0.6rem;
+  color: var(--nt-accent);
+}
+
+/* Cards de producto (usadas por js/app.js al renderizar destacados) */
+.product-card {
+  background: var(--nt-surface);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 0.9rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.product-card__img-wrap {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-top-left-radius: 0.9rem;
+  border-top-right-radius: 0.9rem;
+}
+.product-card__img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.product-card__body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.product-card__price {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.product-card__price--old {
+  text-decoration: line-through;
+  color: var(--bs-secondary-color);
+  font-weight: 400;
+  font-size: 0.85rem;
+  margin-right: 0.4rem;
+}
+.btn-wishlist {
+  background: transparent;
+  border: 1px solid var(--bs-border-color);
+  color: var(--bs-secondary-color);
+  border-radius: 0.5rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-wishlist.is-active {
+  color: #ff5c8a;
+  border-color: #ff5c8a;
+}
+
+/* Franja de beneficios (list-group horizontal) */
+.benefits-strip {
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+.benefits-strip .list-group-item {
+  background-color: var(--nt-surface);
+  border-color: var(--bs-border-color);
+  color: var(--bs-body-color);
+  flex: 1 1 0;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+/* Tabla de métodos de envío: se apoya en table-dark de Bootstrap,
+   solo se ajusta el borde para que combine con las demás superficies */
+.table-responsive {
+  border: 1px solid var(--bs-border-color);
+}
+
+/* Navbar / footer */
+.nav-icon {
+  color: var(--bs-body-color);
+  font-size: 1.2rem;
+}
+.nav-icon:hover,
+.nav-icon:focus-visible {
+  color: var(--nt-accent);
+}
+.footer-link {
+  color: var(--bs-secondary-color);
+  text-decoration: none;
+}
+.footer-link:hover,
+.footer-link:focus-visible {
+  color: var(--nt-accent);
+}
+
+/* Foco visible consistente en todo el sitio */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.form-control:focus-visible {
+  outline: 0.2rem solid var(--nt-accent);
+  outline-offset: 0.15rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .category-card { transition: none; }
+  .category-card:hover { transform: none; }
+}
 
 /* carrito (mi estilo/parte) */
 

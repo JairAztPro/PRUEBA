@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="TechLab — tienda online de artículos tecnológicos: laptops, celulares, componentes y gaming.">
+    <title>TechLab | Inicio</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    >
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    >
+    <link rel="stylesheet" href="../css/styles.css">
+  </head>
+  <body>
+    <a class="visually-hidden-focusable" href="#contenido-principal">Saltar al contenido principal</a>
+
+    <!-- ===================== NAVBAR ===================== -->
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-body-tertiary sticky-top border-bottom" aria-label="Navegación principal">
+        <div class="container">
+          <a class="navbar-brand fw-semibold d-flex align-items-center gap-2" href="inicio.html">
+            <i class="bi bi-cpu-fill text-accent" aria-hidden="true"></i>
+            TechLab
+          </a>
+
+          <button class="navbar-toggler" type="button"
+            data-bs-toggle="collapse" data-bs-target="#menuPrincipal"
+            aria-controls="menuPrincipal" aria-expanded="false"
+            aria-label="Mostrar u ocultar navegación">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="menuPrincipal">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="inicio.html">Inicio</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Categorías
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark">
+                  <li><a class="dropdown-item" href="catalogo.html?categoria=laptops">Laptops</a></li>
+                  <li><a class="dropdown-item" href="catalogo.html?categoria=celulares">Celulares</a></li>
+                  <li><a class="dropdown-item" href="catalogo.html?categoria=accesorios">Accesorios</a></li>
+                  <li><a class="dropdown-item" href="catalogo.html?categoria=gaming">Gaming</a></li>
+                </ul>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="catalogo.html">Catálogo</a></li>
+              <li class="nav-item"><a class="nav-link" href="mi-cuenta.html">Mi cuenta</a></li>
+              <li class="nav-item"><a class="nav-link" href="mi-cuenta.html#soporte-pane">Ayuda</a></li>
+            </ul>
+
+            <!-- Barra de búsqueda -->
+            <form class="d-flex me-lg-3 my-2 my-lg-0" role="search" id="formBusqueda">
+              <label for="buscarProducto" class="visually-hidden">Buscar producto</label>
+              <div class="input-group">
+                <span class="input-group-text bg-body-tertiary border-secondary-subtle" id="iconoBusqueda">
+                  <i class="bi bi-search" aria-hidden="true"></i>
+                </span>
+                <input
+                  type="search"
+                  class="form-control border-secondary-subtle"
+                  id="buscarProducto"
+                  placeholder="Busca laptops, celulares, gaming..."
+                  aria-describedby="iconoBusqueda"
+                >
+              </div>
+            </form>
+
+            <!-- Iconos de usuario / carrito -->
+            <div class="d-flex align-items-center gap-3">
+              <a href="mi-cuenta.html" class="text-decoration-none nav-icon" aria-label="Mi cuenta">
+                <i class="bi bi-person" aria-hidden="true"></i>
+              </a>
+              <a href="carrito.html" class="text-decoration-none nav-icon position-relative" aria-label="Carrito de compras, 2 productos">
+                <i class="bi bi-cart3" aria-hidden="true"></i>
+                <span class="badge rounded-pill bg-accent position-absolute top-0 start-100 translate-middle">2</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main id="contenido-principal">
+
+      <!-- ===================== HERO ===================== -->
+      <section class="hero py-5">
+        <div class="container py-lg-4">
+          <div class="row align-items-center g-5">
+            <div class="col-12 col-lg-6">
+              <p class="eyebrow mb-2">Nueva colección gaming</p>
+              <h1 class="display-4 fw-bold mb-3">Arma tu setup sin quedarte a medias</h1>
+              <p class="lead text-body-secondary mb-4">
+                Laptops, componentes y periféricos con garantía y envío verificado a todo el país.
+              </p>
+              <div class="d-flex flex-wrap gap-3">
+                <a href="catalogo.html" class="btn btn-accent btn-lg">
+                  Ver catálogo <i class="bi bi-arrow-down-right ms-1" aria-hidden="true"></i>
+                </a>
+                <a href="#ofertas" class="btn btn-outline-light btn-lg">Ver ofertas</a>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <img
+                class="img-fluid rounded-4 shadow hero-image"
+                src="https://images.unsplash.com/photo-1587202372634-32705e3bf49c?auto=format&fit=crop&w=1200&q=80"
+                alt="Setup gamer con laptop, teclado mecánico y luces RGB sobre un escritorio"
+                width="1200"
+                height="800"
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== BANNER DE OFERTA ===================== -->
+      <div class="container mt-4" id="ofertas">
+        <div class="alert alert-offer d-flex align-items-start" role="alert">
+          <i class="bi bi-lightning-charge-fill me-2" aria-hidden="true"></i>
+          <div>
+            <strong>Semana Tech:</strong> hasta 28% de descuento en laptops gamer seleccionadas.
+            <a href="catalogo.html?categoria=gaming" class="alert-link">Ver ofertas</a>.
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== BENEFICIOS ===================== -->
+      <section class="py-4">
+        <div class="container">
+          <ul class="list-group list-group-horizontal-md benefits-strip">
+            <li class="list-group-item d-flex align-items-center gap-2">
+              <i class="bi bi-truck text-accent" aria-hidden="true"></i>
+              <span>Envío en 24-48h en Lima</span>
+            </li>
+            <li class="list-group-item d-flex align-items-center gap-2">
+              <i class="bi bi-shield-check text-accent" aria-hidden="true"></i>
+              <span>Garantía oficial de fábrica</span>
+            </li>
+            <li class="list-group-item d-flex align-items-center gap-2">
+              <i class="bi bi-lock text-accent" aria-hidden="true"></i>
+              <span>Pago 100% seguro</span>
+            </li>
+            <li class="list-group-item d-flex align-items-center gap-2">
+              <i class="bi bi-arrow-repeat text-accent" aria-hidden="true"></i>
+              <span>Devolución hasta 15 días</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ===================== CATEGORÍAS DESTACADAS ===================== -->
+      <section class="py-5">
+        <div class="container">
+          <div class="mb-4">
+            <p class="text-accent fw-semibold text-uppercase-off mb-1">Explora</p>
+            <h2 class="fw-bold">Categorías destacadas</h2>
+          </div>
+          <div class="row g-4">
+            <div class="col-6 col-lg-3">
+              <a href="catalogo.html?categoria=laptops" class="category-card d-block h-100 text-decoration-none">
+                <i class="bi bi-laptop category-icon" aria-hidden="true"></i>
+                <p class="mb-0 fw-semibold">Laptops</p>
+              </a>
+            </div>
+            <div class="col-6 col-lg-3">
+              <a href="catalogo.html?categoria=celulares" class="category-card d-block h-100 text-decoration-none">
+                <i class="bi bi-phone category-icon" aria-hidden="true"></i>
+                <p class="mb-0 fw-semibold">Celulares</p>
+              </a>
+            </div>
+            <div class="col-6 col-lg-3">
+              <a href="catalogo.html?categoria=accesorios" class="category-card d-block h-100 text-decoration-none">
+                <i class="bi bi-earbuds category-icon" aria-hidden="true"></i>
+                <p class="mb-0 fw-semibold">Accesorios</p>
+              </a>
+            </div>
+            <div class="col-6 col-lg-3">
+              <a href="catalogo.html?categoria=gaming" class="category-card d-block h-100 text-decoration-none">
+                <i class="bi bi-controller category-icon" aria-hidden="true"></i>
+                <p class="mb-0 fw-semibold">Gaming</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== PRODUCTOS DESTACADOS (con pestañas) ===================== -->
+      <section class="py-5 bg-body-tertiary">
+        <div class="container">
+          <div class="mb-4">
+            <p class="text-accent fw-semibold text-uppercase-off mb-1">Lo más buscado</p>
+            <h2 class="fw-bold">Productos destacados</h2>
+          </div>
+
+          <ul class="nav nav-tabs" id="tabsDestacados" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="masVendidos-tab" data-bs-toggle="tab"
+                data-bs-target="#masVendidos-panel" type="button" role="tab"
+                aria-controls="masVendidos-panel" aria-selected="true">Más vendidos</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="nuevos-tab" data-bs-toggle="tab"
+                data-bs-target="#nuevos-panel" type="button" role="tab"
+                aria-controls="nuevos-panel" aria-selected="false">Nuevos</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="ofertas-tab" data-bs-toggle="tab"
+                data-bs-target="#ofertas-panel" type="button" role="tab"
+                aria-controls="ofertas-panel" aria-selected="false">Ofertas</button>
+            </li>
+          </ul>
+          <div class="tab-content border border-top-0 rounded-bottom p-4" id="contenidoDestacados">
+            <div class="tab-pane fade show active" id="masVendidos-panel" role="tabpanel" aria-labelledby="masVendidos-tab" tabindex="0">
+              <div class="row g-4" data-grid-etiqueta="mas-vendidos"></div>
+            </div>
+            <div class="tab-pane fade" id="nuevos-panel" role="tabpanel" aria-labelledby="nuevos-tab" tabindex="0">
+              <div class="row g-4" data-grid-etiqueta="nuevos"></div>
+            </div>
+            <div class="tab-pane fade" id="ofertas-panel" role="tabpanel" aria-labelledby="ofertas-tab" tabindex="0">
+              <div class="row g-4" data-grid-etiqueta="ofertas"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== MÉTODOS DE ENVÍO ===================== -->
+      <section class="py-5">
+        <div class="container">
+          <div class="mb-4">
+            <p class="text-accent fw-semibold text-uppercase-off mb-1">Logística</p>
+            <h2 class="fw-bold">Elige cómo recibir tu pedido</h2>
+          </div>
+          <div class="table-responsive shadow-sm rounded-3">
+            <table class="table table-dark table-striped table-hover align-middle mb-0">
+              <caption class="caption-top">Tiempos y costos referenciales a Lima Metropolitana</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Método</th>
+                  <th scope="col">Tiempo estimado</th>
+                  <th scope="col">Costo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Estándar</th>
+                  <td>3 a 5 días hábiles</td>
+                  <td>S/ 15</td>
+                </tr>
+                <tr>
+                  <th scope="row">Express</th>
+                  <td>24 a 48 horas</td>
+                  <td>S/ 29</td>
+                </tr>
+                <tr>
+                  <th scope="row">Recojo en tienda</th>
+                  <td>El mismo día (según stock)</td>
+                  <td>Gratis</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== NEWSLETTER ===================== -->
+      <section class="py-5 bg-body-tertiary">
+        <div class="container">
+          <div class="row justify-content-center text-center">
+            <div class="col-12 col-lg-7">
+              <h2 class="fw-bold mb-2">Entérate antes que nadie</h2>
+              <p class="text-body-secondary mb-4">
+                Recibe avisos de nuevos lanzamientos y descuentos exclusivos.
+              </p>
+              <form class="row g-2 justify-content-center" id="formNewsletter" novalidate>
+                <div class="col-12 col-sm-7 text-start">
+                  <label for="correoNewsletter" class="visually-hidden">Correo electrónico</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="correoNewsletter"
+                    name="correoNewsletter"
+                    placeholder="tucorreo@ejemplo.com"
+                    autocomplete="email"
+                    required
+                  >
+                  <div class="invalid-feedback">Ingresa un correo válido.</div>
+                </div>
+                <div class="col-12 col-sm-auto">
+                  <button class="btn btn-accent w-100" type="submit">Suscribirme</button>
+                </div>
+              </form>
+              <p id="estadoNewsletter" class="alert alert-offer mt-3 mb-0 d-none" role="status" aria-live="polite"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="py-4 border-top">
+      <div class="container">
+        <div class="row gy-3">
+          <div class="col-12 col-md-4">
+            <p class="fw-semibold mb-1 d-flex align-items-center gap-2">
+              <i class="bi bi-cpu-fill text-accent" aria-hidden="true"></i> TechLab
+            </p>
+            <p class="text-body-secondary small mb-0">Artículos tecnológicos con garantía real.</p>
+          </div>
+          <div class="col-6 col-md-4">
+            <p class="fw-semibold small mb-2">Enlaces</p>
+            <ul class="list-unstyled small text-body-secondary">
+              <li><a href="catalogo.html" class="footer-link">Catálogo</a></li>
+              <li><a href="mi-cuenta.html" class="footer-link">Mi cuenta</a></li>
+              <li><a href="mi-cuenta.html#soporte-pane" class="footer-link">Centro de ayuda</a></li>
+            </ul>
+          </div>
+          <div class="col-6 col-md-4 text-md-end">
+            <p class="small text-body-secondary mb-0">© <span id="anioActual"></span> TechLab. Proyecto académico.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../js/productos.js"></script>
+    <script src="../js/inicio.js"></script>
+  </body>
+</html>
