@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const anioSpan = document.getElementById('anioActual');
   if (anioSpan) anioSpan.textContent = new Date().getFullYear();
 
-  // array porque no hay BD ;-;
+  // uso de array porque no hay BD ;-;
   const usuariosRegistrados = [];
 
   const formPerfil = document.getElementById('formPerfil');
@@ -12,34 +12,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const inputNombre = document.getElementById('perfilNombre');
       const inputCorreo = document.getElementById('perfilCorreo');
+      const inputPass = document.getElementById('perfilPass');
 
+      // validaciones + restricciones
       const nombreValido = inputNombre.value.trim() !== '';
       const correoValido = inputCorreo.value.trim().toLowerCase().endsWith('@gmail.com');
+      const passValido = inputPass.value.trim().length >= 6;
 
       inputNombre.classList.toggle('is-invalid', !nombreValido);
       inputCorreo.classList.toggle('is-invalid', !correoValido);
+      inputPass.classList.toggle('is-invalid', !passValido);
 
-      if (nombreValido && correoValido) {
-        // creacion de nuevo usuario
+      if (nombreValido && correoValido && passValido) {
+        // toma de datos
         const nuevoUsuario = {
           id: Date.now(),
           usuario: inputNombre.value.trim(),
           correo: inputCorreo.value.trim().toLowerCase(),
+          pass: inputPass.value.trim(),
           fechaRegistro: new Date().toLocaleString()
         };
 
+        // subida al array
         usuariosRegistrados.push(nuevoUsuario);
 
         // vista en consola
-        console.log('Nuevo usuario registrado');
+        console.log('Usuario registrado exitosamente');
         console.table(usuariosRegistrados);
 
         alert(`¡Registro exitoso! Bienvenido, ${nuevoUsuario.usuario}.`);
 
-        // limpieza del form
+        // limpiar form
         formPerfil.reset();
         inputNombre.classList.remove('is-invalid');
         inputCorreo.classList.remove('is-invalid');
+        inputPass.classList.remove('is-invalid');
       }
     });
   }
