@@ -1,40 +1,59 @@
-/* =========================================================
-  TechLab — INICIO
-========================================================= */
+/* ==========================================================================
+   VARIABLES GLOBALES (Estilo oficial de TechLab)
+   ========================================================================== */
 [data-bs-theme="dark"],
 :root {
-  --bs-primary: #7C3AED;
+  --bs-primary: #7C3AED;               /* Morado principal */
   --bs-primary-rgb: 124, 58, 237;
-  --bs-body-bg: #0F1115;
-  --bs-body-color: #F1F2F4;
-  --bs-secondary-color: #9AA0AC;
-  --bs-border-color: #2A2E38;
-  --bs-tertiary-bg: #1A1D24;
-
-  --nt-accent: #22D3EE;
+  --bs-body-bg: #0F1115;               /* Fondo oscuro general */
+  --bs-body-color: #F1F2F4;            /* Texto principal */
+  --bs-secondary-color: #9AA0AC;       /* Texto secundario */
+  --bs-border-color: #2A2E38;          /* Gris para bordes */
+  --bs-tertiary-bg: #1A1D24;           /* Fondo de tarjetas y menús */
+  --nt-accent: #22D3EE;                /* Cyan neón de acento */
   --nt-accent-rgb: 34, 211, 238;
-  --nt-surface: #1A1D24;
+  --nt-surface: #1A1D24;               /* Superficies secundarias */
+  --app-icon-size: 3rem;
 }
 
 html {
   scroll-behavior: smooth;
 }
+
 body {
   min-width: 320px;
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
 }
+
 section[id] {
   scroll-margin-top: 4.5rem;
 }
 
-/* Utilidades propias de acento (cian), ya que Bootstrap no trae este color */
-.text-accent { color: var(--nt-accent) !important; }
-.bg-accent   { background-color: var(--nt-accent) !important; color: #071016; }
+/* ==========================================================================
+   UTILIDADES PROPIAS DE ACCESIBILIDAD Y ACENTO
+   ========================================================================== */
+.text-accent { 
+  color: var(--nt-accent) !important; 
+}
+
+.bg-accent { 
+  background-color: var(--nt-accent) !important; 
+  color: #071016; 
+}
+
+.text-secundario {
+  color: var(--bs-secondary-color);
+}
+
 .btn-accent {
   background-color: var(--nt-accent);
   border-color: var(--nt-accent);
   color: #071016;
   font-weight: 600;
 }
+
 .btn-accent:hover,
 .btn-accent:focus {
   background-color: #17b7ce;
@@ -42,30 +61,56 @@ section[id] {
   color: #071016;
 }
 
-/* Hero */
+/* Enfoque accesible consistente en todo el sitio */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.form-control:focus-visible,
+.form-select:focus-visible {
+  outline: 0.2rem solid var(--nt-accent);
+  outline-offset: 0.15rem;
+}
+
+/* Reducir movimiento para accesibilidad */
+@media (prefers-reduced-motion: reduce) {
+  html { 
+    scroll-behavior: auto; 
+  }
+  .card-gamer, .category-card, .product-card { 
+    transition: none !important; 
+    transform: none !important; 
+  }
+}
+
+/* ==========================================================================
+   VISTA 1: ESTILOS DE LANDING/INICIO 
+   ========================================================================== */
 .hero {
   background: radial-gradient(120% 140% at 15% 20%, rgba(124, 58, 237, 0.28), transparent 60%),
-              var(--bs-body-bg);
+  var(--bs-body-bg);
 }
+
 .eyebrow {
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--nt-accent);
 }
+
 .hero-image {
   aspect-ratio: 3 / 2;
   object-fit: cover;
   width: 100%;
 }
 
-/* Banner de oferta: alert propio, no el genérico de Bootstrap */
+/* Banner de oferta */
 .alert-offer {
   background-color: rgba(124, 58, 237, 0.16);
   border: 1px solid rgba(124, 58, 237, 0.4);
   color: #E7DBFF;
   border-radius: 0.75rem;
 }
+
 .alert-offer .alert-link {
   color: var(--nt-accent);
   font-weight: 600;
@@ -81,11 +126,13 @@ section[id] {
   color: var(--bs-body-color);
   transition: border-color 160ms ease, transform 160ms ease;
 }
+
 .category-card:hover,
 .category-card:focus-visible {
   border-color: var(--nt-accent);
   transform: translateY(-0.2rem);
 }
+
 .category-icon {
   display: block;
   font-size: 1.8rem;
@@ -93,7 +140,7 @@ section[id] {
   color: var(--nt-accent);
 }
 
-/* Cards de producto (usadas por js/app.js al renderizar destacados) */
+/* Cards de producto (usadas en la landing page de destacados) */
 .product-card {
   background: var(--nt-surface);
   border: 1px solid var(--bs-border-color);
@@ -102,27 +149,32 @@ section[id] {
   display: flex;
   flex-direction: column;
 }
+
 .product-card__img-wrap {
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border-top-left-radius: 0.9rem;
   border-top-right-radius: 0.9rem;
 }
+
 .product-card__img-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
+
 .product-card__body {
   padding: 1rem;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
+
 .product-card__price {
   font-weight: 700;
   font-size: 1.05rem;
 }
+
 .product-card__price--old {
   text-decoration: line-through;
   color: var(--bs-secondary-color);
@@ -130,6 +182,7 @@ section[id] {
   font-size: 0.85rem;
   margin-right: 0.4rem;
 }
+
 .btn-wishlist {
   background: transparent;
   border: 1px solid var(--bs-border-color);
@@ -141,16 +194,18 @@ section[id] {
   align-items: center;
   justify-content: center;
 }
+
 .btn-wishlist.is-active {
   color: #ff5c8a;
   border-color: #ff5c8a;
 }
 
-/* Franja de beneficios (list-group horizontal) */
+/* Franja de beneficios */
 .benefits-strip {
   border-radius: 0.75rem;
   overflow: hidden;
 }
+
 .benefits-strip .list-group-item {
   background-color: var(--nt-surface);
   border-color: var(--bs-border-color);
@@ -160,120 +215,65 @@ section[id] {
   font-size: 0.9rem;
 }
 
-/* Tabla de métodos de envío: se apoya en table-dark de Bootstrap,
-   solo se ajusta el borde para que combine con las demás superficies */
-.table-responsive {
-  border: 1px solid var(--bs-border-color);
-}
-
-/* Navbar / footer */
+/* Enlaces del navbar/footer */
 .nav-icon {
   color: var(--bs-body-color);
   font-size: 1.2rem;
 }
+
 .nav-icon:hover,
 .nav-icon:focus-visible {
   color: var(--nt-accent);
 }
+
 .footer-link {
   color: var(--bs-secondary-color);
   text-decoration: none;
 }
+
 .footer-link:hover,
 .footer-link:focus-visible {
   color: var(--nt-accent);
 }
 
-/* Foco visible consistente en todo el sitio */
-a:focus-visible,
-button:focus-visible,
-.btn:focus-visible,
-.form-control:focus-visible {
-  outline: 0.2rem solid var(--nt-accent);
-  outline-offset: 0.15rem;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .category-card { transition: none; }
-  .category-card:hover { transform: none; }
-}
-
-/* carrito (mi estilo/parte) */
-
-:root {
-  --bg-fondo: #0F1115;
-  --bg-superficie: #1A1D24;
-  --color-primario: #7C3AED;
-  --color-acento: #22D3EE;
-  --texto-blanco: #F1F2F4;
-  --texto-secundario: #9AA0AC;
-  --borde-gris: #2A2E38;
-}
-
-body {
-  background-color: var(--bg-fondo);
-  color: var(--texto-blanco);
-}
-
+/* ==========================================================================
+   VISTA 2: COMPONENTES DEL CATÁLOGO CON FILTROS
+   ========================================================================== */
 .card-gamer {
-  background-color: var(--bg-superficie);
-  border: 1px solid var(--borde-gris);
-  color: var(--texto-blanco);
+  background-color: var(--nt-surface);
+  border: 1px solid var(--bs-border-color);
+  color: var(--bs-body-color);
+  transition: transform 160ms ease, border-color 160ms ease;
 }
 
-.text-secundario {
-  color: var(--texto-secundario);
-}
-
-.btn-acento {
-  background-color: var(--color-acento);
-  color: #0F1115;
-  font-weight: 600;
-  border: none;
-}
-
-.btn-acento:hover {
-  background-color: #1cb5cc;
-}
-
-.input-gamer {
-  background-color: var(--bg-fondo);
-  border: 1px solid var(--borde-gris);
-  color: var(--texto-blanco);
-}
-
-.input-gamer:focus {
-  background-color: var(--bg-fondo);
-  color: var(--texto-blanco);
-  border-color: var(--color-primario);
-  box-shadow: 0 0 0 0.25rem rgba(124, 58, 237, 0.25);
-}
-
-/* ===== CATALOGO ===== */
-
-.navbar-gamer {
-  background: var(--bg-superficie);
-  border-bottom: 1px solid var(--borde-gris);
+.card-gamer:hover {
+  border-color: var(--bs-primary);
+  transform: translateY(-0.25rem);
 }
 
 .select-gamer {
   width: 160px;
-  background: var(--bg-superficie);
-  color: var(--texto-blanco);
-  border-color: var(--borde-gris);
+  background: var(--nt-surface);
+  color: var(--bs-body-color);
+  border-color: var(--bs-border-color);
+}
+
+.select-gamer:focus {
+  background: var(--nt-surface);
+  color: var(--bs-body-color);
+  border-color: var(--nt-accent);
 }
 
 .producto-img {
   height: 140px;
-  background: var(--bg-fondo);
+  background: var(--bs-body-bg);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  color: var(--color-primario);
+  color: var(--bs-primary);
   font-size: 4rem;
-  border-bottom: 1px solid var(--borde-gris);
+  border-bottom: 1px solid var(--bs-border-color);
 }
 
 .producto-img .badge {
@@ -282,126 +282,162 @@ body {
   left: 10px;
 }
 
-.card-gamer:hover {
-  border-color: var(--color-primario);
-}
-
 .precio-catalogo {
-  color: var(--color-acento);
-  font-size: 1.2rem;
+  color: var(--nt-accent);
+  font-size: 1.25rem;
+  font-weight: 700;
 }
 
+.btn-acento {
+  background-color: var(--nt-accent);
+  color: #071016;
+  font-weight: 600;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-acento:hover {
+  background-color: #17b7ce;
+  transform: translateY(-1px);
+}
+
+/* Paginación Gamer */
 .page-link {
-  background: var(--bg-superficie);
-  border-color: var(--borde-gris);
-  color: var(--texto-blanco);
+  background: var(--nt-surface);
+  border-color: var(--bs-border-color);
+  color: var(--bs-body-color);
+}
+
+.page-link:hover {
+  background: var(--bs-body-bg);
+  color: var(--nt-accent);
+  border-color: var(--bs-border-color);
 }
 
 .page-item.active .page-link {
-  background: var(--color-primario);
-  border-color: var(--color-primario);
+  background: var(--bs-primary);
+  border-color: var(--bs-primary);
+  color: var(--bs-body-color);
 }
 
-.modal-content {
-  border: 1px solid var(--borde-gris);
-}
-
-.modal-header,
-.modal-footer {
-  border-color: var(--borde-gris);
-}
-
-.footer-gamer {
-  background: var(--bg-superficie);
-  border-top: 1px solid var(--borde-gris);
-}
-
-@media (max-width: 767px) {
-  .producto-img {
-    height: 180px;
-  }
-
-  .select-gamer {
-    width: 130px;
-  }
-}
-
-/* ===== FICHA PRODUCTO ===== */
+/* ==========================================================================
+   VISTA 3: FICHA DE PRODUCTO EN MODAL
+   ========================================================================== */
+/* Pestañas (Tabs) Gamer */
 .nav-tabs-gamer {
-  border-bottom: 2px solid var(--borde-gris);
+  border-bottom: 2px solid var(--bs-border-color);
 }
+
 .nav-tabs-gamer .nav-link {
-  color: var(--texto-secundario);
+  color: var(--bs-secondary-color);
   border: none;
   font-weight: 500;
   padding: 0.75rem 1.25rem;
   background: transparent;
   transition: all 0.2s ease;
 }
+
 .nav-tabs-gamer .nav-link:hover {
-  color: var(--texto-blanco);
+  color: var(--bs-body-color);
   border-bottom: 2px solid rgba(124, 58, 237, 0.5);
 }
+
 .nav-tabs-gamer .nav-link.active {
-  color: var(--color-acento) !important;
+  color: var(--nt-accent) !important;
   background: transparent !important;
   border: none;
-  border-bottom: 2px solid var(--color-acento);
+  border-bottom: 2px solid var(--nt-accent);
 }
 
-/* Miniaturas de la Galería del Producto */
+/* Miniaturas de la Galería de Fotos del Modal */
 .img-thumbnail-gamer {
-  background-color: var(--bg-fondo);
-  border: 2px solid var(--borde-gris);
+  background-color: var(--bs-body-bg);
+  border: 2px solid var(--bs-border-color);
   transition: all 0.2s ease;
   width: 100%;
   height: 70px;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 }
-.img-thumbnail-gamer:hover, .img-thumbnail-gamer.active {
-  border-color: var(--color-acento);
+
+.img-thumbnail-gamer:hover, 
+.img-thumbnail-gamer.active {
+  border-color: var(--nt-accent);
   transform: scale(1.03);
 }
 
-/* Controles de cantidad en el modal */
+/* Selector de Cantidades */
 .btn-qty {
-  background-color: var(--bg-superficie);
-  border: 1px solid var(--borde-gris);
-  color: var(--texto-blanco);
+  background-color: var(--nt-surface);
+  border: 1px solid var(--bs-border-color);
+  color: var(--bs-body-color);
   transition: all 0.2s;
 }
+
 .btn-qty:hover {
-  background-color: var(--color-primario);
-  color: var(--texto-blanco);
+  background-color: var(--bs-primary);
+  color: var(--bs-body-color);
 }
+
 .qty-input {
   max-width: 60px;
   text-align: center;
-  background-color: var(--bg-fondo) !important;
-  border: 1px solid var(--borde-gris) !important;
-  color: var(--texto-blanco) !important;
+  background-color: var(--bs-body-bg) !important;
+  border: 1px solid var(--bs-border-color) !important;
+  color: var(--bs-body-color) !important;
   font-weight: 600;
 }
 
-/* Badges con tonos neón */
+/* Badges con tonos morado/cian neón */
 .bg-purple-gamer {
   background-color: rgba(124, 58, 237, 0.15) !important;
   color: #a78bfa !important;
   border: 1px solid rgba(124, 58, 237, 0.3) !important;
 }
+
 .bg-cyan-gamer {
   background-color: rgba(34, 211, 238, 0.1) !important;
-  color: var(--color-acento) !important;
+  color: var(--nt-accent) !important;
   border: 1px solid rgba(34, 211, 238, 0.3) !important;
 }
 
-/* Fondo para visor de fotos */
+/* Visor de imágenes de fondo profundo */
 .bg-depth {
   background-color: #0c0d10 !important;
 }
 
+/* Ajustes de adaptabilidad de botones */
+.btn-close-white {
+  filter: invert(1) grayscale(1) brightness(2);
+}
+
+/* ===== PERSONALIZACIÓN DEL ACORDEÓN DE PREGUNTAS FRECUENTES (VISTA 3) ===== */
+.accordion-button {
+  background-color: transparent !important;
+  color: var(--bs-body-color) !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: var(--nt-surface) !important; 
+  color: var(--nt-accent) !important; 
+  box-shadow: none !important;
+}
+
+.accordion-button:focus {
+  box-shadow: none !important;
+  border-color: var(--bs-border-color) !important;
+}
+
+.accordion-button::after {
+  filter: invert(1) !important;
+}
+
+.accordion-button:not(.collapsed)::after {
+  filter: invert(70%) sepia(50%) saturate(3000%) hue-rotate(150deg) brightness(100%) !important;
+}
 
 /* ===== GESTIÓN & SOPORTE / REGISTRO ===== */
 .nav-tabs .nav-link {
@@ -415,6 +451,15 @@ body {
   border-color: var(--borde-gris) var(--borde-gris) transparent;
 }
 
-.accordion-button::after {
-  filter: invert(1);
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (Media Queries)
+   ========================================================================== */
+@media (max-width: 767px) {
+  .producto-img {
+    height: 180px;
+  }
+  .select-gamer {
+    width: 130px;
+  }
 }

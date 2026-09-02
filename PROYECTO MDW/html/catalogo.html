@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TechLab - Catálogo Gamer</title>
+  <!-- Bootstrap 5.3.8 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <!-- Estilos del Proyecto (Acceso desde subcarpeta html/) -->
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+
+  <!-- ENLACE DE SALTO ACCESIBLE (Rúbrica de Accesibilidad) -->
+  <a class="visually-hidden-focusable" href="#contenido-principal">
+    Saltar al contenido principal
+  </a>
+
+  <!-- ===================== NAVBAR COMPARTIDO ===================== -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-body-tertiary sticky-top border-bottom" aria-label="Navegación principal">
+      <div class="container">
+        <a class="navbar-brand fw-semibold d-flex align-items-center gap-2" href="inicio.html">
+          <i class="bi bi-cpu-fill text-accent" aria-hidden="true"></i> TechLab
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Mostrar u ocultar navegación">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="menuPrincipal">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="inicio.html">Inicio</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Categorías
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark">
+                <li><a class="dropdown-item" href="catalogo.html?categoria=laptops">Laptops</a></li>
+                <li><a class="dropdown-item" href="catalogo.html?categoria=celulares">Celulares</a></li>
+                <li><a class="dropdown-item" href="catalogo.html?categoria=accesorios">Accesorios</a></li>
+                <li><a class="dropdown-item" href="catalogo.html?categoria=gaming">Gaming</a></li>
+              </ul>
+            </li>
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="catalogo.html">Catálogo</a></li>
+            <li class="nav-item"><a class="nav-link" href="mi_cuenta.html">Mi cuenta</a></li>
+            <li class="nav-item"><a class="nav-link" href="mi_cuenta.html#soporte-pane">Ayuda</a></li>
+          </ul>
+          
+          <!-- Barra de búsqueda -->
+          <form class="d-flex me-lg-3 my-2 my-lg-0" role="search" id="formBusqueda">
+            <label for="buscarProducto" class="visually-hidden">Buscar producto</label>
+            <div class="input-group">
+              <span class="input-group-text bg-body-tertiary border-secondary-subtle" id="iconoBusqueda">
+                <i class="bi bi-search" aria-hidden="true"></i>
+              </span>
+              <input type="search" class="form-control border-secondary-subtle" id="buscarProducto" placeholder="Busca laptops, celulares, gaming..." aria-describedby="iconoBusqueda">
+            </div>
+          </form>
+
+          <!-- Iconos de usuario / carrito -->
+          <div class="d-flex align-items-center gap-3">
+            <a href="mi_cuenta.html" class="text-decoration-none nav-icon" aria-label="Mi cuenta">
+              <i class="bi bi-person" aria-hidden="true"></i>
+            </a>
+            <a href="carrito.html" class="text-decoration-none nav-icon position-relative" aria-label="Carrito de compras, 2 productos">
+              <i class="bi bi-cart3" aria-hidden="true"></i>
+              <span class="badge rounded-pill bg-accent position-absolute top-0 start-100 translate-middle">2</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ======================== VISTA 2: CATÁLOGO CON FILTROS ============================ -->
+  <main id="contenido-principal">
+    <section class="container py-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb m-0">
+              <li class="breadcrumb-item"><a href="inicio.html" class="text-secundario text-decoration-none">Inicio</a></li>
+              <li class="breadcrumb-item active text-white" aria-current="page">Catálogo</li>
+            </ol>
+          </nav>
+          <h2 class="fw-bold mt-2">Catálogo</h2>
+        </div>
+        <select id="orden" class="form-select select-gamer" aria-label="Ordenar productos">
+          <option>Ordenar</option>
+          <option>Precio menor</option>
+          <option>Precio mayor</option>
+        </select>
+      </div>
+
+      <div class="row g-4">
+        <!-- Panel Lateral de Filtros (Vista 2) -->
+        <aside class="col-12 col-lg-3">
+          <div class="card card-gamer p-3">
+            <h3 class="fw-bold h5 mb-3">Filtros</h3>
+            <form id="filtros">
+              <label class="form-label mt-2 fw-semibold text-secondary">Marca</label>
+              <div class="form-check">
+                <input class="form-check-input marca" type="checkbox" value="asus" id="marcaAsus">
+                <label class="form-check-label" for="marcaAsus">ASUS</label>
+              </div>
+              <div class="form-check text-white">
+                <input class="form-check-input marca" type="checkbox" value="msi" id="marcaMsi">
+                <label class="form-check-label" for="marcaMsi">MSI</label>
+              </div>
+
+              <label class="form-label mt-4 fw-semibold text-secondary" for="precio">Precio máximo</label>
+              <input type="range" class="form-range" id="precio" min="100" max="1500" value="1500">
+              <div class="d-flex justify-content-between small mb-3">
+                <span class="text-secundario">S/ 100</span>
+                <span id="precioValor">S/ 1500</span>
+              </div>
+
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="stock">
+                <label class="form-check-label" for="stock">Solo con stock</label>
+              </div>
+              <button type="button" id="limpiar" class="btn btn-outline-secondary btn-sm w-100 mt-2">
+                Limpiar filtros
+              </button>
+            </form>
+          </div>
+        </aside>
+
+        <!-- Grilla de Productos (Vista 2) -->
+        <div class="col-12 col-lg-9">
+          <!-- Alerta opcional de filtrado por URL activa -->
+          <div id="filterAlertPlaceholder" class="mb-3 d-none"></div>
+
+          <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3" id="productos">
+            
+            <!-- Producto 1: ASUS ROG Strix B550-F -->
+            <div class="col producto" data-marca="asus" data-precio="899" data-stock="true" data-categoria="gaming">
+              <div class="card card-gamer h-100">
+                <div class="producto-img">
+                  <span class="badge bg-danger">-20%</span>
+                  <i class="bi bi-motherboard" aria-hidden="true"></i>
+                </div>
+                <div class="card-body d-flex flex-column">
+                  <small class="text-secundario">ASUS</small>
+                  <h4 class="h5 fw-bold text-white mb-1">ROG Strix B550-F</h4>
+                  <p class="text-secundario small">Placa madre para gaming de alto rendimiento.</p>
+                  <strong class="precio-catalogo mt-auto mb-3">S/ 899</strong>
+                  <button class="btn btn-acento w-100"
+                          data-bs-toggle="modal"
+                          data-bs-target="#modalFichaProducto"
+                          data-producto="Placa Madre ASUS ROG Strix B550-F Gaming"
+                          data-precio="899"
+                          data-icono="bi-motherboard"
+                          data-tags="AMD AM4, PCIe 4.0, DDR4"
+                          data-desc="La placa madre ROG Strix B550-F Gaming encarna la esencia pura de Republic of Gamers. Ofrece una entrega de potencia de última generación y una disipación térmica sumamente eficiente para los procesadores Ryzen."
+                          data-specs="Socket:AMD AM4;Chipset:AMD B550;Ranuras RAM:4 x DIMM DDR4 (Máx 128GB);Red:Intel® 2.5Gb Ethernet;Factor:ATX (30.5 cm x 24.4 cm)">
+                    <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Producto 2: RTX 4060 Gaming -->
+            <div class="col producto" data-marca="msi" data-precio="749" data-stock="true" data-categoria="gaming">
+              <div class="card card-gamer h-100">
+                <div class="producto-img">
+                  <i class="bi bi-gpu-card" aria-hidden="true"></i>
+                </div>
+                <div class="card-body d-flex flex-column">
+                  <small class="text-secundario">MSI</small>
+                  <h4 class="h5 fw-bold text-white mb-1">RTX 4060 Gaming</h4>
+                  <p class="text-secundario small">Tarjeta gráfica optimizada para Ray Tracing.</p>
+                  <strong class="precio-catalogo mt-auto mb-3">S/ 749</strong>
+                  <button class="btn btn-acento w-100"
+                          data-bs-toggle="modal"
+                          data-bs-target="#modalFichaProducto"
+                          data-producto="Tarjeta Gráfica MSI RTX 4060 Gaming"
+                          data-precio="749"
+                          data-icono="bi-gpu-card"
+                          data-tags="Ray Tracing, DLSS 3, GDDR6"
+                          data-desc="Experimenta mundos virtuales sumamente realistas con la GPU MSI RTX 4060 Gaming. Cuenta con el avanzado sistema térmico TWIN FROZR 9 para un flujo de aire y enfriamiento eficientes."
+                          data-specs="Arquitectura:NVIDIA Ada Lovelace;Memoria:8GB GDDR6;Frecuencia OC:2460 MHz;Interfaz:PCI Express 4.0;Salidas:3x DP / 1x HDMI">
+                    <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Producto 3: RAM DDR4 16GB (Sin Stock) -->
+            <div class="col producto" data-marca="msi" data-precio="459" data-stock="false" data-categoria="accesorios">
+              <div class="card card-gamer h-100">
+                <div class="producto-img">
+                  <i class="bi bi-memory" aria-hidden="true"></i>
+                </div>
+                <div class="card-body d-flex flex-column">
+                  <small class="text-secundario">MSI</small>
+                  <h4 class="h5 fw-bold text-white mb-1">RAM DDR4 16GB</h4>
+                  <p class="text-secundario small">Memoria de alto rendimiento para gaming competitivo.</p>
+                  <strong class="precio-catalogo mt-auto mb-3">S/ 459</strong>
+                  <button class="btn btn-secondary w-100" disabled>
+                    Sin stock
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Paginación (Vista 2) -->
+          <nav class="mt-4" aria-label="Navegación del catálogo">
+            <ul class="pagination justify-content-center">
+              <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a></li>
+              <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==========================================
+       VISTA 3: MODAL DE FICHA DE PRODUCTO DINÁMICO (Hijo de body)
+       ========================================== -->
+  <div class="modal fade" id="modalFichaProducto" tabindex="-1" aria-labelledby="modalDynamicTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+      <div class="modal-content border-secondary card-gamer" style="background-color: var(--nt-surface); border: 1px solid var(--bs-border-color);">
+        
+        <!-- Cabecera del Modal -->
+        <div class="modal-header bg-dark border-secondary text-white">
+          <div class="d-flex align-items-center gap-2">
+            <i class="bi bi-cpu-fill text-accent fs-5" aria-hidden="true"></i>
+            <h2 class="modal-title h5 mb-0 fw-bold">Ficha Técnica de Producto</h2>
+          </div>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar modal"></button>
+        </div>
+
+        <!-- Cuerpo del Modal -->
+        <div class="modal-body bg-dark text-white p-4">
+          <div class="container-fluid p-0">
+            <div class="row g-4">
+              
+              <!-- Visor de Galería (Izquierda) -->
+              <div class="col-lg-6">
+                <div class="card card-gamer p-3 mb-3 text-center bg-depth d-flex align-items-center justify-content-center" style="min-height: 300px; background-color: var(--bs-body-bg);">
+                  <div id="modalMainImageContainer">
+                    <i class="bi bi-motherboard text-info" style="font-size: 8rem; display: block;" aria-hidden="true"></i>
+                    <span class="fw-bold text-uppercase tracking-wider text-secondary small d-block mt-2" id="modalImgTag">Cargando...</span>
+                  </div>
+                </div>
+                <!-- Miniaturas de la Galería -->
+                <div class="row g-2">
+                  <div class="col-4">
+                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb1" aria-label="Ver imagen de referencia">
+                      <!-- Cargado dinámicamente con JS -->
+                    </button>
+                  </div>
+                  <div class="col-4">
+                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb2" aria-label="Ver detalle interno">
+                      <!-- Cargado dinámicamente con JS -->
+                    </button>
+                  </div>
+                  <div class="col-4">
+                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb3" aria-label="Ver empaque oficial">
+                      <!-- Cargado dinámicamente con JS -->
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Información y Acciones de Compra (Derecha) -->
+              <div class="col-lg-6">
+                <!-- Badges de Categoría dinámicos -->
+                <div id="modalDynamicTagsContainer" class="d-flex flex-wrap gap-1 mb-2"></div>
+
+                <h1 class="fw-bold text-white h3 mb-2" id="modalDynamicTitle">Cargando Producto...</h1>
+                
+                <!-- Calificación de Estrellas -->
+                <div class="d-flex align-items-center gap-2 mb-3">
+                  <div class="text-warning">
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-fill" aria-hidden="true"></i>
+                    <i class="bi bi-star-half" aria-hidden="true"></i>
+                  </div>
+                  <span class="text-secondary small">(128 opiniones)</span>
+                </div>
+
+                <!-- Caja de Precio Online -->
+                <div class="p-3 rounded-3 mb-3" style="background-color: var(--bs-body-bg); border: 1px solid var(--bs-border-color);">
+                  <div class="text-secondary small mb-1">Precio Online Especial</div>
+                  <div class="d-flex align-items-baseline gap-2">
+                    <span class="fs-2 fw-bold text-accent" id="modalDynamicPrice">S/ 0</span>
+                    <span class="text-secondary text-decoration-line-through small">S/ 1,049</span>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <span class="badge bg-success"><i class="bi bi-check-circle me-1" aria-hidden="true"></i> Stock Disponible</span>
+                </div>
+
+                <div class="mb-4">
+                  <h6 class="text-white border-bottom border-secondary pb-2">Descripción Breve:</h6>
+                  <p class="text-secondary small lh-base" id="modalDynamicDescription">Cargando datos...</p>
+                </div>
+
+                <!-- Selector de Cantidad -->
+                <div class="d-flex align-items-center gap-3">
+                  <span class="text-secondary small">Cantidad:</span>
+                  <div class="input-group" style="max-width: 140px;">
+                    <button class="btn btn-qty border-secondary text-white px-3" type="button" onclick="changeModalQty(-1)" aria-label="Restar cantidad">-</button>
+                    <input type="text" class="form-control text-center qty-input" id="modalProductQty" value="1" readonly aria-label="Cantidad">
+                    <button class="btn btn-qty border-secondary text-white px-3" type="button" onclick="changeModalQty(1)" aria-label="Sumar cantidad">+</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Panel de Pestañas (Sección 3 de la Vista 3) -->
+            <div class="card card-gamer mt-4" style="background-color: var(--bs-body-bg); border: 1px solid var(--bs-border-color);">
+              <div class="card-header p-0">
+                <ul class="nav nav-tabs nav-tabs-gamer" id="modalTabs" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="modal-desc-tab" data-bs-toggle="tab" data-bs-target="#modal-desc-pane" type="button" role="tab" aria-controls="modal-desc-pane" aria-selected="true">
+                      Descripción de Élite
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="modal-spec-tab" data-bs-toggle="tab" data-bs-target="#modal-spec-pane" type="button" role="tab" aria-controls="modal-spec-pane" aria-selected="false">
+                      Especificaciones Técnicas
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="modal-reviews-tab" data-bs-toggle="tab" data-bs-target="#modal-reviews-pane" type="button" role="tab" aria-controls="modal-reviews-pane" aria-selected="false">
+                      Reseñas (2)
+                    </button>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <div class="tab-content" id="modalTabContent">
+                  <!-- Pestaña 1: Descripción General -->
+                  <div class="tab-pane fade show active" id="modal-desc-pane" role="tabpanel" aria-labelledby="modal-desc-tab" tabindex="0">
+                    <p class="text-secondary mb-0 small">
+                      Todos los componentes distribuidos por TechLab cuentan con certificación de compatibilidad internacional. Ofrecemos hardware de primer nivel optimizado para entusiastas de la informática y el gaming de alto rendimiento.
+                    </p>
+                  </div>
+                  <!-- Pestaña 2: Tabla de Especificaciones Técnicas (Rejilla Semántica) -->
+                  <div class="tab-pane fade" id="modal-spec-pane" role="tabpanel" aria-labelledby="modal-spec-tab" tabindex="0">
+                    <div class="table-responsive">
+                      <table class="table table-dark table-striped table-sm mb-0 align-middle text-start text-secondary">
+                        <caption class="visually-hidden">Detalles mecánicos e internos del hardware seleccionado</caption>
+                        <thead>
+                          <tr>
+                            <th scope="col" class="py-2">Especificación</th>
+                            <th scope="col" class="py-2">Detalle Técnico</th>
+                          </tr>
+                        </thead>
+                        <tbody id="modalDynamicSpecsTableBody">
+                          <!-- Inyectado dinámicamente con JS -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!-- Pestaña 3: Reseñas con estrellas (Estándar UI-UX) -->
+                  <div class="tab-pane fade" id="modal-reviews-pane" role="tabpanel" aria-labelledby="modal-reviews-tab" tabindex="0">
+                    <div class="row g-3">
+                      <div class="col-12 border-bottom border-secondary pb-3">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                          <span class="text-white fw-bold small">GamerPro_Lima</span>
+                          <span class="text-warning small"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
+                        </div>
+                        <p class="text-secondary small mb-0">Excelente estabilidad térmica y desempeño impecable bajo estrés. 10/10.</p>
+                      </div>
+                      <div class="col-12">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                          <span class="text-white fw-bold small">Dev_Codex</span>
+                          <span class="text-warning small"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i></span>
+                        </div>
+                        <p class="text-secondary small mb-0">Gran calidad de construcción. Configurar el perfil XMP en la BIOS fue pan comido.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ===== ACORDEÓN DE PREGUNTAS FRECUENTES (Sección 4 de la Vista 3) ===== -->
+            <div class="mt-5 mb-5">
+              <h4 class="text-white fw-bold mb-3 h5">Preguntas Frecuentes del Producto</h4>
+              <div class="accordion accordion-flush border border-secondary rounded-3 overflow-hidden" id="faqProductoAccordion">
+                
+                <div class="accordion-item bg-transparent border-secondary border-bottom">
+                  <h3 class="accordion-header">
+                    <button class="accordion-button collapsed bg-transparent text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faqProd1" aria-expanded="false" aria-controls="faqProd1">
+                      ¿Es compatible con mi setup actual?
+                    </button>
+                  </h3>
+                  <div id="faqProd1" class="accordion-collapse collapse" data-bs-parent="#faqProductoAccordion">
+                    <div class="accordion-body text-secondary small">
+                      Este componente cuenta con certificación de compatibilidad estándar universal. Sin embargo, te recomendamos verificar el factor de forma de tu chasis y la capacidad de tu fuente de poder antes de instalarlo.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item bg-transparent border-secondary border-bottom">
+                  <h3 class="accordion-header">
+                    <button class="accordion-button collapsed bg-transparent text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faqProd2" aria-expanded="false" aria-controls="faqProd2">
+                      ¿Incluye garantía de fábrica?
+                    </button>
+                  </h3>
+                  <div id="faqProd2" class="accordion-collapse collapse" data-bs-parent="#faqProductoAccordion">
+                    <div class="accordion-body text-secondary small">
+                      Sí, todos nuestros componentes gamer de alto rendimiento cuentan con 12 meses de garantía directa por defectos de fábrica.
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- ===== GRID DE PRODUCTOS RELACIONADOS (Sección 5 de la Vista 3) ===== -->
+            <div class="mb-2">
+              <h4 class="text-white fw-bold mb-3 h5">Productos Relacionados</h4>
+              <div class="row row-cols-2 row-cols-md-4 g-3">
+                <!-- Relacionado 1 -->
+                <div class="col">
+                  <div class="card card-gamer h-100 text-center p-2">
+                    <i class="bi bi-usb-c text-info fs-1 my-2" aria-hidden="true"></i>
+                    <div class="card-body p-2 d-flex flex-column">
+                      <span class="text-white small fw-bold mb-1">Cable RGB 24pin</span>
+                      <span class="text-secondary small mt-auto mb-2">S/ 120</span>
+                      <button class="btn btn-sm btn-outline-info w-100" style="font-size: 0.75rem;">Ver Detalle</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- Relacionado 2 -->
+                <div class="col">
+                  <div class="card card-gamer h-100 text-center p-2">
+                    <i class="bi bi-fan text-info fs-1 my-2" aria-hidden="true"></i>
+                    <div class="card-body p-2 d-flex flex-column">
+                      <span class="text-white small fw-bold mb-1">Cooler Master 120mm</span>
+                      <span class="text-secondary small mt-auto mb-2">S/ 85</span>
+                      <button class="btn btn-sm btn-outline-info w-100" style="font-size: 0.75rem;">Ver Detalle</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- Relacionado 3 -->
+                <div class="col">
+                  <div class="card card-gamer h-100 text-center p-2">
+                    <i class="bi bi-lightning-charge text-info fs-1 my-2" aria-hidden="true"></i>
+                    <div class="card-body p-2 d-flex flex-column">
+                      <span class="text-white small fw-bold mb-1">Fuente 750W Gold</span>
+                      <span class="text-secondary small mt-auto mb-2">S/ 450</span>
+                      <button class="btn btn-sm btn-outline-info w-100" style="font-size: 0.75rem;">Ver Detalle</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- Relacionado 4 -->
+                <div class="col">
+                  <div class="card card-gamer h-100 text-center p-2">
+                    <i class="bi bi-mouse text-info fs-1 my-2" aria-hidden="true"></i>
+                    <div class="card-body p-2 d-flex flex-column">
+                      <span class="text-white small fw-bold mb-1">Mouse Pro Wireless</span>
+                      <span class="text-secondary small mt-auto mb-2">S/ 299</span>
+                      <button class="btn btn-sm btn-outline-info w-100" style="font-size: 0.75rem;">Ver Detalle</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Pie de página del Modal -->
+        <div class="modal-footer border-secondary bg-dark">
+          <button type="button" class="btn btn-outline-secondary text-white border-secondary" data-bs-dismiss="modal">Seguir buscando</button>
+          <button type="button" class="btn btn-accent" onclick="confirmAddToCart()" id="btnModalAdd">
+            <i class="bi bi-cart-plus-fill me-1" aria-hidden="true"></i> Añadir S/ <span id="modalBtnPrice">0</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== FOOTER COMPARTIDO ===================== -->
+  <footer class="py-4 border-top">
+    <div class="container">
+      <div class="row gy-3">
+        <div class="col-12 col-md-4">
+          <p class="fw-semibold mb-1 d-flex align-items-center gap-2">
+            <i class="bi bi-cpu-fill text-accent" aria-hidden="true"></i> TechLab
+          </p>
+          <p class="text-body-secondary small mb-0">Artículos tecnológicos con garantía real.</p>
+        </div>
+        <div class="col-6 col-md-4">
+          <p class="fw-semibold small mb-2">Enlaces</p>
+          <ul class="list-unstyled small text-body-secondary">
+            <li><a href="catalogo.html" class="footer-link">Catálogo</a></li>
+            <li><a href="mi_cuenta.html" class="footer-link">Mi cuenta</a></li>
+            <li><a href="mi_cuenta.html#soporte-pane" class="footer-link">Centro de ayuda</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-4 text-md-end">
+          <p class="small text-body-secondary mb-0">© <span id="anioActual"></span> TechLab. Proyecto académico.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5.3.8 JS Bundle (Requerido para el funcionamiento dinámico del modal y colapsables) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <!-- Lógica modular de comportamiento de Catálogo y Ficha -->
+  <script src="../js/catalogo.js"></script>
+</body>
+</html>
