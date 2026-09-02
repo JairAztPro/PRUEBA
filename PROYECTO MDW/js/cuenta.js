@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const anioSpan = document.getElementById('anioActual');
   if (anioSpan) anioSpan.textContent = new Date().getFullYear();
 
-  // uso de array porque no hay BD ;-;
+  // uso de array porque no hay BD
   const usuariosRegistrados = [];
 
   const formPerfil = document.getElementById('formPerfil');
@@ -13,17 +13,20 @@ document.addEventListener('DOMContentLoaded', () => {
       const inputNombre = document.getElementById('perfilNombre');
       const inputCorreo = document.getElementById('perfilCorreo');
       const inputPass = document.getElementById('perfilPass');
+      const checkTerminos = document.getElementById('checkTerminos');
 
       // validaciones + restricciones
       const nombreValido = inputNombre.value.trim() !== '';
       const correoValido = inputCorreo.value.trim().toLowerCase().endsWith('@gmail.com');
       const passValido = inputPass.value.trim().length >= 6;
+      const terminosValidos = checkTerminos.checked; // Verifica que la casilla esté marcada
 
       inputNombre.classList.toggle('is-invalid', !nombreValido);
       inputCorreo.classList.toggle('is-invalid', !correoValido);
       inputPass.classList.toggle('is-invalid', !passValido);
+      checkTerminos.classList.toggle('is-invalid', !terminosValidos);
 
-      if (nombreValido && correoValido && passValido) {
+      if (nombreValido && correoValido && passValido && terminosValidos) {
         // toma de datos
         const nuevoUsuario = {
           id: Date.now(),
@@ -42,11 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         alert(`¡Registro exitoso! Bienvenido, ${nuevoUsuario.usuario}.`);
 
-        // limpiar form
+        // limpiar form y quitar estados de error
         formPerfil.reset();
         inputNombre.classList.remove('is-invalid');
         inputCorreo.classList.remove('is-invalid');
         inputPass.classList.remove('is-invalid');
+        checkTerminos.classList.remove('is-invalid');
       }
     });
   }
