@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
         valor.textContent = "S/ 1500";
       }
       if (selectOrden) selectOrden.selectedIndex = 0;
-      
+
       if (window.location.search) {
         window.history.replaceState({}, document.title, window.location.pathname);
       }
@@ -115,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
     aplicarFiltrosYOrden();
   }
 
-  window.clearURLFilters = function() {
+  window.clearURLFilters = function () {
     window.location.href = "catalogo.html";
   };
 
@@ -145,17 +145,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const modalSpecsTableBody = document.getElementById("modalDynamicSpecsTableBody");
   const modalTagsContainer = document.getElementById("modalDynamicTagsContainer");
 
-  let basePrice = 899; 
-  let currentProductIcon = "bi-motherboard";
+  let basePrice = 899;
+  // Cambiamos currentProductIcon por un array de imágenes
+  let currentProductImages = [];
 
   if (modalFicha) {
-    // show.bs.modal: Ocurre antes de la transición para inyectar datos de forma inmediata
+    // show.bs.modal: Ocurre antes de la transición para inyectar datos
     modalFicha.addEventListener("show.bs.modal", (event) => {
       const triggerButton = event.relatedTarget;
       if (triggerButton) {
         const productName = triggerButton.getAttribute("data-producto") ?? "Componente Gamer";
         basePrice = parseFloat(triggerButton.getAttribute("data-precio") ?? "899");
-        currentProductIcon = triggerButton.getAttribute("data-icono") ?? "bi-cpu";
+
+        // Capturamos las imágenes (pueden venir separadas por coma)
+        const imagesStr = triggerButton.getAttribute("data-imagen") ?? "https://dlcdnwebimgs.asus.com/files/media/A9730D0E-D1A6-40C1-9282-F1BA1B13BFB4/v1/img/spec/connectivity.jpg";
+        currentProductImages = imagesStr.split(","); // Convertimos en array
+
         const productDesc = triggerButton.getAttribute("data-desc") ?? "";
         const productSpecsStr = triggerButton.getAttribute("data-specs") ?? "";
         const productTagsStr = triggerButton.getAttribute("data-tags") ?? "";
@@ -167,9 +172,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (modalQtyInput) modalQtyInput.value = "1";
         if (modalDescription) modalDescription.textContent = productDesc;
 
-        // Render inicial de galería y miniaturas
-        changeModalImage(null, 'principal', currentProductIcon);
-        configureThumbnails(currentProductIcon);
+        // Render inicial de galería y miniaturas usando la primera imagen
+        changeModalImage(null, 'principal', currentProductImages[0]);
+        configureThumbnails(currentProductImages);
 
         // Badges dinámicos
         if (modalTagsContainer) {
@@ -188,40 +193,33 @@ document.addEventListener("DOMContentLoaded", () => {
         if (modalSpecsTableBody) {
           modalSpecsTableBody.innerHTML = "";
           if (productSpecsStr) {
-            if (productSpecsStr) {
-              productSpecsStr.split(";").forEach(spec => {
-                const parts = spec.split(":");
-                if (parts.length === 2) {
+            productSpecsStr.split(";").forEach(spec => {
+              const parts = spec.split(":");
+              if (parts.length === 2) {
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
-                <th scope="row"
-               class="text-white small py-2"
-                style="width: 40%;">
-                ${parts[0].trim()}
+                <th scope="row" class="text-white small py-2" style="width: 40%;">
+                  ${parts[0].trim()}
                 </th>
                 <td class="text-secondary small py-2">
-                 ${parts[1].trim()}
+                  ${parts[1].trim()}
                 </td>
-                `;
-
-      modalSpecsTableBody.appendChild(tr);
-    }
-  });
-}
-
+              `;
+                modalSpecsTableBody.appendChild(tr);
+              }
+            });
           }
         }
       }
     });
 
-    // shown.bs.modal: Establecer foco accesible por teclado una vez abierto
     modalFicha.addEventListener("shown.bs.modal", () => {
       if (btnModalAdd) btnModalAdd.focus();
     });
   }
 
   // Controles del selector de cantidad
-  window.changeModalQty = function(amount) {
+  window.changeModalQty = function (amount) {
     if (!modalQtyInput) return;
     let currentVal = parseInt(modalQtyInput.value);
     if (!isNaN(currentVal)) {
@@ -235,33 +233,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  window.confirmAddToCart = function() {
+  window.confirmAddToCart = function () {
     const qty = modalQtyInput ? modalQtyInput.value : 1;
     const name = modalTitle ? modalTitle.textContent : "Producto";
     alert(`¡Éxito! Se han agregado ${qty} unidades de "${name}" al carrito.`);
-    
+
     if (modalFicha) {
       const modalInstance = bootstrap.Modal.getInstance(modalFicha);
       modalInstance?.hide();
     }
   };
 
-  // Visor interactivo de galería de imágenes
-  window.changeModalImage = function(element, viewType, iconClass) {
+  // ==========================================
+  // VISOR DE IMÁGENES ACTUALIZADO
+  // ==========================================
+  window.changeModalImage = function (element, viewType, imageUrl) {
     const container = document.getElementById("modalMainImageContainer");
     const tag = document.getElementById("modalImgTag");
     const thumbnails = document.querySelectorAll(".img-thumbnail-gamer");
-    
+
     let text = "Imagen de Referencia";
     if (viewType === 'principal') text = "Imagen de Referencia";
     if (viewType === 'secundaria') text = "Foco en Componentes";
     if (viewType === 'caja') text = "Empaque y Accesorios";
 
-    if (container && tag) {
+    if (container) {
+      // Inyectamos la imagen principal
       container.innerHTML = `
-        <i class="bi ${iconClass} text-info" style="font-size: 8rem; display: block;" aria-hidden="true"></i>
-        <span class="fw-bold text-uppercase tracking-wider text-secondary small d-block mt-2" id="modalImgTag">${text}</span>
-      `;
+      <img src="${imageUrl}" alt="${text}" class="w-100 h-100 object-fit-cover rounded" style="max-height: 280px; object-position: center;">
+      <span class="fw-bold text-uppercase tracking-wider text-secondary small d-block mt-2" id="modalImgTag">${text}</span>
+    `;
     }
 
     thumbnails.forEach(btn => btn.classList.remove('active'));
@@ -270,28 +271,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  function configureThumbnails(mainIcon) {
+  function configureThumbnails(imagesArray) {
     const thumb1 = document.getElementById("thumb1");
     const thumb2 = document.getElementById("thumb2");
     const thumb3 = document.getElementById("thumb3");
 
+    // Si solo pasas 1 imagen, repetimos la primera en las demás para evitar errores.
+    // Si pasas 3 separadas por coma, usará cada una.
+    let img1 = imagesArray[0] ? imagesArray[0].trim() : '';
+    let img2 = imagesArray[1] ? imagesArray[1].trim() : img1;
+    let img3 = imagesArray[2] ? imagesArray[2].trim() : img1;
+
     if (thumb1) {
-      thumb1.innerHTML = `<i class="bi ${mainIcon} text-info fs-3" aria-hidden="true"></i>`;
-      thumb1.onclick = function() { changeModalImage(this, 'principal', mainIcon); };
+      thumb1.innerHTML = `<img src="${img1}" class="img-fluid rounded" style="height: 50px; object-fit: cover; width: 100%;">`;
+      thumb1.onclick = function () { changeModalImage(this, 'principal', img1); };
       thumb1.classList.add('active');
     }
     if (thumb2) {
-      let secondaryIcon = 'bi-usb-c';
-      if (mainIcon === 'bi-gpu-card') secondaryIcon = 'bi-fan';
-      if (mainIcon === 'bi-memory') secondaryIcon = 'bi-lightning-charge';
-      
-      thumb2.innerHTML = `<i class="bi ${secondaryIcon} text-info fs-3" aria-hidden="true"></i>`;
-      thumb2.onclick = function() { changeModalImage(this, 'secundaria', secondaryIcon); };
+      thumb2.innerHTML = `<img src="${img2}" class="img-fluid rounded" style="height: 50px; object-fit: cover; width: 100%;">`;
+      thumb2.onclick = function () { changeModalImage(this, 'secundaria', img2); };
       thumb2.classList.remove('active');
     }
     if (thumb3) {
-      thumb3.innerHTML = `<i class="bi bi-box-seam text-info fs-3" aria-hidden="true"></i>`;
-      thumb3.onclick = function() { changeModalImage(this, 'caja', 'bi-box-seam'); };
+      thumb3.innerHTML = `<img src="${img3}" class="img-fluid rounded" style="height: 50px; object-fit: cover; width: 100%;">`;
+      thumb3.onclick = function () { changeModalImage(this, 'caja', img3); };
       thumb3.classList.remove('active');
     }
   }
