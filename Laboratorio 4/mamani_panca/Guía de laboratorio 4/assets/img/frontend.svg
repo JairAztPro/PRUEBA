@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360" role="img" aria-labelledby="frontendTitle">
+  <title id="frontendTitle">Ilustración de una interfaz web con componentes de Bootstrap</title>
+  <defs>
+    <linearGradient id="fgBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1f5f8b"/>
+      <stop offset="100%" stop-color="#123a56"/>
+    </linearGradient>
+  </defs>
+  <rect width="640" height="360" fill="url(#fgBg)"/>
+  <rect x="60" y="48" width="520" height="264" rx="10" fill="#ffffff"/>
+  <rect x="60" y="48" width="520" height="34" rx="10" fill="#e9edf1"/>
+  <circle cx="82" cy="65" r="6" fill="#e2574c"/>
+  <circle cx="102" cy="65" r="6" fill="#e7b93a"/>
+  <circle cx="122" cy="65" r="6" fill="#3fa66e"/>
+  <rect x="84" y="104" width="200" height="18" rx="4" fill="#1f5f8b"/>
+  <rect x="84" y="136" width="280" height="10" rx="4" fill="#c3cdd6"/>
+  <rect x="84" y="154" width="240" height="10" rx="4" fill="#c3cdd6"/>
+  <rect x="84" y="184" width="120" height="34" rx="6" fill="#1f5f8b"/>
+  <rect x="352" y="104" width="184" height="120" rx="8" fill="#eef3f7" stroke="#c3cdd6"/>
+  <rect x="372" y="124" width="144" height="12" rx="3" fill="#8aa2b3"/>
+  <rect x="372" y="146" width="100" height="10" rx="3" fill="#c3cdd6"/>
+  <rect x="372" y="164" width="130" height="10" rx="3" fill="#c3cdd6"/>
+  <rect x="84" y="240" width="452" height="46" rx="6" fill="#fff3cd" stroke="#ffe08a"/>
+  <text x="106" y="268" font-family="Segoe UI, Arial, sans-serif" font-size="16" fill="#7a5b00">HTML + CSS + JavaScript + Bootstrap</text>
+</svg>

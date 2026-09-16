@@ -1,0 +1,77 @@
+[
+  {
+    "caso": "CP-01 Consola y red",
+    "ok": true,
+    "detalle": "errores consola=0 (); solicitudes fallidas=0 ()"
+  },
+  {
+    "caso": "Ancho 360x800",
+    "ok": true,
+    "detalle": "scrollWidth=360 clientWidth=360"
+  },
+  {
+    "caso": "Ancho 768x1024",
+    "ok": true,
+    "detalle": "scrollWidth=768 clientWidth=768"
+  },
+  {
+    "caso": "Ancho 1024x768",
+    "ok": true,
+    "detalle": "scrollWidth=1024 clientWidth=1024"
+  },
+  {
+    "caso": "Ancho 1440x900",
+    "ok": true,
+    "detalle": "scrollWidth=1440 clientWidth=1440"
+  },
+  {
+    "caso": "Zoom 200% (aprox.)",
+    "ok": true,
+    "detalle": "scrollWidth=640 clientWidth=640"
+  },
+  {
+    "caso": "CP-02 Navbar con teclado",
+    "ok": true,
+    "detalle": "aria-expanded antes=false después=true"
+  },
+  {
+    "caso": "CP-03 Enlaces internos",
+    "ok": true,
+    "detalle": "secciones verificadas: #inicio, #rutas, #horarios, #contacto"
+  },
+  {
+    "caso": "CP-04 Transferencia de curso",
+    "ok": true,
+    "detalle": "valor recibido=\"Backend con Spring Boot\""
+  },
+  {
+    "caso": "CP-05 Escape y retorno de foco",
+    "ok": true,
+    "detalle": "modalVisible=0 focoActivo=Frontend con Bootstrap"
+  },
+  {
+    "caso": "CP-06 Envío vacío",
+    "ok": true,
+    "detalle": "was-validated=1 foco=nombre estadoOculto=1"
+  },
+  {
+    "caso": "CP-07 Correo inválido",
+    "ok": true,
+    "detalle": "correoInvalido=true focoEnCorreo=true"
+  },
+  {
+    "caso": "CP-08 Datos válidos",
+    "ok": true,
+    "detalle": "mensaje=\"Registro de demostración completado. Gracias por tu interés.\""
+  },
+  {
+    "caso": "CP-09 Reinicio al reabrir",
+    "ok": true,
+    "detalle": "nombre=\"\" was-validated=0 estadoOculto=1"
+  },
+  {
+    "caso": "CP-10 Recorrido con Tab",
+    "ok": true,
+    "detalle": "secuencia de foco: A:Saltar al contenido  -> A:TechLab -> A:Inicio -> A:Rutas -> A:Horarios -> A:Contacto -> A:Ver rutas disponible -> BUTTON:Frontend con Bootstrap -> BUTTON:Backend con Spring Boot -> BUTTON:Fullstack Web -> A:Rutas -> BODY:Saltar al contenido  -> A:Saltar al contenido  -> A:TechLab -> A:Inicio"
+  }
+]
