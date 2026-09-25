@@ -1,16 +1,19 @@
 <!doctype html>
 <html lang="es" data-bs-theme="dark">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ChipZone - Catálogo Gamer</title>
   <!-- Bootstrap 5.3.8 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
   <!-- Estilos del Proyecto (Acceso desde subcarpeta html/) -->
   <link rel="stylesheet" href="../css/styles.css">
 </head>
+
 <body>
 
   <!-- ENLACE DE SALTO ACCESIBLE (Rúbrica de Accesibilidad) -->
@@ -20,19 +23,22 @@
 
   <!-- ===================== NAVBAR COMPARTIDO ===================== -->
   <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-body-tertiary sticky-top border-bottom" aria-label="Navegación principal">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-body-tertiary sticky-top border-bottom"
+      aria-label="Navegación principal">
       <div class="container">
         <a class="navbar-brand fw-semibold d-flex align-items-center gap-2" href="inicio.html">
           <i class="bi bi-cpu-fill text-accent" aria-hidden="true"></i> ChipZone
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Mostrar u ocultar navegación">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal"
+          aria-controls="menuPrincipal" aria-expanded="false" aria-label="Mostrar u ocultar navegación">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="menuPrincipal">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item"><a class="nav-link" href="inicio.html">Inicio</a></li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
                 Categorías
               </a>
               <ul class="dropdown-menu dropdown-menu-dark">
@@ -46,7 +52,7 @@
             <li class="nav-item"><a class="nav-link" href="mi_cuenta.html">Mi cuenta</a></li>
             <li class="nav-item"><a class="nav-link" href="mi_cuenta.html#soporte-pane">Ayuda</a></li>
           </ul>
-          
+
           <!-- Barra de búsqueda -->
           <form class="d-flex me-lg-3 my-2 my-lg-0" role="search" id="formBusqueda">
             <label for="buscarProducto" class="visually-hidden">Buscar producto</label>
@@ -54,7 +60,8 @@
               <span class="input-group-text bg-body-tertiary border-secondary-subtle" id="iconoBusqueda">
                 <i class="bi bi-search" aria-hidden="true"></i>
               </span>
-              <input type="search" class="form-control border-secondary-subtle" id="buscarProducto" placeholder="Busca laptops, celulares, gaming..." aria-describedby="iconoBusqueda">
+              <input type="search" class="form-control border-secondary-subtle" id="buscarProducto"
+                placeholder="Busca laptops, celulares, gaming..." aria-describedby="iconoBusqueda">
             </div>
           </form>
 
@@ -63,7 +70,8 @@
             <a href="mi_cuenta.html" class="text-decoration-none nav-icon" aria-label="Mi cuenta">
               <i class="bi bi-person" aria-hidden="true"></i>
             </a>
-            <a href="carrito.html" class="text-decoration-none nav-icon position-relative" aria-label="Carrito de compras, 2 productos">
+            <a href="carrito.html" class="text-decoration-none nav-icon position-relative"
+              aria-label="Carrito de compras, 2 productos">
               <i class="bi bi-cart3" aria-hidden="true"></i>
               <span class="badge rounded-pill bg-accent position-absolute top-0 start-100 translate-middle">2</span>
             </a>
@@ -74,75 +82,77 @@
   </header>
 
   <!-- ======================== VISTA 2: CATÁLOGO CON FILTROS ============================ -->
-<main id="contenido-principal">
-  <section class="container py-5">
-    <!-- Cabecera del Catálogo -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <div>
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb m-0">
-            <li class="breadcrumb-item"><a href="inicio.html" class="text-secundario text-decoration-none">Inicio</a></li>
-            <li class="breadcrumb-item active text-white" aria-current="page">Catálogo</li>
-          </ol>
-        </nav>
-        <h2 class="fw-bold mt-2">Catálogo</h2>
+  <main id="contenido-principal">
+    <section class="container py-5">
+      <!-- Cabecera del Catálogo -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb m-0">
+              <li class="breadcrumb-item"><a href="inicio.html" class="text-secundario text-decoration-none">Inicio</a>
+              </li>
+              <li class="breadcrumb-item active text-white" aria-current="page">Catálogo</li>
+            </ol>
+          </nav>
+          <h2 class="fw-bold mt-2">Catálogo</h2>
+        </div>
+        <select id="orden" class="form-select select-gamer" aria-label="Ordenar productos">
+          <option>Ordenar</option>
+          <option>Precio menor</option>
+          <option>Precio mayor</option>
+        </select>
       </div>
-      <select id="orden" class="form-select select-gamer" aria-label="Ordenar productos">
-        <option>Ordenar</option>
-        <option>Precio menor</option>
-        <option>Precio mayor</option>
-      </select>
-    </div>
 
-    <div class="row g-4">
-      <!-- Panel Lateral de Filtros -->
-      <aside class="col-12 col-lg-3">
-        <div class="card card-gamer p-3">
-          <h3 class="fw-bold h5 mb-3">Filtros</h3>
-          <form id="filtros">
-            <label class="form-label mt-2 fw-semibold text-secondary">Marca</label>
-            <div class="form-check">
-              <input class="form-check-input marca" type="checkbox" value="asus" id="marcaAsus">
-              <label class="form-check-label" for="marcaAsus">ASUS</label>
-            </div>
-            <div class="form-check text-white">
-              <input class="form-check-input marca" type="checkbox" value="msi" id="marcaMsi">
-              <label class="form-check-label" for="marcaMsi">MSI</label>
-            </div>
+      <div class="row g-4">
+        <!-- Panel Lateral de Filtros -->
+        <aside class="col-12 col-lg-3">
+          <div class="card card-gamer p-3">
+            <h3 class="fw-bold h5 mb-3">Filtros</h3>
+            <form id="filtros">
+              <label class="form-label mt-2 fw-semibold text-secondary">Marca</label>
+              <div class="form-check">
+                <input class="form-check-input marca" type="checkbox" value="asus" id="marcaAsus">
+                <label class="form-check-label" for="marcaAsus">ASUS</label>
+              </div>
+              <div class="form-check text-white">
+                <input class="form-check-input marca" type="checkbox" value="msi" id="marcaMsi">
+                <label class="form-check-label" for="marcaMsi">MSI</label>
+              </div>
 
-            <label class="form-label mt-4 fw-semibold text-secondary" for="precio">Precio máximo</label>
-            <input type="range" class="form-range" id="precio" min="100" max="1500" value="1500">
-            <div class="d-flex justify-content-between small mb-3">
-              <span class="text-secundario">S/ 100</span>
-              <span id="precioValor">S/ 1500</span>
-            </div>
+              <label class="form-label mt-4 fw-semibold text-secondary" for="precio">Precio máximo</label>
+              <input type="range" class="form-range" id="precio" min="100" max="1500" value="1500">
+              <div class="d-flex justify-content-between small mb-3">
+                <span class="text-secundario">S/ 100</span>
+                <span id="precioValor">S/ 1500</span>
+              </div>
 
-            <div class="form-check mb-3">
-              <input class="form-check-input" type="checkbox" id="stock">
-              <label class="form-check-label" for="stock">Solo con stock</label>
-            </div>
-            <button type="button" id="limpiar" class="btn btn-outline-secondary btn-sm w-100 mt-2">
-              Limpiar filtros
-            </button>
-          </form>
-        </div>
-      </aside>
+              <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="stock">
+                <label class="form-check-label" for="stock">Solo con stock</label>
+              </div>
+              <button type="button" id="limpiar" class="btn btn-outline-secondary btn-sm w-100 mt-2">
+                Limpiar filtros
+              </button>
+            </form>
+          </div>
+        </aside>
 
-      <!-- Grilla de Productos (Derecha) -->
-      <div class="col-12 col-lg-9">
-        <div id="filterAlertPlaceholder" class="mb-3 d-none"></div>
+        <!-- Grilla de Productos (Derecha) -->
+        <div class="col-12 col-lg-9">
+          <div id="filterAlertPlaceholder" class="mb-3 d-none"></div>
 
-        <!-- Grilla donde se colocan los 9 productos -->
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3" id="productos">
-          <!-- Aquí van tus 9 tarjetas de productos corregidas con h-100 d-flex flex-column -->
-        </div>
-      
+          <!-- Grilla donde se colocan los 9 productos -->
+          <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3" id="productos">
+
             <!-- Producto 1: ASUS ROG Strix B550-F -->
             <div class="col producto" data-marca="asus" data-precio="899" data-stock="true" data-categoria="gaming">
               <div class="card card-gamer h-100 d-flex flex-column">
-                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0" style="height: 150px;">
+                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0"
+                  style="height: 150px;">
                   <span class="badge bg-danger position-absolute top-0 start-0 m-2" style="z-index: 2;">-20%</span>
-                  <img src="https://dlcdnwebimgs.asus.com/files/media/A9730D0E-D1A6-40C1-9282-F1BA1B13BFB4/v1/img/spec/connectivity.jpg" alt="ROG Strix B550-F" class="w-100 h-100 object-fit-cover">
+                  <img
+                    src="https://dlcdnwebimgs.asus.com/files/media/A9730D0E-D1A6-40C1-9282-F1BA1B13BFB4/v1/img/spec/connectivity.jpg"
+                    alt="ROG Strix B550-F" class="w-100 h-100 object-fit-cover">
                 </div>
                 <div class="card-body d-flex flex-column p-3 flex-grow-1">
                   <small class="text-secundario">ASUS</small>
@@ -150,15 +160,12 @@
                   <p class="text-secundario small mb-3">Placa madre para gaming de alto rendimiento.</p>
                   <div class="mt-auto pt-2">
                     <strong class="precio-catalogo d-block mb-2">S/ 899</strong>
-                    <button class="btn btn-acento w-100"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalFichaProducto"
-                            data-producto="Placa Madre ASUS ROG Strix B550-F Gaming"
-                            data-precio="899"
-                            data-imagen="https://dlcdnwebimgs.asus.com/files/media/A9730D0E-D1A6-40C1-9282-F1BA1B13BFB4/v1/img/spec/connectivity.jpg, https://spacegamer.com.ar/img/Public/1058/46257-producto-2.jpg, https://m.media-amazon.com/images/I/81dnPvE6hUL._AC_SX466_.jpg"
-                            data-tags="AMD AM4, PCIe 4.0, DDR4"
-                            data-desc="La placa madre ROG Strix B550-F Gaming encarna la esencia pura de Republic of Gamers..."
-                            data-specs="Socket:AMD AM4;Chipset:AMD B550;Ranuras RAM:4 x DIMM DDR4 (Máx 128GB);Red:Intel® 2.5Gb Ethernet;Factor:ATX">
+                    <button class="btn btn-acento w-100" data-bs-toggle="modal" data-bs-target="#modalFichaProducto"
+                      data-producto="Placa Madre ASUS ROG Strix B550-F Gaming" data-precio="899"
+                      data-imagen="https://dlcdnwebimgs.asus.com/files/media/A9730D0E-D1A6-40C1-9282-F1BA1B13BFB4/v1/img/spec/connectivity.jpg, https://spacegamer.com.ar/img/Public/1058/46257-producto-2.jpg, https://m.media-amazon.com/images/I/81dnPvE6hUL._AC_SX466_.jpg"
+                      data-tags="AMD AM4, PCIe 4.0, DDR4"
+                      data-desc="La placa madre ROG Strix B550-F Gaming encarna la esencia pura de Republic of Gamers..."
+                      data-specs="Socket:AMD AM4;Chipset:AMD B550;Ranuras RAM:4 x DIMM DDR4 (Máx 128GB);Red:Intel® 2.5Gb Ethernet;Factor:ATX">
                       <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
                     </button>
                   </div>
@@ -169,8 +176,10 @@
             <!-- Producto 2: RTX 4060 Gaming -->
             <div class="col producto" data-marca="msi" data-precio="749" data-stock="true" data-categoria="gaming">
               <div class="card card-gamer h-100 d-flex flex-column">
-                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0" style="height: 150px;">
-                  <img src="https://http2.mlstatic.com/D_NQ_NP_976872-MPE73652908309_122023-O.webp" alt="RTX 4060 Gaming" class="w-100 h-100 object-fit-cover">
+                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0"
+                  style="height: 150px;">
+                  <img src="https://http2.mlstatic.com/D_NQ_NP_976872-MPE73652908309_122023-O.webp"
+                    alt="RTX 4060 Gaming" class="w-100 h-100 object-fit-cover">
                 </div>
                 <div class="card-body d-flex flex-column p-3 flex-grow-1">
                   <small class="text-secundario">MSI</small>
@@ -178,15 +187,12 @@
                   <p class="text-secundario small mb-3">Tarjeta gráfica optimizada para Ray Tracing.</p>
                   <div class="mt-auto pt-2">
                     <strong class="precio-catalogo d-block mb-2">S/ 749</strong>
-                    <button class="btn btn-acento w-100"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalFichaProducto"
-                            data-producto="Tarjeta Gráfica MSI RTX 4060 Gaming"
-                            data-precio="749"
-                            data-imagen="https://www.laptopperu.pe/wp-content/uploads/2023/12/tarjeta-grafica-msi-rtx-4060-8gb-gddr6-gaming-x-1.webp, https://imagedelivery.net/wExMwKP1304LY2ReXCyTPg/0e20af9b-3220-4491-1a1a-434c8a31df00/w=9999, https://http2.mlstatic.com/D_NQ_NP_976872-MPE73652908309_122023-O.webp"
-                            data-tags="Ray Tracing, DLSS 3, GDDR6"
-                            data-desc="Experimenta mundos virtuales sumamente realistas con la GPU MSI RTX 4060 Gaming..."
-                            data-specs="Arquitectura:NVIDIA Ada Lovelace;Memoria:8GB GDDR6;Frecuencia OC:2460 MHz;Interfaz:PCI Express 4.0;Salidas:3x DP / 1x HDMI">
+                    <button class="btn btn-acento w-100" data-bs-toggle="modal" data-bs-target="#modalFichaProducto"
+                      data-producto="Tarjeta Gráfica MSI RTX 4060 Gaming" data-precio="749"
+                      data-imagen="https://www.laptopperu.pe/wp-content/uploads/2023/12/tarjeta-grafica-msi-rtx-4060-8gb-gddr6-gaming-x-1.webp, https://imagedelivery.net/wExMwKP1304LY2ReXCyTPg/0e20af9b-3220-4491-1a1a-434c8a31df00/w=9999, https://http2.mlstatic.com/D_NQ_NP_976872-MPE73652908309_122023-O.webp"
+                      data-tags="Ray Tracing, DLSS 3, GDDR6"
+                      data-desc="Experimenta mundos virtuales sumamente realistas con la GPU MSI RTX 4060 Gaming..."
+                      data-specs="Arquitectura:NVIDIA Ada Lovelace;Memoria:8GB GDDR6;Frecuencia OC:2460 MHz;Interfaz:PCI Express 4.0;Salidas:3x DP / 1x HDMI">
                       <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
                     </button>
                   </div>
@@ -197,8 +203,10 @@
             <!-- Producto 3: RAM DDR4 16GB (Sin Stock) -->
             <div class="col producto" data-marca="msi" data-precio="459" data-stock="false" data-categoria="accesorios">
               <div class="card card-gamer h-100 d-flex flex-column">
-                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0" style="height: 150px;">
-                  <img src="https://media.falabella.com/falabellaPE/117795430_01/w=1500,h=1500,fit=cover" alt="RAM DDR4 16GB" class="w-100 h-100 object-fit-cover">
+                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0"
+                  style="height: 150px;">
+                  <img src="https://media.falabella.com/falabellaPE/117795430_01/w=1500,h=1500,fit=cover"
+                    alt="RAM DDR4 16GB" class="w-100 h-100 object-fit-cover">
                 </div>
                 <div class="card-body d-flex flex-column p-3 flex-grow-1">
                   <small class="text-secundario">MSI</small>
@@ -217,9 +225,12 @@
             <!-- Producto 4: Procesador AMD Ryzen 7 -->
             <div class="col producto" data-marca="asus" data-precio="1299" data-stock="true" data-categoria="gaming">
               <div class="card card-gamer h-100 d-flex flex-column">
-                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0" style="height: 150px;">
+                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0"
+                  style="height: 150px;">
                   <span class="badge bg-success position-absolute top-0 start-0 m-2" style="z-index: 2;">Nuevo</span>
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLurUPMj2F0zS9vvrXaO3aXfhmaqduRNNGkCm-dKCgb1qADNoiM8stSps&s=10" alt="Ryzen 7 5800X3D" class="w-100 h-100 object-fit-cover">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLurUPMj2F0zS9vvrXaO3aXfhmaqduRNNGkCm-dKCgb1qADNoiM8stSps&s=10"
+                    alt="Ryzen 7 5800X3D" class="w-100 h-100 object-fit-cover">
                 </div>
                 <div class="card-body d-flex flex-column p-3 flex-grow-1">
                   <small class="text-secundario">ASUS / AMD</small>
@@ -227,15 +238,12 @@
                   <p class="text-secundario small mb-3">Procesador diseñado para máximo rendimiento en juegos.</p>
                   <div class="mt-auto pt-2">
                     <strong class="precio-catalogo d-block mb-2">S/ 1,299</strong>
-                    <button class="btn btn-acento w-100"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalFichaProducto"
-                            data-producto="Procesador AMD Ryzen 7 5800X3D"
-                            data-precio="1299"
-                            data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLurUPMj2F0zS9vvrXaO3aXfhmaqduRNNGkCm-dKCgb1qADNoiM8stSps&s=10"
-                            data-tags="Socket AM4, 3D V-Cache, 8 Núcleos"
-                            data-desc="El procesador AMD Ryzen 7 5800X3D ofrece una tecnología de caché avanzada..."
-                            data-specs="Arquitectura:Zen 3;Núcleos/Hilos:8 / 16;Caché L3:96MB;Velocidad Base:3.4 GHz;TDP:105W">
+                    <button class="btn btn-acento w-100" data-bs-toggle="modal" data-bs-target="#modalFichaProducto"
+                      data-producto="Procesador AMD Ryzen 7 5800X3D" data-precio="1299"
+                      data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLurUPMj2F0zS9vvrXaO3aXfhmaqduRNNGkCm-dKCgb1qADNoiM8stSps&s=10"
+                      data-tags="Socket AM4, 3D V-Cache, 8 Núcleos"
+                      data-desc="El procesador AMD Ryzen 7 5800X3D ofrece una tecnología de caché avanzada..."
+                      data-specs="Arquitectura:Zen 3;Núcleos/Hilos:8 / 16;Caché L3:96MB;Velocidad Base:3.4 GHz;TDP:105W">
                       <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
                     </button>
                   </div>
@@ -246,8 +254,11 @@
             <!-- Producto 5: Teclado Mecánico RGB -->
             <div class="col producto" data-marca="msi" data-precio="320" data-stock="true" data-categoria="accesorios">
               <div class="card card-gamer h-100 d-flex flex-column">
-                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0" style="height: 150px;">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXYCvkZKNggV-tKWA5Ac6c3J4lATVPYDRl5YCVYC8bpAPYoK8_W0ZAZKQ&s=10" alt="Teclado Vigor GK30" class="w-100 h-100 object-fit-cover">
+                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0"
+                  style="height: 150px;">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXYCvkZKNggV-tKWA5Ac6c3J4lATVPYDRl5YCVYC8bpAPYoK8_W0ZAZKQ&s=10"
+                    alt="Teclado Vigor GK30" class="w-100 h-100 object-fit-cover">
                 </div>
                 <div class="card-body d-flex flex-column p-3 flex-grow-1">
                   <small class="text-secundario">MSI</small>
@@ -255,15 +266,12 @@
                   <p class="text-secundario small mb-3">Teclado mecánico retroiluminado con switches táctiles.</p>
                   <div class="mt-auto pt-2">
                     <strong class="precio-catalogo d-block mb-2">S/ 320</strong>
-                    <button class="btn btn-acento w-100"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalFichaProducto"
-                            data-producto="Teclado Mecánico MSI Vigor GK30"
-                            data-precio="320"
-                            data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXYCvkZKNggV-tKWA5Ac6c3J4lATVPYDRl5YCVYC8bpAPYoK8_W0ZAZKQ&s=10"
-                            data-tags="RGB Mystic Light, Antighosting, Resistente"
-                            data-desc="Diseñado para la competición, el teclado MSI Vigor GK30 cuenta con iluminación RGB..."
-                            data-specs="Tipo de Switch:Mecánico Táctil;Iluminación:RGB por zonas;Conexión:USB 2.0 mallado;Peso:1042g;Compatibilidad:Windows 10/11">
+                    <button class="btn btn-acento w-100" data-bs-toggle="modal" data-bs-target="#modalFichaProducto"
+                      data-producto="Teclado Mecánico MSI Vigor GK30" data-precio="320"
+                      data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXYCvkZKNggV-tKWA5Ac6c3J4lATVPYDRl5YCVYC8bpAPYoK8_W0ZAZKQ&s=10"
+                      data-tags="RGB Mystic Light, Antighosting, Resistente"
+                      data-desc="Diseñado para la competición, el teclado MSI Vigor GK30 cuenta con iluminación RGB..."
+                      data-specs="Tipo de Switch:Mecánico Táctil;Iluminación:RGB por zonas;Conexión:USB 2.0 mallado;Peso:1042g;Compatibilidad:Windows 10/11">
                       <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
                     </button>
                   </div>
@@ -274,9 +282,12 @@
             <!-- Producto 6: Monitor Gamer 27 pulgadas -->
             <div class="col producto" data-marca="asus" data-precio="1450" data-stock="true" data-categoria="gaming">
               <div class="card card-gamer h-100 d-flex flex-column">
-                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0" style="height: 150px;">
+                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0"
+                  style="height: 150px;">
                   <span class="badge bg-danger position-absolute top-0 start-0 m-2" style="z-index: 2;">-15%</span>
-                  <img src="https://www.infotec.com.pe/101189-large_default/monitor-gamer-asus-27-tuf-vg279q5r-panel-fast-ips-200hz-03ms-hdmi-dp.jpg" alt="Monitor ASUS TUF 27" class="w-100 h-100 object-fit-cover">
+                  <img
+                    src="https://www.infotec.com.pe/101189-large_default/monitor-gamer-asus-27-tuf-vg279q5r-panel-fast-ips-200hz-03ms-hdmi-dp.jpg"
+                    alt="Monitor ASUS TUF 27" class="w-100 h-100 object-fit-cover">
                 </div>
                 <div class="card-body d-flex flex-column p-3 flex-grow-1">
                   <small class="text-secundario">ASUS</small>
@@ -284,15 +295,12 @@
                   <p class="text-secundario small mb-3">Pantalla IPS con tasa de refresco ultra rápida.</p>
                   <div class="mt-auto pt-2">
                     <strong class="precio-catalogo d-block mb-2">S/ 1,450</strong>
-                    <button class="btn btn-acento w-100"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalFichaProducto"
-                            data-producto="Monitor ASUS TUF Gaming 27&quot; 170Hz"
-                            data-precio="1450"
-                            data-imagen="https://www.infotec.com.pe/101189-large_default/monitor-gamer-asus-27-tuf-vg279q5r-panel-fast-ips-200hz-03ms-hdmi-dp.jpg"
-                            data-tags="IPS Full HD, 1ms MPRT, FreeSync Premium"
-                            data-desc="Disfruta de una fluidez visual insuperable con el monitor ASUS TUF Gaming..."
-                            data-specs="Tamaño:27 pulgadas;Resolución:1920 x 1080;Frecuencia:170Hz;Tiempo de respuesta:1ms;Puertos:DisplayPort / 2x HDMI">
+                    <button class="btn btn-acento w-100" data-bs-toggle="modal" data-bs-target="#modalFichaProducto"
+                      data-producto="Monitor ASUS TUF Gaming 27&quot; 170Hz" data-precio="1450"
+                      data-imagen="https://www.infotec.com.pe/101189-large_default/monitor-gamer-asus-27-tuf-vg279q5r-panel-fast-ips-200hz-03ms-hdmi-dp.jpg"
+                      data-tags="IPS Full HD, 1ms MPRT, FreeSync Premium"
+                      data-desc="Disfruta de una fluidez visual insuperable con el monitor ASUS TUF Gaming..."
+                      data-specs="Tamaño:27 pulgadas;Resolución:1920 x 1080;Frecuencia:170Hz;Tiempo de respuesta:1ms;Puertos:DisplayPort / 2x HDMI">
                       <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
                     </button>
                   </div>
@@ -303,8 +311,11 @@
             <!-- Producto 7: Fuente de Poder 750W Gold -->
             <div class="col producto" data-marca="msi" data-precio="450" data-stock="true" data-categoria="accesorios">
               <div class="card card-gamer h-100 d-flex flex-column">
-                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0" style="height: 150px;">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8ZggilGieQahiFGG-iFUUp-HgLYnMwJdLOH7wa7qdyxpO6UoXoC0MOtWS&s=10" alt="Fuente 750W Gold" class="w-100 h-100 object-fit-cover">
+                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0"
+                  style="height: 150px;">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8ZggilGieQahiFGG-iFUUp-HgLYnMwJdLOH7wa7qdyxpO6UoXoC0MOtWS&s=10"
+                    alt="Fuente 750W Gold" class="w-100 h-100 object-fit-cover">
                 </div>
                 <div class="card-body d-flex flex-column p-3 flex-grow-1">
                   <small class="text-secundario">MSI</small>
@@ -312,15 +323,12 @@
                   <p class="text-secundario small mb-3">Certificación 80 Plus Gold modular para máxima eficiencia.</p>
                   <div class="mt-auto pt-2">
                     <strong class="precio-catalogo d-block mb-2">S/ 450</strong>
-                    <button class="btn btn-acento w-100"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalFichaProducto"
-                            data-producto="Fuente de Poder MSI 750W Gold"
-                            data-precio="450"
-                            data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8ZggilGieQahiFGG-iFUUp-HgLYnMwJdLOH7wa7qdyxpO6UoXoC0MOtWS&s=10"
-                            data-tags="80 Plus Gold, Modular, Silenciosa"
-                            data-desc="Energía estable y limpia para todo tu hardware de alto rendimiento..."
-                            data-specs="Potencia:750W;Certificación:80 Plus Gold;Ventilador:120mm silencioso;Protecciones:OPP/OVP/SCP;Garantía:5 años">
+                    <button class="btn btn-acento w-100" data-bs-toggle="modal" data-bs-target="#modalFichaProducto"
+                      data-producto="Fuente de Poder MSI 750W Gold" data-precio="450"
+                      data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8ZggilGieQahiFGG-iFUUp-HgLYnMwJdLOH7wa7qdyxpO6UoXoC0MOtWS&s=10"
+                      data-tags="80 Plus Gold, Modular, Silenciosa"
+                      data-desc="Energía estable y limpia para todo tu hardware de alto rendimiento..."
+                      data-specs="Potencia:750W;Certificación:80 Plus Gold;Ventilador:120mm silencioso;Protecciones:OPP/OVP/SCP;Garantía:5 años">
                       <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
                     </button>
                   </div>
@@ -331,9 +339,12 @@
             <!-- Producto 8: Silla Gamer Profesional -->
             <div class="col producto" data-marca="asus" data-precio="999" data-stock="true" data-categoria="accesorios">
               <div class="card card-gamer h-100 d-flex flex-column">
-                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0" style="height: 150px;">
+                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0"
+                  style="height: 150px;">
                   <span class="badge bg-danger position-absolute top-0 start-0 m-2" style="z-index: 2;">-10%</span>
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCF5A-ktfG4dyUyYQRu4WB2ip7AIZVn6_9W_faUY6NTaTzafVamDfHAKU&s=10" alt="Silla ROG Chariot" class="w-100 h-100 object-fit-cover">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCF5A-ktfG4dyUyYQRu4WB2ip7AIZVn6_9W_faUY6NTaTzafVamDfHAKU&s=10"
+                    alt="Silla ROG Chariot" class="w-100 h-100 object-fit-cover">
                 </div>
                 <div class="card-body d-flex flex-column p-3 flex-grow-1">
                   <small class="text-secundario">ASUS</small>
@@ -341,15 +352,12 @@
                   <p class="text-secundario small mb-3">Ergonomía superior para largas jornadas de juego.</p>
                   <div class="mt-auto pt-2">
                     <strong class="precio-catalogo d-block mb-2">S/ 999</strong>
-                    <button class="btn btn-acento w-100"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalFichaProducto"
-                            data-producto="Silla Gamer ASUS ROG Chariot"
-                            data-precio="999"
-                            data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCF5A-ktfG4dyUyYQRu4WB2ip7AIZVn6_9W_faUY6NTaTzafVamDfHAKU&s=10"
-                            data-tags="Ergonómica, Espuma Viscoelástica, Soporte Lumbar"
-                            data-desc="Diseñada para ofrecer el máximo confort ergonómico..."
-                            data-specs="Material:Cuero sintético respirable;Estructura:Acero reforzado;Pistón de gas:Clase 4;Inclinación:Hasta 145 grados;Peso máximo:150 kg">
+                    <button class="btn btn-acento w-100" data-bs-toggle="modal" data-bs-target="#modalFichaProducto"
+                      data-producto="Silla Gamer ASUS ROG Chariot" data-precio="999"
+                      data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCF5A-ktfG4dyUyYQRu4WB2ip7AIZVn6_9W_faUY6NTaTzafVamDfHAKU&s=10"
+                      data-tags="Ergonómica, Espuma Viscoelástica, Soporte Lumbar"
+                      data-desc="Diseñada para ofrecer el máximo confort ergonómico..."
+                      data-specs="Material:Cuero sintético respirable;Estructura:Acero reforzado;Pistón de gas:Clase 4;Inclinación:Hasta 145 grados;Peso máximo:150 kg">
                       <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
                     </button>
                   </div>
@@ -360,8 +368,11 @@
             <!-- Producto 9: Kit de Refrigeración Líquida -->
             <div class="col producto" data-marca="msi" data-precio="620" data-stock="true" data-categoria="gaming">
               <div class="card card-gamer h-100 d-flex flex-column">
-                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0" style="height: 150px;">
-                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMNwhgAMqKC7evc7J8ByqzwCwfzUA0xuWcLlIzyDlhxT1UFz7OW55H55B8&s=10" alt="Cooler Líquido MAG 240" class="w-100 h-100 object-fit-cover">
+                <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0"
+                  style="height: 150px;">
+                  <img
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMNwhgAMqKC7evc7J8ByqzwCwfzUA0xuWcLlIzyDlhxT1UFz7OW55H55B8&s=10"
+                    alt="Cooler Líquido MAG 240" class="w-100 h-100 object-fit-cover">
                 </div>
                 <div class="card-body d-flex flex-column p-3 flex-grow-1">
                   <small class="text-secundario">MSI</small>
@@ -369,26 +380,25 @@
                   <p class="text-secundario small mb-3">Disipación líquida AIO con iluminación ARGB integrada.</p>
                   <div class="mt-auto pt-2">
                     <strong class="precio-catalogo d-block mb-2">S/ 620</strong>
-                    <button class="btn btn-acento w-100"
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalFichaProducto"
-                            data-producto="Refrigeración Líquida MSI MAG 240"
-                            data-precio="620"
-                            data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMNwhgAMqKC7evc7J8ByqzwCwfzUA0xuWcLlIzyDlhxT1UFz7OW55H55B8&s=10"
-                            data-tags="Radiador 240mm, ARGB, Bomba silenciosa"
-                            data-desc="Mantén las temperaturas de tu CPU bajo control..."
-                            data-specs="Radiador:Aluminio 240mm;Ventiladores:2 x 120mm ARGB;Velocidad del ventilador:500-2000 RPM;Nivel de ruido:max 34.3 dBA;Sockets compatibles:Intel / AMD">
+                    <button class="btn btn-acento w-100" data-bs-toggle="modal" data-bs-target="#modalFichaProducto"
+                      data-producto="Refrigeración Líquida MSI MAG 240" data-precio="620"
+                      data-imagen="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMNwhgAMqKC7evc7J8ByqzwCwfzUA0xuWcLlIzyDlhxT1UFz7OW55H55B8&s=10"
+                      data-tags="Radiador 240mm, ARGB, Bomba silenciosa"
+                      data-desc="Mantén las temperaturas de tu CPU bajo control..."
+                      data-specs="Radiador:Aluminio 240mm;Ventiladores:2 x 120mm ARGB;Velocidad del ventilador:500-2000 RPM;Nivel de ruido:max 34.3 dBA;Sockets compatibles:Intel / AMD">
                       <i class="bi bi-eye-fill me-1" aria-hidden="true"></i> Ver Detalles
                     </button>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
 
           <!-- Paginación (Vista 2) -->
           <nav class="mt-4" aria-label="Navegación del catálogo">
             <ul class="pagination justify-content-center">
-              <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a></li>
+              <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"
+                  aria-disabled="true">Anterior</a></li>
               <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
               <li class="page-item"><a class="page-link" href="#">2</a></li>
               <li class="page-item"><a class="page-link" href="#">3</a></li>
@@ -404,44 +414,53 @@
        ========================================== -->
   <div class="modal fade" id="modalFichaProducto" tabindex="-1" aria-labelledby="modalDynamicTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
-      <div class="modal-content border-secondary card-gamer" style="background-color: var(--nt-surface); border: 1px solid var(--bs-border-color);">
-        
+      <div class="modal-content border-secondary card-gamer"
+        style="background-color: var(--nt-surface); border: 1px solid var(--bs-border-color);">
+
         <!-- Cabecera del Modal -->
         <div class="modal-header bg-dark border-secondary text-white">
           <div class="d-flex align-items-center gap-2">
             <i class="bi bi-cpu-fill text-accent fs-5" aria-hidden="true"></i>
             <h2 class="modal-title h5 mb-0 fw-bold">Ficha Técnica de Producto</h2>
           </div>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar modal"></button>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+            aria-label="Cerrar modal"></button>
         </div>
 
         <!-- Cuerpo del Modal -->
         <div class="modal-body bg-dark text-white p-4">
           <div class="container-fluid p-0">
             <div class="row g-4">
-              
+
               <!-- Visor de Galería (Izquierda) -->
               <div class="col-lg-6">
-                <div class="card card-gamer p-3 mb-3 text-center bg-depth d-flex align-items-center justify-content-center" style="min-height: 300px; background-color: var(--bs-body-bg);">
+                <div
+                  class="card card-gamer p-3 mb-3 text-center bg-depth d-flex align-items-center justify-content-center"
+                  style="min-height: 300px; background-color: var(--bs-body-bg);">
                   <div id="modalMainImageContainer">
-                    <i class="bi bi-motherboard text-info" style="font-size: 8rem; display: block;" aria-hidden="true"></i>
-                    <span class="fw-bold text-uppercase tracking-wider text-secondary small d-block mt-2" id="modalImgTag">Cargando...</span>
+                    <i class="bi bi-motherboard text-info" style="font-size: 8rem; display: block;"
+                      aria-hidden="true"></i>
+                    <span class="fw-bold text-uppercase tracking-wider text-secondary small d-block mt-2"
+                      id="modalImgTag">Cargando...</span>
                   </div>
                 </div>
                 <!-- Miniaturas de la Galería -->
                 <div class="row g-2">
                   <div class="col-4">
-                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb1" aria-label="Ver imagen de referencia">
+                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb1"
+                      aria-label="Ver imagen de referencia">
                       <!-- Cargado dinámicamente con JS -->
                     </button>
                   </div>
                   <div class="col-4">
-                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb2" aria-label="Ver detalle interno">
+                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb2"
+                      aria-label="Ver detalle interno">
                       <!-- Cargado dinámicamente con JS -->
                     </button>
                   </div>
                   <div class="col-4">
-                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb3" aria-label="Ver empaque oficial">
+                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb3"
+                      aria-label="Ver empaque oficial">
                       <!-- Cargado dinámicamente con JS -->
                     </button>
                   </div>
@@ -454,7 +473,7 @@
                 <div id="modalDynamicTagsContainer" class="d-flex flex-wrap gap-1 mb-2"></div>
 
                 <h1 class="fw-bold text-white h3 mb-2" id="modalDynamicTitle">Cargando Producto...</h1>
-                
+
                 <!-- Calificación de Estrellas -->
                 <div class="d-flex align-items-center gap-2 mb-3">
                   <div class="text-warning">
@@ -468,7 +487,8 @@
                 </div>
 
                 <!-- Caja de Precio Online -->
-                <div class="p-3 rounded-3 mb-3" style="background-color: var(--bs-body-bg); border: 1px solid var(--bs-border-color);">
+                <div class="p-3 rounded-3 mb-3"
+                  style="background-color: var(--bs-body-bg); border: 1px solid var(--bs-border-color);">
                   <div class="text-secondary small mb-1">Precio Online Especial</div>
                   <div class="d-flex align-items-baseline gap-2">
                     <span class="fs-2 fw-bold text-accent" id="modalDynamicPrice">S/ 0</span>
@@ -477,7 +497,8 @@
                 </div>
 
                 <div class="mb-3">
-                  <span class="badge bg-success"><i class="bi bi-check-circle me-1" aria-hidden="true"></i> Stock Disponible</span>
+                  <span class="badge bg-success"><i class="bi bi-check-circle me-1" aria-hidden="true"></i> Stock
+                    Disponible</span>
                 </div>
 
                 <div class="mb-4">
@@ -489,30 +510,39 @@
                 <div class="d-flex align-items-center gap-3">
                   <span class="text-secondary small">Cantidad:</span>
                   <div class="input-group" style="max-width: 140px;">
-                    <button class="btn btn-qty border-secondary text-white px-3" type="button" onclick="changeModalQty(-1)" aria-label="Restar cantidad">-</button>
-                    <input type="text" class="form-control text-center qty-input" id="modalProductQty" value="1" readonly aria-label="Cantidad">
-                    <button class="btn btn-qty border-secondary text-white px-3" type="button" onclick="changeModalQty(1)" aria-label="Sumar cantidad">+</button>
+                    <button class="btn btn-qty border-secondary text-white px-3" type="button"
+                      onclick="changeModalQty(-1)" aria-label="Restar cantidad">-</button>
+                    <input type="text" class="form-control text-center qty-input" id="modalProductQty" value="1"
+                      readonly aria-label="Cantidad">
+                    <button class="btn btn-qty border-secondary text-white px-3" type="button"
+                      onclick="changeModalQty(1)" aria-label="Sumar cantidad">+</button>
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- Panel de Pestañas (Sección 3 de la Vista 3) -->
-            <div class="card card-gamer mt-4" style="background-color: var(--bs-body-bg); border: 1px solid var(--bs-border-color);">
+            <div class="card card-gamer mt-4"
+              style="background-color: var(--bs-body-bg); border: 1px solid var(--bs-border-color);">
               <div class="card-header p-0">
                 <ul class="nav nav-tabs nav-tabs-gamer" id="modalTabs" role="tablist">
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="modal-desc-tab" data-bs-toggle="tab" data-bs-target="#modal-desc-pane" type="button" role="tab" aria-controls="modal-desc-pane" aria-selected="true">
+                    <button class="nav-link active" id="modal-desc-tab" data-bs-toggle="tab"
+                      data-bs-target="#modal-desc-pane" type="button" role="tab" aria-controls="modal-desc-pane"
+                      aria-selected="true">
                       Descripción de Élite
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="modal-spec-tab" data-bs-toggle="tab" data-bs-target="#modal-spec-pane" type="button" role="tab" aria-controls="modal-spec-pane" aria-selected="false">
+                    <button class="nav-link" id="modal-spec-tab" data-bs-toggle="tab" data-bs-target="#modal-spec-pane"
+                      type="button" role="tab" aria-controls="modal-spec-pane" aria-selected="false">
                       Especificaciones Técnicas
                     </button>
                   </li>
                   <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="modal-reviews-tab" data-bs-toggle="tab" data-bs-target="#modal-reviews-pane" type="button" role="tab" aria-controls="modal-reviews-pane" aria-selected="false">
+                    <button class="nav-link" id="modal-reviews-tab" data-bs-toggle="tab"
+                      data-bs-target="#modal-reviews-pane" type="button" role="tab" aria-controls="modal-reviews-pane"
+                      aria-selected="false">
                       Reseñas (2)
                     </button>
                   </li>
@@ -521,16 +551,22 @@
               <div class="card-body">
                 <div class="tab-content" id="modalTabContent">
                   <!-- Pestaña 1: Descripción General -->
-                  <div class="tab-pane fade show active" id="modal-desc-pane" role="tabpanel" aria-labelledby="modal-desc-tab" tabindex="0">
+                  <div class="tab-pane fade show active" id="modal-desc-pane" role="tabpanel"
+                    aria-labelledby="modal-desc-tab" tabindex="0">
                     <p class="text-secondary mb-0 small">
-                      Todos los componentes distribuidos por TechLab cuentan con certificación de compatibilidad internacional. Ofrecemos hardware de primer nivel optimizado para entusiastas de la informática y el gaming de alto rendimiento.
+                      Todos los componentes distribuidos por TechLab cuentan con certificación de compatibilidad
+                      internacional. Ofrecemos hardware de primer nivel optimizado para entusiastas de la informática y
+                      el gaming de alto rendimiento.
                     </p>
                   </div>
                   <!-- Pestaña 2: Tabla de Especificaciones Técnicas (Rejilla Semántica) -->
-                  <div class="tab-pane fade" id="modal-spec-pane" role="tabpanel" aria-labelledby="modal-spec-tab" tabindex="0">
+                  <div class="tab-pane fade" id="modal-spec-pane" role="tabpanel" aria-labelledby="modal-spec-tab"
+                    tabindex="0">
                     <div class="table-responsive">
-                      <table class="table table-dark table-striped table-sm mb-0 align-middle text-start text-secondary">
-                        <caption class="visually-hidden">Detalles mecánicos e internos del hardware seleccionado</caption>
+                      <table
+                        class="table table-dark table-striped table-sm mb-0 align-middle text-start text-secondary">
+                        <caption class="visually-hidden">Detalles mecánicos e internos del hardware seleccionado
+                        </caption>
                         <thead>
                           <tr>
                             <th scope="col" class="py-2">Especificación</th>
@@ -544,21 +580,28 @@
                     </div>
                   </div>
                   <!-- Pestaña 3: Reseñas con estrellas (Estándar UI-UX) -->
-                  <div class="tab-pane fade" id="modal-reviews-pane" role="tabpanel" aria-labelledby="modal-reviews-tab" tabindex="0">
+                  <div class="tab-pane fade" id="modal-reviews-pane" role="tabpanel" aria-labelledby="modal-reviews-tab"
+                    tabindex="0">
                     <div class="row g-3">
                       <div class="col-12 border-bottom border-secondary pb-3">
                         <div class="d-flex justify-content-between align-items-center mb-1">
                           <span class="text-white fw-bold small">GamerPro_Lima</span>
-                          <span class="text-warning small"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
+                          <span class="text-warning small"><i class="bi bi-star-fill"></i><i
+                              class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                              class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
                         </div>
-                        <p class="text-secondary small mb-0">Excelente estabilidad térmica y desempeño impecable bajo estrés. 10/10.</p>
+                        <p class="text-secondary small mb-0">Excelente estabilidad térmica y desempeño impecable bajo
+                          estrés. 10/10.</p>
                       </div>
                       <div class="col-12">
                         <div class="d-flex justify-content-between align-items-center mb-1">
                           <span class="text-white fw-bold small">Dev_Codex</span>
-                          <span class="text-warning small"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i></span>
+                          <span class="text-warning small"><i class="bi bi-star-fill"></i><i
+                              class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                              class="bi bi-star-fill"></i><i class="bi bi-star"></i></span>
                         </div>
-                        <p class="text-secondary small mb-0">Gran calidad de construcción. Configurar el perfil XMP en la BIOS fue pan comido.</p>
+                        <p class="text-secondary small mb-0">Gran calidad de construcción. Configurar el perfil XMP en
+                          la BIOS fue pan comido.</p>
                       </div>
                     </div>
                   </div>
@@ -569,30 +612,38 @@
             <!-- ===== ACORDEÓN DE PREGUNTAS FRECUENTES (Sección 4 de la Vista 3) ===== -->
             <div class="mt-5 mb-5">
               <h4 class="text-white fw-bold mb-3 h5">Preguntas Frecuentes del Producto</h4>
-              <div class="accordion accordion-flush border border-secondary rounded-3 overflow-hidden" id="faqProductoAccordion">
-                
+              <div class="accordion accordion-flush border border-secondary rounded-3 overflow-hidden"
+                id="faqProductoAccordion">
+
                 <div class="accordion-item bg-transparent border-secondary border-bottom">
                   <h3 class="accordion-header">
-                    <button class="accordion-button collapsed bg-transparent text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faqProd1" aria-expanded="false" aria-controls="faqProd1">
+                    <button class="accordion-button collapsed bg-transparent text-white" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#faqProd1" aria-expanded="false"
+                      aria-controls="faqProd1">
                       ¿Es compatible con mi setup actual?
                     </button>
                   </h3>
                   <div id="faqProd1" class="accordion-collapse collapse" data-bs-parent="#faqProductoAccordion">
                     <div class="accordion-body text-secondary small">
-                      Este componente cuenta con certificación de compatibilidad estándar universal. Sin embargo, te recomendamos verificar el factor de forma de tu chasis y la capacidad de tu fuente de poder antes de instalarlo.
+                      Este componente cuenta con certificación de compatibilidad estándar universal. Sin embargo, te
+                      recomendamos verificar el factor de forma de tu chasis y la capacidad de tu fuente de poder antes
+                      de instalarlo.
                     </div>
                   </div>
                 </div>
 
                 <div class="accordion-item bg-transparent border-secondary border-bottom">
                   <h3 class="accordion-header">
-                    <button class="accordion-button collapsed bg-transparent text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faqProd2" aria-expanded="false" aria-controls="faqProd2">
+                    <button class="accordion-button collapsed bg-transparent text-white" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#faqProd2" aria-expanded="false"
+                      aria-controls="faqProd2">
                       ¿Incluye garantía de fábrica?
                     </button>
                   </h3>
                   <div id="faqProd2" class="accordion-collapse collapse" data-bs-parent="#faqProductoAccordion">
                     <div class="accordion-body text-secondary small">
-                      Sí, todos nuestros componentes gamer de alto rendimiento cuentan con 12 meses de garantía directa por defectos de fábrica.
+                      Sí, todos nuestros componentes gamer de alto rendimiento cuentan con 12 meses de garantía directa
+                      por defectos de fábrica.
                     </div>
                   </div>
                 </div>
@@ -656,7 +707,8 @@
 
         <!-- Pie de página del Modal -->
         <div class="modal-footer border-secondary bg-dark">
-          <button type="button" class="btn btn-outline-secondary text-white border-secondary" data-bs-dismiss="modal">Seguir buscando</button>
+          <button type="button" class="btn btn-outline-secondary text-white border-secondary"
+            data-bs-dismiss="modal">Seguir buscando</button>
           <button type="button" class="btn btn-accent" onclick="confirmAddToCart()" id="btnModalAdd">
             <i class="bi bi-cart-plus-fill me-1" aria-hidden="true"></i> Añadir S/ <span id="modalBtnPrice">0</span>
           </button>
@@ -666,38 +718,7 @@
     </div>
   </div>
 
-  <!-- ===================== FOOTER COMPARTIDO ===================== -->
-  <footer class="py-4 border-top">
-    <div class="container">
-      <div class="row gy-3">
-        <div class="col-12 col-md-4">
-          <p class="fw-semibold mb-1 d-flex align-items-center gap-2">
-            <i class="bi bi-cpu-fill text-accent" aria-hidden="true"></i> ChipZone
-          </p>
-          <p class="text-body-secondary small mb-0">Artículos tecnológicos con garantía real.</p>
-        </div>
-        <div class="col-6 col-md-4">
-          <p class="fw-semibold small mb-2">Enlaces</p>
-          <ul class="list-unstyled small text-body-secondary">
-            <li><a href="catalogo.html" class="footer-link">Catálogo</a></li>
-            <li><a href="mi_cuenta.html" class="footer-link">Mi cuenta</a></li>
-            <li><a href="mi_cuenta.html#soporte-pane" class="footer-link">Centro de ayuda</a></li>
-          </ul>
-        </div>
-        <div class="col-6 col-md-4 text-md-end">
-          <p class="small text-body-secondary mb-0">© <span id="anioActual"></span> ChipZone. Proyecto académico.</p>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Bootstrap 5.3.8 JS Bundle (Requerido para el funcionamiento dinámico del modal y colapsables) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-  <!-- Lógica modular de comportamiento de Catálogo y Ficha -->
-  <script src="../js/catalogo.js"></script>
-</body>
-</html>
-<!-- ========================================================================= -->
+  <!-- ========================================================================= -->
   <!-- SECCIÓN AMPLIADA DE MARCAS ALIADAS Y CERTIFICACIONES TÉCNICAS (TechLab) -->
   <!-- ========================================================================= -->
   <section class="container my-5 py-4 border-top border-secondary">
@@ -705,7 +726,9 @@
       <div class="col-12 col-lg-4">
         <h3 class="text-white fw-bold h5 mb-2">Garantía y Estándares de Calidad</h3>
         <p class="text-secondary small mb-0">
-          Trabajamos directamente con los fabricantes líderes de la industria para garantizar componentes 100% originales con soporte técnico especializado.
+          Trabajamos directamente con los fabricantes líderes de la industria para garantizar componentes 100%
+          originales
+          con soporte técnico especializado.
         </p>
       </div>
       <div class="col-12 col-lg-8">
@@ -742,3 +765,39 @@
       </div>
     </div>
   </section>
+
+  <!-- ===================== FOOTER COMPARTIDO ===================== -->
+  <footer class="py-4 border-top">
+    <div class="container">
+      <div class="row gy-3">
+        <div class="col-12 col-md-4">
+          <p class="fw-semibold mb-1 d-flex align-items-center gap-2">
+            <i class="bi bi-cpu-fill text-accent" aria-hidden="true"></i> ChipZone
+          </p>
+          <p class="text-body-secondary small mb-0">Artículos tecnológicos con garantía real.</p>
+        </div>
+        <div class="col-6 col-md-4">
+          <p class="fw-semibold small mb-2">Enlaces</p>
+          <ul class="list-unstyled small text-body-secondary">
+            <li><a href="catalogo.html" class="footer-link">Catálogo</a></li>
+            <li><a href="mi_cuenta.html" class="footer-link">Mi cuenta</a></li>
+            <li><a href="mi_cuenta.html#soporte-pane" class="footer-link">Centro de ayuda</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-4 text-md-end">
+          <p class="small text-body-secondary mb-0">© <span id="anioActual"></span> ChipZone. Proyecto académico.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5.3.8 JS Bundle (Requerido para el funcionamiento dinámico del modal y colapsables) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <!-- Lógica modular de comportamiento de Catálogo y Ficha -->
+  <script src="../js/catalogo.js"></script>
+
+</body>
+
+</html>
