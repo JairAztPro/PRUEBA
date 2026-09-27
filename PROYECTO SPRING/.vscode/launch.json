@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ProyectoSpringApplication<PROYECTO-SPRING>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.example.PROYECTO.SPRING.ProyectoSpringApplication",
+            "projectName": "PROYECTO-SPRING",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
