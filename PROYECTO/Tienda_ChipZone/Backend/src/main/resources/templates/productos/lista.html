@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(#{lista.titulo})}"></head>
+<body class="d-flex flex-column min-vh-100">
+<header th:replace="~{fragments/layout :: cabecera('productos')}"></header>
+
+<main id="contenido-principal" class="container py-4">
+  <h1 class="h3 fw-bold" th:text="#{lista.titulo}">Productos</h1>
+  <p class="text-body-secondary" th:text="#{lista.intro}">Vista generada en el servidor con Spring MVC y Thymeleaf.</p>
+
+  <form class="row g-3 align-items-end my-3" method="get" th:action="@{/admin/productos}">
+    <div class="col-md-5">
+      <label class="form-label" for="q" th:text="#{lista.buscar}">Buscar por nombre o marca</label>
+      <input class="form-control" id="q" name="q" type="search" maxlength="60"
+             th:value="${q}" th:placeholder="#{lista.buscar.placeholder}" placeholder="Ejemplo: RTX">
+    </div>
+    <div class="col-md-3">
+      <label class="form-label" for="categoria" th:text="#{lista.categoria}">Categoría</label>
+      <select class="form-select" id="categoria" name="categoria">
+        <option value="" th:text="#{lista.todas}">Todas</option>
+        <option th:each="c : ${categorias}" th:value="${c}" th:text="${c}"
+                th:selected="${c == categoria}">gaming</option>
+      </select>
+    </div>
+    <div class="col-md-4 d-flex gap-2">
+      <button class="btn btn-primary" type="submit" th:text="#{accion.buscar}">Buscar</button>
+      <a class="btn btn-outline-secondary" href="/admin/productos"
+         th:if="${!#strings.isEmpty(q) or !#strings.isEmpty(categoria)}"
+         th:href="@{/admin/productos}" th:text="#{accion.limpiar}">Limpiar</a>
+    </div>
+  </form>
+
+  <p class="text-body-secondary" th:text="#{lista.resultados(${#lists.size(productos)})}">
+    9 producto(s) encontrado(s)
+  </p>
+
+  <p class="text-body-secondary small" th:unless="${#lists.isEmpty(productos)}"
+     th:text="#{lista.resumen(${productos.?[stock].size()}, ${productos.?[!stock].size()}, ${productos.?[tieneDescuento()].size()})}">
+    8 en stock · 1 sin stock · 3 con descuento
+  </p>
+
+  <div class="alert alert-info" role="status" th:if="${#lists.isEmpty(productos)}" th:text="#{lista.vacio}">
+    No se encontraron productos.
+  </div>
+
+  <div class="table-responsive" th:unless="${#lists.isEmpty(productos)}">
+    <table class="table table-dark table-hover align-middle">
+      <caption class="visually-hidden" th:text="#{lista.titulo}">Productos</caption>
+      <thead>
+      <tr>
+        <th scope="col" th:text="#{col.imagen}">Imagen</th>
+        <th scope="col" th:text="#{col.codigo}">Código</th>
+        <th scope="col" th:text="#{col.producto}">Producto</th>
+        <th scope="col" th:text="#{col.marca}">Marca</th>
+        <th scope="col" th:text="#{col.categoria}">Categoría</th>
+        <th scope="col" th:text="#{col.precio}">Precio</th>
+        <th scope="col" th:text="#{col.stock}">Stock</th>
+        <th scope="col"><span class="visually-hidden" th:text="#{col.acciones}">Acciones</span></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="p : ${productos}">
+        <td>
+          <img class="miniatura rounded border" th:if="${!#lists.isEmpty(p.imagenes)}"
+               th:src="${p.imagenes[0]}" th:alt="${p.nombre}" alt="Producto" loading="lazy">
+          <div class="miniatura-vacia rounded border bg-body-tertiary" th:if="${#lists.isEmpty(p.imagenes)}"
+               role="img" th:aria-label="#{detalle.sin.imagen}"></div>
+        </td>
+        <td th:text="${p.id}">1</td>
+        <td th:text="${p.nombre}">ROG Strix B550-F</td>
+        <td th:text="${#strings.toUpperCase(p.marca)}">ASUS</td>
+        <td><span class="badge text-bg-secondary text-capitalize" th:text="${p.categoria}">gaming</span></td>
+        <td>
+          <span class="fw-semibold" th:text="'S/ ' + ${p.precioFinal()}">S/ 719</span>
+          <span class="text-decoration-line-through text-body-secondary small ms-1"
+                th:if="${p.tieneDescuento()}" th:text="'S/ ' + ${p.precio}">S/ 899</span>
+          <span class="badge bg-danger ms-1" th:if="${p.tieneDescuento()}"
+                th:text="'-' + ${p.descuento} + '%'">-20%</span>
+        </td>
+        <td>
+          <span class="badge bg-success" th:if="${p.stock}" th:text="#{producto.stock}">En stock</span>
+          <span class="badge bg-secondary" th:unless="${p.stock}" th:text="#{producto.sinstock}">Sin stock</span>
+        </td>
+        <td>
+          <a class="btn btn-sm btn-outline-primary" href="detalle.html"
+             th:href="@{/admin/productos/{id}(id=${p.id})}" th:text="#{producto.ver}">Ver detalle</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+</body>
+</html>

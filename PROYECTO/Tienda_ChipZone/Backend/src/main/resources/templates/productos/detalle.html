@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(#{detalle.titulo})}"></head>
+<body class="d-flex flex-column min-vh-100">
+<header th:replace="~{fragments/layout :: cabecera('productos')}"></header>
+
+<main id="contenido-principal" class="container py-4">
+  <section class="row g-4" th:object="${producto}">
+    <div class="col-12 col-lg-5">
+      <img class="img-fluid rounded border" th:if="${!#lists.isEmpty(producto.imagenes)}"
+           th:src="*{imagenes[0]}" th:alt="*{nombre}" alt="Producto">
+      <div class="rounded border bg-body-tertiary text-body-secondary d-flex align-items-center justify-content-center p-5"
+           th:if="${#lists.isEmpty(producto.imagenes)}" th:text="#{detalle.sin.imagen}">Sin imagen</div>
+    </div>
+
+    <div class="col-12 col-lg-7">
+      <p class="text-primary fw-semibold mb-1" th:text="#{detalle.titulo}">Detalle del producto</p>
+      <h1 class="h3 fw-bold" th:text="*{nombreCompleto}">Nombre completo</h1>
+
+      <dl class="row mt-3">
+        <dt class="col-sm-4" th:text="#{col.codigo}">Código</dt>
+        <dd class="col-sm-8" th:text="*{id}">1</dd>
+        <dt class="col-sm-4" th:text="#{col.marca}">Marca</dt>
+        <dd class="col-sm-8" th:text="*{#strings.toUpperCase(marca)}">ASUS</dd>
+        <dt class="col-sm-4" th:text="#{col.categoria}">Categoría</dt>
+        <dd class="col-sm-8" th:text="*{categoria}">gaming</dd>
+        <dt class="col-sm-4" th:text="#{col.precio}">Precio</dt>
+        <dd class="col-sm-8">
+          <span class="fs-5 fw-semibold" th:text="'S/ ' + *{precioFinal()}">S/ 719</span>
+          <span class="text-decoration-line-through text-body-secondary ms-2"
+                th:if="*{tieneDescuento()}" th:text="'S/ ' + *{precio}">S/ 899</span>
+          <span class="badge bg-danger ms-2" th:if="*{tieneDescuento()}"
+                th:text="'-' + *{descuento} + '%'">-20%</span>
+          <div class="small text-success" th:if="*{tieneDescuento()}"
+               th:text="#{detalle.ahorro} + ' S/ ' + *{ahorro()}">Ahorras S/ 180</div>
+        </dd>
+        <dt class="col-sm-4" th:text="#{col.stock}">Stock</dt>
+        <dd class="col-sm-8">
+          <span class="badge bg-success" th:if="*{stock}" th:text="#{producto.stock}">En stock</span>
+          <span class="badge bg-secondary" th:unless="*{stock}" th:text="#{producto.sinstock}">Sin stock</span>
+        </dd>
+      </dl>
+
+      <p th:if="*{!#strings.isEmpty(descripcion)}" th:text="*{descripcion}">Descripción del producto.</p>
+
+      <p th:unless="${#lists.isEmpty(producto.etiquetas)}">
+        <span class="badge text-bg-primary me-1" th:each="etiqueta : *{etiquetas}" th:text="${etiqueta}">Etiqueta</span>
+      </p>
+
+      <table class="table table-dark table-sm w-auto" th:unless="${#lists.isEmpty(producto.especificaciones)}">
+        <caption class="visually-hidden" th:text="#{detalle.especificaciones}">Especificaciones técnicas</caption>
+        <tbody>
+        <tr th:each="esp : *{especificaciones}">
+          <th scope="row" th:text="${esp.clave}">Socket</th>
+          <td th:text="${esp.valor}">AMD AM4</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <a class="btn btn-primary mt-3" href="lista.html" th:href="@{/admin/productos}"
+         th:text="#{accion.volver}">Volver al listado</a>
+      <a class="btn btn-outline-secondary mt-3 ms-2" href="/api/v1/productos/1"
+         th:href="@{/api/v1/productos/{id}(id=${producto.id})}" th:text="#{detalle.ver.json}">Ver JSON de este producto</a>
+    </div>
+  </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+</body>
+</html>

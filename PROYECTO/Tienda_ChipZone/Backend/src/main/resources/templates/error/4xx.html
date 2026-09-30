@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(#{error.titulo})}"></head>
+<body class="d-flex flex-column min-vh-100">
+  <header th:replace="~{fragments/layout :: cabecera('')}"></header>
+
+  <main id="contenido-principal" class="container py-5">
+    <section class="mx-auto text-center" style="max-width: 44rem;" aria-labelledby="error-title">
+      <p class="display-4 fw-bold text-primary mb-2" th:text="${status}">404</p>
+      <h1 id="error-title" class="h2" th:text="#{error.titulo}">No se pudo completar la solicitud</h1>
+      <p th:text="#{error.detalle}">Revise la dirección o los datos enviados e inténtelo nuevamente.</p>
+      <p class="small text-body-secondary">Ruta: <code th:text="${path}">/admin/productos/999</code></p>
+      <a class="btn btn-primary" href="/admin/productos" th:href="@{/admin/productos}"
+        th:text="#{accion.volver}">Volver al listado</a>
+    </section>
+  </main>
+
+  <footer th:replace="~{fragments/layout :: pie}"></footer>
+</body>
+</html>
