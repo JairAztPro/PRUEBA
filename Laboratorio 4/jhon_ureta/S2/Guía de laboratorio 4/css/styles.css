@@ -1,0 +1,56 @@
+:root {
+  --techlab-primary: #1f5f8b;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+}
+
+/* Enlace de salto, visible solo al recibir foco */
+.skip-link {
+  position: absolute;
+  top: -3rem;
+  left: 0.5rem;
+  z-index: 2000;
+  background: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Hero de inicio */
+.hero {
+  min-height: 28rem;
+  display: flex;
+  align-items: center;
+  padding-block: 3rem;
+}
+
+/* Imágenes de las tarjetas: proporción fija, sin depender de recortes duros */
+.card-img-top {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+/* Foco visible consistente en toda la interfaz */
+:focus-visible {
+  outline: 0.2rem solid #ffbf47;
+  outline-offset: 0.15rem;
+}
+
+/* Evita animaciones cuando el usuario las ha reducido en su sistema */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,31 @@
+# Salida de Maven
+target/
+
+# IDE y editor
+.vscode/
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+.factorypath
+.apt_generated/
+.springBeans
+.sts4-cache/
+nbproject/
+*.swp
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Logs y temporales
+*.log
+HELP.md
+
+# Secretos y configuración personal (nunca versionar)
+.env
+*.env
+*.pem
+*.key
+application-secret*.properties
