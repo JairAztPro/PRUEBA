@@ -3,10 +3,12 @@
    ========================================================================== */
 [data-bs-theme="dark"],
 :root {
-  --bs-primary: #6366F1;
   /* Índigo ejecutivo (Moderno y sobrio) */
+  --bs-primary: #6366F1;
+  /* Valor RGB del color primario para transparencias (rgba) */
   --bs-primary-rgb: 99, 102, 241;
-  --bs-body-bg: #0B0F17;
+  
+  --bs-body-bg: #ffffff;
   /* Fondo grafito oscuro profundo y suave */
   --bs-body-color: #E2E8F0;
   /* Texto gris platino / marfil legible */
