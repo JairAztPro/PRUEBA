@@ -92,7 +92,7 @@
             <ol class="breadcrumb m-0">
               <li class="breadcrumb-item"><a href="inicio.html" class="text-secundario text-decoration-none">Inicio</a>
               </li>
-              <li class="breadcrumb-item active text-white" aria-current="page">Catálogo</li>
+              <li class="breadcrumb-item active text-body" aria-current="page">Catálogo</li>
             </ol>
           </nav>
           <h2 class="fw-bold mt-2">Catálogo</h2>
@@ -115,11 +115,11 @@
                 <input class="form-check-input marca" type="checkbox" value="asus" id="marcaAsus">
                 <label class="form-check-label" for="marcaAsus">ASUS</label>
               </div>
-              <div class="form-check text-white">
+              <div class="form-check text-body">
                 <input class="form-check-input marca" type="checkbox" value="msi" id="marcaMsi">
                 <label class="form-check-label" for="marcaMsi">MSI</label>
               </div>
-              <div class="form-check text-white">
+              <div class="form-check text-body">
                 <input class="form-check-input marca" type="checkbox" value="amd" id="marcaAmd">
                 <label class="form-check-label" for="marcaAmd">AMD</label>
               </div>
@@ -175,17 +175,17 @@
         style="background-color: var(--nt-surface); border: 1px solid var(--bs-border-color);">
 
         <!-- Cabecera del Modal -->
-        <div class="modal-header bg-light border-secondary text-white">
+        <div class="modal-header bg-light border-secondary text-body">
           <div class="d-flex align-items-center gap-2">
             <i class="bi bi-cpu-fill text-accent fs-5" aria-hidden="true"></i>
             <h2 class="modal-title h5 mb-0 fw-bold">Ficha Técnica de Producto</h2>
           </div>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+          <button type="button" class="btn-close btn-close-body" data-bs-dismiss="modal"
             aria-label="Cerrar modal"></button>
         </div>
 
         <!-- Cuerpo del Modal -->
-        <div class="modal-body bg-light text-white p-4">
+        <div class="modal-body bg-light text-body p-4">
           <div class="container-fluid p-0">
             <div class="row g-4">
 
@@ -204,19 +204,19 @@
                 <!-- Miniaturas de la Galería -->
                 <div class="row g-2">
                   <div class="col-4">
-                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb1"
+                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-body" id="thumb1"
                       aria-label="Ver imagen de referencia">
                       <!-- Cargado dinámicamente con JS -->
                     </button>
                   </div>
                   <div class="col-4">
-                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb2"
+                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-body" id="thumb2"
                       aria-label="Ver detalle interno">
                       <!-- Cargado dinámicamente con JS -->
                     </button>
                   </div>
                   <div class="col-4">
-                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-white" id="thumb3"
+                    <button type="button" class="btn img-thumbnail-gamer p-2 text-center text-body" id="thumb3"
                       aria-label="Ver empaque oficial">
                       <!-- Cargado dinámicamente con JS -->
                     </button>
@@ -229,7 +229,7 @@
                 <!-- Badges de Categoría dinámicos -->
                 <div id="modalDynamicTagsContainer" class="d-flex flex-wrap gap-1 mb-2"></div>
 
-                <h1 class="fw-bold text-white h3 mb-2" id="modalDynamicTitle">Cargando Producto...</h1>
+                <h1 class="fw-bold text-body h3 mb-2" id="modalDynamicTitle">Cargando Producto...</h1>
 
                 <!-- Calificación de Estrellas -->
                 <div class="d-flex align-items-center gap-2 mb-3">
@@ -259,7 +259,7 @@
                 </div>
 
                 <div class="mb-4">
-                  <h6 class="text-white border-bottom border-secondary pb-2">Descripción Breve:</h6>
+                  <h6 class="text-body border-bottom border-secondary pb-2">Descripción Breve:</h6>
                   <p class="text-secondary small lh-base" id="modalDynamicDescription">Cargando datos...</p>
                 </div>
 
@@ -267,11 +267,11 @@
                 <div class="d-flex align-items-center gap-3">
                   <span class="text-secondary small">Cantidad:</span>
                   <div class="input-group" style="max-width: 140px;">
-                    <button class="btn btn-qty border-secondary text-white px-3" type="button"
+                    <button class="btn btn-qty border-secondary text-body px-3" type="button"
                       onclick="changeModalQty(-1)" aria-label="Restar cantidad">-</button>
                     <input type="text" class="form-control text-center qty-input" id="modalProductQty" value="1"
                       readonly aria-label="Cantidad">
-                    <button class="btn btn-qty border-secondary text-white px-3" type="button"
+                    <button class="btn btn-qty border-secondary text-body px-3" type="button"
                       onclick="changeModalQty(1)" aria-label="Sumar cantidad">+</button>
                   </div>
                 </div>
@@ -342,7 +342,7 @@
                     <div class="row g-3">
                       <div class="col-12 border-bottom border-secondary pb-3">
                         <div class="d-flex justify-content-between align-items-center mb-1">
-                          <span class="text-white fw-bold small">GamerPro_Lima</span>
+                          <span class="text-body fw-bold small">GamerPro_Lima</span>
                           <span class="text-warning small"><i class="bi bi-star-fill"></i><i
                               class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
                               class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
@@ -352,7 +352,7 @@
                       </div>
                       <div class="col-12">
                         <div class="d-flex justify-content-between align-items-center mb-1">
-                          <span class="text-white fw-bold small">Dev_Codex</span>
+                          <span class="text-body fw-bold small">Dev_Codex</span>
                           <span class="text-warning small"><i class="bi bi-star-fill"></i><i
                               class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
                               class="bi bi-star-fill"></i><i class="bi bi-star"></i></span>
@@ -368,13 +368,13 @@
 
             <!-- ===== ACORDEÓN DE PREGUNTAS FRECUENTES (Sección 4 de la Vista 3) ===== -->
             <div class="mt-5 mb-5">
-              <h4 class="text-white fw-bold mb-3 h5">Preguntas Frecuentes del Producto</h4>
+              <h4 class="text-body fw-bold mb-3 h5">Preguntas Frecuentes del Producto</h4>
               <div class="accordion accordion-flush border border-secondary rounded-3 overflow-hidden"
                 id="faqProductoAccordion">
 
                 <div class="accordion-item bg-transparent border-secondary border-bottom">
                   <h3 class="accordion-header">
-                    <button class="accordion-button collapsed bg-transparent text-white" type="button"
+                    <button class="accordion-button collapsed bg-transparent text-body" type="button"
                       data-bs-toggle="collapse" data-bs-target="#faqProd1" aria-expanded="false"
                       aria-controls="faqProd1">
                       ¿Es compatible con mi setup actual?
@@ -391,7 +391,7 @@
 
                 <div class="accordion-item bg-transparent border-secondary border-bottom">
                   <h3 class="accordion-header">
-                    <button class="accordion-button collapsed bg-transparent text-white" type="button"
+                    <button class="accordion-button collapsed bg-transparent text-body" type="button"
                       data-bs-toggle="collapse" data-bs-target="#faqProd2" aria-expanded="false"
                       aria-controls="faqProd2">
                       ¿Incluye garantía de fábrica?
@@ -410,14 +410,14 @@
 
             <!-- ===== GRID DE PRODUCTOS RELACIONADOS (Sección 5 de la Vista 3) ===== -->
             <div class="mb-2">
-              <h4 class="text-white fw-bold mb-3 h5">Productos Relacionados</h4>
+              <h4 class="text-body fw-bold mb-3 h5">Productos Relacionados</h4>
               <div class="row row-cols-2 row-cols-md-4 g-3">
                 <!-- Relacionado 1 -->
                 <div class="col">
                   <div class="card card-gamer h-100 text-center p-2">
                     <i class="bi bi-usb-c text-info fs-1 my-2" aria-hidden="true"></i>
                     <div class="card-body p-2 d-flex flex-column">
-                      <span class="text-white small fw-bold mb-1">Cable RGB 24pin</span>
+                      <span class="text-body small fw-bold mb-1">Cable RGB 24pin</span>
                       <span class="text-secondary small mt-auto mb-2">S/ 120</span>
                       <button class="btn btn-sm btn-outline-info w-100" style="font-size: 0.75rem;">Ver Detalle</button>
                     </div>
@@ -428,7 +428,7 @@
                   <div class="card card-gamer h-100 text-center p-2">
                     <i class="bi bi-fan text-info fs-1 my-2" aria-hidden="true"></i>
                     <div class="card-body p-2 d-flex flex-column">
-                      <span class="text-white small fw-bold mb-1">Cooler Master 120mm</span>
+                      <span class="text-body small fw-bold mb-1">Cooler Master 120mm</span>
                       <span class="text-secondary small mt-auto mb-2">S/ 85</span>
                       <button class="btn btn-sm btn-outline-info w-100" style="font-size: 0.75rem;">Ver Detalle</button>
                     </div>
@@ -439,7 +439,7 @@
                   <div class="card card-gamer h-100 text-center p-2">
                     <i class="bi bi-lightning-charge text-info fs-1 my-2" aria-hidden="true"></i>
                     <div class="card-body p-2 d-flex flex-column">
-                      <span class="text-white small fw-bold mb-1">Fuente 750W Gold</span>
+                      <span class="text-body small fw-bold mb-1">Fuente 750W Gold</span>
                       <span class="text-secondary small mt-auto mb-2">S/ 450</span>
                       <button class="btn btn-sm btn-outline-info w-100" style="font-size: 0.75rem;">Ver Detalle</button>
                     </div>
@@ -450,7 +450,7 @@
                   <div class="card card-gamer h-100 text-center p-2">
                     <i class="bi bi-mouse text-info fs-1 my-2" aria-hidden="true"></i>
                     <div class="card-body p-2 d-flex flex-column">
-                      <span class="text-white small fw-bold mb-1">Mouse Pro Wireless</span>
+                      <span class="text-body small fw-bold mb-1">Mouse Pro Wireless</span>
                       <span class="text-secondary small mt-auto mb-2">S/ 299</span>
                       <button class="btn btn-sm btn-outline-info w-100" style="font-size: 0.75rem;">Ver Detalle</button>
                     </div>
@@ -464,7 +464,7 @@
 
         <!-- Pie de página del Modal -->
         <div class="modal-footer border-secondary bg-light">
-          <button type="button" class="btn btn-outline-secondary text-white border-secondary"
+          <button type="button" class="btn btn-outline-secondary text-body border-secondary"
             data-bs-dismiss="modal">Seguir buscando</button>
           <button type="button" class="btn btn-accent" onclick="confirmAddToCart()" id="btnModalAdd">
             <i class="bi bi-cart-plus-fill me-1" aria-hidden="true"></i> Añadir S/ <span id="modalBtnPrice">0</span>
