@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/layout :: head(#{curso.resumen.titulo})}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Resumen del catálogo</title>
+    <link rel="stylesheet" href="../../static/css/site.css">
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+    <a class="visually-hidden-focusable position-absolute p-2 bg-white" href="#contenido">Saltar al contenido</a>
+    <header th:replace="~{fragments/layout :: cabecera}">
+        <nav><a href="/cursos">TechLab Web</a></nav>
+    </header>
+    <main id="contenido" class="container py-5">
+        <section aria-labelledby="resumen-title">
+            <p class="text-primary fw-semibold mb-2">APF2 · Integración</p>
+            <h1 id="resumen-title" class="display-6 fw-bold" th:text="#{curso.resumen.titulo}">Resumen del catálogo</h1>
+            <div class="row g-4 mt-2">
+                <div class="col-md-6">
+                    <article class="metric-card h-100">
+                        <p class="text-body-secondary mb-2">Cursos disponibles</p>
+                        <p class="display-4 fw-bold mb-0" th:text="${cantidadCursos}">3</p>
+                    </article>
+                </div>
+                <div class="col-md-6">
+                    <article class="metric-card h-100">
+                        <p class="text-body-secondary mb-2">Horas totales</p>
+                        <p class="display-4 fw-bold mb-0" th:text="${totalHoras}">48</p>
+                    </article>
+                </div>
+            </div>
+            <a class="btn btn-primary mt-4" href="lista.html" th:href="@{/cursos}" th:text="#{accion.volver}">
+                Volver al catálogo
+            </a>
+        </section>
+    </main>
+    <footer th:replace="~{fragments/layout :: pie}">
+        <p>TechLab Web · 2026</p>
+    </footer>
+</body>
+
+</html>
