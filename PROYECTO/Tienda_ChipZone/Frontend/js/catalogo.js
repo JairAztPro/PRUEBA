@@ -37,10 +37,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (termBuscar || catFiltro) {
       if (filterAlertPlaceholder) {
         filterAlertPlaceholder.innerHTML = `
-          <div class="alert alert-info alert-dismissible fade show bg-dark text-white border-info mb-0" role="alert">
+          <div class="alert alert-info alert-dismissible fade show mb-0" role="alert">
             <i class="bi bi-funnel-fill text-accent me-2"></i>
             Resultados de búsqueda: <strong>${termBuscar || catFiltro}</strong>
-            <button type="button" class="btn-close btn-close-white" onclick="clearURLFilters()" aria-label="Limpiar"></button>
+            <button type="button" class="btn-close" onclick="clearURLFilters()" aria-label="Limpiar"></button>
           </div>
         `;
         filterAlertPlaceholder.classList.remove("d-none");
@@ -95,6 +95,14 @@ document.addEventListener("DOMContentLoaded", async () => {
       .replace(/'/g, "&#39;");
   }
 
+  function htmlImagenTarjeta(p) {
+    const imagen = imagenesProducto(p)[0];
+    if (!imagen) {
+      return `<i class="bi ${iconoCategoria(p)} imagen-reemplazo" aria-hidden="true"></i>`;
+    }
+    return `<img src="${esc(imagen)}" alt="${esc(p.nombre)}" loading="lazy" data-icono="${iconoCategoria(p)}">`;
+  }
+
   function crearTarjeta(p) {
     const final = precioFinal(p);
     const precioHtml = p.descuento
@@ -102,7 +110,7 @@ document.addEventListener("DOMContentLoaded", async () => {
          <span class="text-decoration-line-through text-secundario small ms-2">S/ ${p.precio}</span>`
       : `<strong class="precio-catalogo">S/ ${final}</strong>`;
     const badge = p.descuento
-      ? `<span class="badge bg-danger position-absolute top-0 start-0 m-2" style="z-index: 2;">-${p.descuento}%</span>`
+      ? `<span class="badge bg-danger position-absolute top-0 start-0 m-2 badge-descuento">-${p.descuento}%</span>`
       : "";
     const boton = p.stock
       ? `<button class="btn btn-acento w-100" data-bs-toggle="modal" data-bs-target="#modalFichaProducto" data-id="${p.id}">
@@ -113,13 +121,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       <div class="col producto" data-marca="${esc(p.marca)}" data-precio="${final}"
            data-stock="${p.stock}" data-categoria="${esc(p.categoria)}">
         <div class="card card-gamer h-100 d-flex flex-column">
-          <div class="producto-img position-relative overflow-hidden bg-body-tertiary text-center flex-shrink-0" style="height: 150px;">
+          <div class="producto-img flex-shrink-0">
             ${badge}
-            <img src="${esc(p.imagenes[0])}" alt="${esc(p.nombre)}" class="w-100 h-100 object-fit-cover">
+            ${htmlImagenTarjeta(p)}
           </div>
           <div class="card-body d-flex flex-column p-3 flex-grow-1">
             <small class="text-secundario">${esc(p.marca.toUpperCase())}</small>
-            <h4 class="h5 fw-bold text-white mb-1">${esc(p.nombre)}</h4>
+            <h4 class="h5 fw-bold mb-1">${esc(p.nombre)}</h4>
             <p class="text-secundario small mb-3">${esc(p.resumen)}</p>
             <div class="mt-auto pt-2">
               <div class="mb-2">${precioHtml}</div>
@@ -223,7 +231,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const productName = p.nombreCompleto;
         basePrice = precioFinal(p);
-        currentProductImages = p.imagenes;
+        currentProductImages = imagenesProducto(p);
         const productDesc = p.descripcion;
         const productSpecsStr = p.especificaciones.map(e => `${e.clave}:${e.valor}`).join(";");
         const productTagsStr = p.etiquetas.join(",");
@@ -234,7 +242,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           modalPrice.textContent = `S/ ${basePrice}`;
           if (p.descuento) {
             const anterior = document.createElement("small");
-            anterior.className = "text-decoration-line-through text-secondary fs-6 ms-2";
+            anterior.className = "text-decoration-line-through text-secondary fs-6 fw-normal ms-2";
             anterior.textContent = `S/ ${p.precio}`;
             modalPrice.append(anterior);
           }
@@ -243,9 +251,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (modalQtyInput) modalQtyInput.value = "1";
         if (modalDescription) modalDescription.textContent = productDesc;
 
-        // Render inicial de galería y miniaturas usando la primera imagen
-        changeModalImage(null, 'principal', currentProductImages[0]);
-        configureThumbnails(currentProductImages);
+        // Carrusel de imágenes de referencia (siempre arranca en la primera)
+        renderCarruselFicha(p, currentProductImages);
 
         // Badges dinámicos
         if (modalTagsContainer) {
@@ -269,10 +276,10 @@ document.addEventListener("DOMContentLoaded", async () => {
               if (parts.length === 2) {
                 const tr = document.createElement("tr");
                 tr.innerHTML = `
-                <th scope="row" class="text-white small py-2" style="width: 40%;">
+                <th scope="row" class="small py-2" style="width: 40%;">
                   ${parts[0].trim()}
                 </th>
-                <td class="text-secondary small py-2">
+                <td class="small py-2">
                   ${parts[1].trim()}
                 </td>
               `;
@@ -320,57 +327,42 @@ document.addEventListener("DOMContentLoaded", async () => {
   };
 
   // ==========================================
-  // VISOR DE IMÁGENES 
+  // CARRUSEL DE IMÁGENES DE LA FICHA
   // ==========================================
-  window.changeModalImage = function (element, viewType, imageUrl) {
-    const container = document.getElementById("modalMainImageContainer");
-    const tag = document.getElementById("modalImgTag");
-    const thumbnails = document.querySelectorAll(".img-thumbnail-gamer");
+  function renderCarruselFicha(producto, imagenes) {
+    const carrusel = document.getElementById("modalCarousel");
+    const inner = document.getElementById("modalCarouselInner");
+    const indicadores = document.getElementById("modalCarouselIndicators");
+    if (!carrusel || !inner || !indicadores) return;
 
-    let text = "Imagen de Referencia";
-    if (viewType === 'principal') text = "Imagen de Referencia";
-    if (viewType === 'secundaria') text = "Foco en Componentes";
-    if (viewType === 'caja') text = "Empaque y Accesorios";
+    const total = imagenes.length;
+    const nombre = esc(producto.nombre);
 
-    if (container) {
-      // Inyectamos la imagen principal
-      container.innerHTML = `
-      <img src="${imageUrl}" alt="${text}" class="w-100 h-100 object-fit-cover rounded" style="max-height: 280px; object-position: center;">
-      <span class="fw-bold text-uppercase tracking-wider text-secondary small d-block mt-2" id="modalImgTag">${text}</span>
-    `;
+    if (total === 0) {
+      // Producto sin fotos disponibles: un solo cuadro con el icono de su categoría
+      inner.innerHTML = `
+        <div class="carousel-item active">
+          <div class="carrusel-slide">
+            <i class="bi ${iconoCategoria(producto)} imagen-reemplazo" aria-hidden="true"></i>
+          </div>
+        </div>`;
+    } else {
+      inner.innerHTML = imagenes.map((url, i) => `
+        <div class="carousel-item ${i === 0 ? "active" : ""}">
+          <div class="carrusel-slide">
+            <img src="${esc(url)}" alt="${nombre} - imagen ${i + 1} de ${total}" data-icono="${iconoCategoria(producto)}">
+          </div>
+        </div>`).join("");
     }
 
-    thumbnails.forEach(btn => btn.classList.remove('active'));
-    if (element) {
-      element.classList.add('active');
-    }
-  };
+    indicadores.innerHTML = imagenes.map((_, i) => `
+      <button type="button" data-bs-target="#modalCarousel" data-bs-slide-to="${i}"
+        ${i === 0 ? 'class="active" aria-current="true"' : ""} aria-label="Ver imagen ${i + 1} de ${total}"></button>`).join("");
 
-  function configureThumbnails(imagesArray) {
-    const thumb1 = document.getElementById("thumb1");
-    const thumb2 = document.getElementById("thumb2");
-    const thumb3 = document.getElementById("thumb3");
+    // Con una sola imagen (o ninguna) no hacen falta botones ni indicadores
+    carrusel.classList.toggle("carrusel-unico", total < 2);
 
-    // Si solo se pasa 1 imagen, se repite la primera en las demás para evitar errores.
-    // Si se pasa 3 separadas por coma, usará cada una.
-    let img1 = imagesArray[0] ? imagesArray[0].trim() : '';
-    let img2 = imagesArray[1] ? imagesArray[1].trim() : img1;
-    let img3 = imagesArray[2] ? imagesArray[2].trim() : img1;
-
-    if (thumb1) {
-      thumb1.innerHTML = `<img src="${img1}" class="img-fluid rounded" style="height: 50px; object-fit: cover; width: 100%;">`;
-      thumb1.onclick = function () { changeModalImage(this, 'principal', img1); };
-      thumb1.classList.add('active');
-    }
-    if (thumb2) {
-      thumb2.innerHTML = `<img src="${img2}" class="img-fluid rounded" style="height: 50px; object-fit: cover; width: 100%;">`;
-      thumb2.onclick = function () { changeModalImage(this, 'secundaria', img2); };
-      thumb2.classList.remove('active');
-    }
-    if (thumb3) {
-      thumb3.innerHTML = `<img src="${img3}" class="img-fluid rounded" style="height: 50px; object-fit: cover; width: 100%;">`;
-      thumb3.onclick = function () { changeModalImage(this, 'caja', img3); };
-      thumb3.classList.remove('active');
-    }
+    const instancia = bootstrap.Carousel.getOrCreateInstance(carrusel, { interval: false, ride: false, wrap: true });
+    instancia.to(0);
   }
 });

@@ -119,7 +119,10 @@ function crearTarjetaProducto(producto) {
   const badgeHtml = producto.descuento
     ? `<span class="badge bg-accent">-${producto.descuento}%</span>`
     : "";
-  const imagen = producto.imagenes[0] ?? "";
+  const imagen = imagenesProducto(producto)[0];
+  const imagenHtml = imagen
+    ? `<img src="${esc(imagen)}" alt="${esc(producto.nombre)}" loading="lazy" data-icono="${iconoCategoria(producto)}">`
+    : `<i class="bi ${iconoCategoria(producto)} imagen-reemplazo" aria-hidden="true"></i>`;
   const precioAnteriorHtml = producto.descuento
     ? `<span class="product-card__price--old">S/ ${producto.precio}</span>`
     : "";
@@ -128,7 +131,7 @@ function crearTarjetaProducto(producto) {
     <div class="col-6 col-lg-4">
       <div class="product-card">
         <div class="product-card__img-wrap">
-          <img src="${esc(imagen)}" alt="${esc(producto.nombre)}" loading="lazy">
+          ${imagenHtml}
         </div>
         <div class="product-card__body">
           <div class="d-flex justify-content-between align-items-start gap-2 mb-1">

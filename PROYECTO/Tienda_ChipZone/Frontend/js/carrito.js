@@ -15,6 +15,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
+    // Miniatura del producto: foto de la carpeta img/ o icono de su categoría
+    function htmlMiniatura(p) {
+        const imagen = imagenesProducto(p)[0];
+        if (!imagen) {
+            return `<i class="bi ${iconoCategoria(p)} imagen-reemplazo" aria-hidden="true"></i>`;
+        }
+        return `<img src="${esc(imagen)}" alt="" class="w-100 h-100 object-fit-contain" data-icono="${iconoCategoria(p)}">`;
+    }
+
     // 1. CARRITO REAL: productos y precios vienen de la API, cantidades de localStorage
     function filaProducto(p, cantidad) {
         const final = precioFinal(p);
@@ -22,10 +31,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             ? `<small class="text-decoration-line-through text-secondary d-block">${soles(p.precio * cantidad)}</small>`
             : "";
         return `
-          <li class="list-group-item bg-transparent text-white d-flex justify-content-between align-items-center py-3 flex-wrap gap-3">
+          <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center py-3 flex-wrap gap-3">
             <div class="d-flex align-items-center gap-3">
-              <div class="bg-dark rounded border border-secondary overflow-hidden" style="width: 64px; height: 64px;">
-                <img src="${esc(p.imagenes[0])}" alt="" class="w-100 h-100 object-fit-cover">
+              <div class="carrito-miniatura rounded border overflow-hidden d-flex align-items-center justify-content-center" style="width: 64px; height: 64px;">
+                ${htmlMiniatura(p)}
               </div>
               <div>
                 <h6 class="mb-0">${esc(p.nombreCompleto)}</h6>
@@ -35,7 +44,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             <div class="d-flex align-items-center gap-4">
               <div class="input-group input-group-sm" style="width: 110px;">
                 <button class="btn btn-outline-secondary" type="button" data-accion="restar" data-id="${p.id}" aria-label="Quitar una unidad de ${esc(p.nombre)}">-</button>
-                <input type="text" class="form-control text-center bg-dark text-white border-secondary" value="${cantidad}" readonly aria-label="Cantidad">
+                <input type="text" class="form-control text-center" value="${cantidad}" readonly aria-label="Cantidad">
                 <button class="btn btn-outline-secondary" type="button" data-accion="sumar" data-id="${p.id}" aria-label="Agregar una unidad de ${esc(p.nombre)}" ${cantidad >= Carrito.MAX_POR_PRODUCTO ? "disabled" : ""}>+</button>
               </div>
               <span class="fw-bold text-end" style="min-width: 90px;">${anterior}${soles(final * cantidad)}</span>
@@ -112,11 +121,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     tabs.forEach(tab => {
         tab.addEventListener('click', (e) => {
             tabs.forEach(t => {
-                t.classList.remove('text-white', 'border-secondary', 'active');
+                t.classList.remove('text-body', 'border-secondary', 'active');
                 t.classList.add('text-secondary', 'border-0');
             });
             e.target.classList.remove('text-secondary', 'border-0');
-            e.target.classList.add('text-white', 'border-secondary', 'active');
+            e.target.classList.add('text-body', 'border-secondary', 'active');
         });
     });
 

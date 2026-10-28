@@ -18,7 +18,7 @@
   --bs-primary-rgb: 52, 56, 63;
   --bs-body-bg: #F1F2F4;
   --bs-body-color: #292D32;
-  --bs-secondary-color: #68717B;
+  --bs-secondary-color: #4A525B;
   --bs-border-color: #D9DDE2;
   --bs-tertiary-bg: #E7E9ED;
   --bs-link-color: #34383F;
@@ -37,7 +37,7 @@
   --nt-border: #D9DDE2;
 
   --nt-text: #292D32;
-  --nt-muted: #68717B;
+  --nt-muted: #4A525B;
 
   --nt-success: #247447;
   --nt-danger: #B33C36;
@@ -317,7 +317,7 @@ button:focus-visible,
 }
 
 .navbar .form-control::placeholder {
-  color: #737B84 !important;
+  color: #66707A !important;
   opacity: 1;
 }
 
@@ -584,7 +584,7 @@ h2 {
   justify-content: center;
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  background: #F1F2F4;
+  background: #FFFFFF;
   border-bottom: 1px solid #E1E4E8;
 }
 
@@ -617,7 +617,7 @@ h2 {
 }
 
 .product-card__body p {
-  color: #68717B;
+  color: var(--nt-muted);
 }
 
 .product-card__price {
@@ -628,7 +628,7 @@ h2 {
 
 .product-card__price--old {
   margin-right: 0.4rem;
-  color: #68717B;
+  color: var(--nt-muted);
   font-size: 0.88rem;
   font-weight: 400;
   text-decoration: line-through;
@@ -684,9 +684,9 @@ aside h5 {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 160px;
+  height: 190px;
   overflow: hidden;
-  background: #E7E9ED;
+  background: #FFFFFF;
   color: #34383F;
   font-size: 3.5rem;
   text-align: center;
@@ -701,9 +701,15 @@ aside h5 {
 
 .producto-img img {
   display: block;
-  max-width: 85%;
-  max-height: 85%;
+  width: 100%;
+  height: 100%;
+  padding: 0.6rem;
   object-fit: contain;
+  transition: transform 220ms ease;
+}
+
+.card-gamer:hover .producto-img img {
+  transform: scale(1.035);
 }
 
 .precio-catalogo {
@@ -726,7 +732,7 @@ aside h5 {
 }
 
 .form-control::placeholder {
-  color: #737B84 !important;
+  color: #66707A !important;
   opacity: 1;
 }
 
@@ -777,7 +783,7 @@ aside h5 {
 .nav-tabs-gamer .nav-link {
   padding: 0.7rem 1rem;
   background: transparent;
-  color: #68717B;
+  color: var(--nt-muted);
   border: 0;
   border-bottom: 3px solid transparent;
   border-radius: 8px 8px 0 0;
@@ -801,7 +807,7 @@ aside h5 {
 }
 
 .nav-tabs .nav-link {
-  color: #68717B;
+  color: var(--nt-muted);
 }
 
 .nav-tabs .nav-link:hover {
@@ -1081,3 +1087,254 @@ footer a:hover {
   }
 }
 
+/* ==========================================================================
+   22. CONTRASTE (WCAG AA) Y CLASES USADAS EN EL HTML/JS SIN ESTILO
+   ========================================================================== */
+
+/* Textos secundarios de Bootstrap: oscurecidos para llegar a 4.5:1 o más */
+.text-secondary,
+.text-body-secondary {
+  color: var(--nt-muted) !important;
+}
+
+/* Breadcrumb */
+.breadcrumb-item.active {
+  color: #292D32;
+  font-weight: 650;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+  color: var(--nt-muted);
+}
+
+/* Estrellas de calificación e iconos "info" legibles sobre fondo claro */
+.text-warning {
+  color: #B97A00 !important;
+}
+
+.text-info {
+  color: #34383F !important;
+}
+
+.btn-outline-info {
+  background: #FFFFFF !important;
+  color: #34383F !important;
+  border: 1px solid #8B929B !important;
+}
+
+.btn-outline-info:hover {
+  background: #E7E9ED !important;
+  border-color: #34383F !important;
+  color: #202329 !important;
+}
+
+/* Insignia de descuento y etiquetas de la ficha */
+.badge.bg-danger {
+  background: var(--nt-danger) !important;
+  color: #FFFFFF !important;
+}
+
+.badge-descuento {
+  z-index: 2;
+}
+
+.bg-purple-gamer {
+  background: #34383F !important;
+  color: #FFFFFF !important;
+  font-weight: 650;
+}
+
+/* Fondos que el HTML ya usaba (bg-surface, bg-depth) */
+.bg-surface {
+  background-color: var(--nt-surface) !important;
+  color: var(--nt-text);
+}
+
+.bg-depth {
+  background-color: var(--nt-surface-alt) !important;
+}
+
+.tracking-wider {
+  letter-spacing: 0.08em;
+}
+
+/* Navbar y footer son oscuros: sus textos y acentos van en claro */
+.navbar .text-accent,
+footer .text-accent {
+  color: var(--nt-accent) !important;
+}
+
+footer .text-body-secondary,
+footer .text-secondary,
+footer .small {
+  color: #D5D9DF !important;
+}
+
+/* Selector de cantidad de la ficha */
+.btn-qty {
+  background: #FFFFFF !important;
+  color: #292D32 !important;
+  border: 1px solid #8B929B !important;
+  font-weight: 800;
+}
+
+.btn-qty:hover {
+  background: #FFF3D5 !important;
+  border-color: #34383F !important;
+}
+
+.qty-input {
+  font-weight: 700;
+}
+
+/* Botón de favoritos (inicio) */
+.btn-wishlist {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  background: #FFFFFF;
+  color: #34383F;
+  border: 1px solid #8B929B;
+  border-radius: var(--nt-radius-sm);
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.btn-wishlist:hover {
+  background: #E7E9ED;
+  border-color: #34383F;
+}
+
+.btn-wishlist.is-active {
+  background: var(--nt-soft-red);
+  color: var(--nt-danger);
+  border-color: var(--nt-danger);
+}
+
+/* Cuando una imagen no carga o el producto no tiene foto: icono de categoría */
+.imagen-reemplazo {
+  display: block;
+  color: #4A525B;
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+.carrito-miniatura {
+  background: #FFFFFF;
+  border-color: var(--nt-border) !important;
+}
+
+.carrito-miniatura .imagen-reemplazo {
+  font-size: 1.75rem;
+}
+
+/* ==========================================================================
+   23. FICHA DE PRODUCTO: CARRUSEL DE IMÁGENES DE REFERENCIA
+   ========================================================================== */
+
+#modalCarousel {
+  overflow: hidden;
+  background: #FFFFFF;
+  border: 1px solid var(--nt-border);
+  border-radius: var(--nt-radius-md);
+}
+
+.carrusel-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 320px;
+  padding: 1rem 3.5rem 2.5rem;
+  background: #FFFFFF;
+}
+
+.carrusel-slide img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.carrusel-slide .imagen-reemplazo {
+  font-size: 7rem;
+}
+
+.carrusel-leyenda {
+  color: var(--nt-muted);
+  letter-spacing: 0.08em;
+}
+
+/* Botones anterior / siguiente: círculos grafito visibles sobre fondo blanco */
+#modalCarousel .carousel-control-prev,
+#modalCarousel .carousel-control-next {
+  top: 50%;
+  bottom: auto;
+  width: 40px;
+  height: 40px;
+  margin: 0 0.6rem;
+  background: #34383F;
+  border: 2px solid #FFFFFF;
+  border-radius: 50%;
+  opacity: 0.95;
+  transform: translateY(-50%);
+  transition: background-color 180ms ease, opacity 180ms ease;
+}
+
+#modalCarousel .carousel-control-prev {
+  left: 0;
+}
+
+#modalCarousel .carousel-control-next {
+  right: 0;
+}
+
+#modalCarousel .carousel-control-prev:hover,
+#modalCarousel .carousel-control-next:hover,
+#modalCarousel .carousel-control-prev:focus-visible,
+#modalCarousel .carousel-control-next:focus-visible {
+  background: #202329;
+  opacity: 1;
+}
+
+#modalCarousel .carousel-control-prev-icon,
+#modalCarousel .carousel-control-next-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+/* Indicadores */
+#modalCarousel .carousel-indicators {
+  margin-bottom: 0.6rem;
+}
+
+#modalCarousel .carousel-indicators [data-bs-target] {
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  background-color: #8B929B;
+  border: 0;
+  border-radius: 50%;
+  opacity: 1;
+}
+
+#modalCarousel .carousel-indicators .active {
+  background-color: #34383F;
+  outline: 2px solid var(--nt-accent);
+  outline-offset: 2px;
+}
+
+/* Sin imágenes suficientes no se muestran botones ni indicadores */
+#modalCarousel.carrusel-unico .carousel-control-prev,
+#modalCarousel.carrusel-unico .carousel-control-next,
+#modalCarousel.carrusel-unico .carousel-indicators {
+  display: none;
+}
+
+@media (max-width: 575.98px) {
+  .carrusel-slide {
+    height: 260px;
+    padding: 0.75rem 3rem 2.25rem;
+  }
+}
