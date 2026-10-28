@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" data-bs-theme="dark">
+<html lang="es" data-bs-theme="light">
 
 <head>
   <meta charset="utf-8">
@@ -15,7 +15,7 @@
 
   <!-- NAVBAR -->
   <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-body-tertiary sticky-top border-bottom"
+    <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary sticky-top border-bottom"
       aria-label="Navegación principal">
       <div class="container">
         <a class="navbar-brand fw-semibold d-flex align-items-center gap-2" href="inicio.html">
@@ -39,7 +39,7 @@
                 aria-expanded="false">
                 Categorías
               </a>
-              <ul class="dropdown-menu dropdown-menu-dark">
+              <ul class="dropdown-menu dropdown-menu-light">
                 <li><a class="dropdown-item" href="catalogo.html?categoria=laptops">Laptops</a></li>
                 <li><a class="dropdown-item" href="catalogo.html?categoria=celulares">Celulares</a></li>
                 <li><a class="dropdown-item" href="catalogo.html?categoria=accesorios">Accesorios</a></li>
@@ -62,7 +62,8 @@
             <a href="mi_cuenta.html" class="nav-icon" aria-label="Cuenta"><i class="bi bi-person"></i></a>
             <a href="carrito.html" class="nav-icon position-relative" aria-label="Carrito">
               <i class="bi bi-cart3"></i>
-              <span class="badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle d-none" data-carrito-badge>0</span>
+              <span class="badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle d-none"
+                data-carrito-badge>0</span>
             </a>
           </div>
         </div>
@@ -228,7 +229,7 @@
   <!-- MODAL BOOTSTRAP -->
   <div class="modal fade" id="modalTerminos" tabindex="-1" aria-labelledby="modalTerminosLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content bg-dark text-white border-secondary">
+      <div class="modal-content bg-light text-white border-secondary">
         <div class="modal-header border-secondary">
           <h5 class="modal-title" id="modalTerminosLabel"><i class="bi bi-shield-check text-primary me-2"></i>Términos y
             Condiciones</h5>
@@ -247,35 +248,30 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer class="py-4 border-top text-secondary bg-body-tertiary">
+  <!-- ===================== FOOTER COMPARTIDO ===================== -->
+  <footer class="py-4 border-top">
     <div class="container">
-      <div class="row g-4 mb-3">
-        <div class="col-md-4">
-          <h5 class="text-white fw-bold"><i class="bi bi-cpu-fill text-accent"></i> ChipZone</h5>
-          <p class="small text-secondary">Tu tienda tecnológica preferida para componentes gaming y accesorios de alta
-            gama.</p>
+      <div class="row gy-3">
+        <div class="col-12 col-md-4">
+          <p class="fw-semibold mb-1 d-flex align-items-center gap-2">
+            <i class="bi bi-cpu-fill text-accent" aria-hidden="true"></i> ChipZone
+          </p>
+          <p class="text-body-secondary small mb-0">Artículos tecnológicos con garantía real.</p>
         </div>
-        <div class="col-md-4">
-          <h6 class="text-white">Enlaces Rápidos</h6>
-          <ul class="list-unstyled small">
-            <li><a href="inicio.html" class="text-decoration-none text-secondary">Inicio</a></li>
-            <li><a href="catalogo.html" class="text-decoration-none text-secondary">Catálogo</a></li>
-            <li><a href="#seccion-soporte" class="text-decoration-none text-secondary">Preguntas Frecuentes</a></li>
+        <div class="col-6 col-md-4">
+          <p class="fw-semibold small mb-2">Enlaces</p>
+          <ul class="list-unstyled small text-body-secondary">
+            <li><a href="catalogo.html" class="footer-link">Catálogo</a></li>
+            <li><a href="mi_cuenta.html" class="footer-link">Mi cuenta</a></li>
+            <li><a href="mi_cuenta.html#soporte-pane" class="footer-link">Centro de ayuda</a></li>
           </ul>
         </div>
-        <div class="col-md-4">
-          <h6 class="text-white">Contacto</h6>
-          <p class="small text-secondary mb-1"><i class="bi bi-envelope me-2"></i>soporte@chipzone.com</p>
-          <p class="small text-secondary"><i class="bi bi-geo-alt me-2"></i>Lima, Perú</p>
+        <div class="col-6 col-md-4 text-md-end">
+          <p class="small text-body-secondary mb-0">© <span id="anioActual"></span> ChipZone. Proyecto académico.</p>
         </div>
-      </div>
-      <div class="text-center border-top pt-3 border-secondary small">
-        <p class="mb-0">© <span id="anioActual"></span> ChipZone</p>
       </div>
     </div>
   </footer>
-
   <!-- JS BOOTSTRAP + JS CUSTOM -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../js/cart.js"></script>

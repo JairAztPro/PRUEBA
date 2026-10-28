@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" data-bs-theme="dark">
+<html lang="es" data-bs-theme="light">
 
 <head>
   <meta charset="utf-8">
@@ -23,7 +23,7 @@
 
   <!-- ===================== NAVBAR COMPARTIDO ===================== -->
   <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-body-tertiary sticky-top border-bottom"
+    <nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary sticky-top border-bottom"
       aria-label="Navegación principal">
       <div class="container">
         <a class="navbar-brand fw-semibold d-flex align-items-center gap-2" href="inicio.html">
@@ -41,7 +41,7 @@
                 aria-expanded="false">
                 Categorías
               </a>
-              <ul class="dropdown-menu dropdown-menu-dark">
+              <ul class="dropdown-menu dropdown-menu-light">
                 <li><a class="dropdown-item" href="catalogo.html?categoria=laptops">Laptops</a></li>
                 <li><a class="dropdown-item" href="catalogo.html?categoria=celulares">Celulares</a></li>
                 <li><a class="dropdown-item" href="catalogo.html?categoria=accesorios">Accesorios</a></li>
@@ -73,7 +73,8 @@
             <a href="carrito.html" class="text-decoration-none nav-icon position-relative"
               aria-label="Carrito de compras, 0 producto(s)">
               <i class="bi bi-cart3" aria-hidden="true"></i>
-              <span class="badge rounded-pill bg-accent position-absolute top-0 start-100 translate-middle d-none" data-carrito-badge>0</span>
+              <span class="badge rounded-pill bg-accent position-absolute top-0 start-100 translate-middle d-none"
+                data-carrito-badge>0</span>
             </a>
           </div>
         </div>
@@ -174,7 +175,7 @@
         style="background-color: var(--nt-surface); border: 1px solid var(--bs-border-color);">
 
         <!-- Cabecera del Modal -->
-        <div class="modal-header bg-dark border-secondary text-white">
+        <div class="modal-header bg-light border-secondary text-white">
           <div class="d-flex align-items-center gap-2">
             <i class="bi bi-cpu-fill text-accent fs-5" aria-hidden="true"></i>
             <h2 class="modal-title h5 mb-0 fw-bold">Ficha Técnica de Producto</h2>
@@ -184,7 +185,7 @@
         </div>
 
         <!-- Cuerpo del Modal -->
-        <div class="modal-body bg-dark text-white p-4">
+        <div class="modal-body bg-light text-white p-4">
           <div class="container-fluid p-0">
             <div class="row g-4">
 
@@ -320,7 +321,7 @@
                     tabindex="0">
                     <div class="table-responsive">
                       <table
-                        class="table table-dark table-striped table-sm mb-0 align-middle text-start text-secondary">
+                        class="table table-light table-striped table-sm mb-0 align-middle text-start text-secondary">
                         <caption class="visually-hidden">Detalles mecánicos e internos del hardware seleccionado
                         </caption>
                         <thead>
@@ -462,7 +463,7 @@
         </div>
 
         <!-- Pie de página del Modal -->
-        <div class="modal-footer border-secondary bg-dark">
+        <div class="modal-footer border-secondary bg-light">
           <button type="button" class="btn btn-outline-secondary text-white border-secondary"
             data-bs-dismiss="modal">Seguir buscando</button>
           <button type="button" class="btn btn-accent" onclick="confirmAddToCart()" id="btnModalAdd">

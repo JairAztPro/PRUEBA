@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* ==========================================================================
    VARIABLES GLOBALES (Paleta: Cyber-Noir Elegante & Minimalista)
    ========================================================================== */
@@ -18,300 +19,315 @@
   /* Bordes oscuros y limpios */
   --bs-tertiary-bg: #111827;
   /* Fondo de tarjetas y contenedores */
+=======
+/* ==========================================================
+   CHIPZONE — TECH PREMIUM CLARO
+   Carbón + ámbar + verde petróleo + crema
+   ========================================================== */
+>>>>>>> 5af769535b5555635cbbde77ce95d755e9644a55
 
-  /* Acento elegante: Dorado Champagne / Bronce tecnológico */
-  --nt-accent: #F59E0B;
-  /* Ámbar / Dorado cálido no cansado */
-  --nt-accent-rgb: 245, 158, 11;
+:root,
+[data-bs-theme="light"],
+[data-bs-theme="dark"] {
+  color-scheme: light;
 
-  --nt-surface: #111827;
-  /* Superficies secundarias */
-  --app-icon-size: 3rem;
+  --bs-primary: #176B68;
+  --bs-primary-rgb: 23, 107, 104;
+  --bs-body-bg: #F8F5EF;
+  --bs-body-color: #28343B;
+  --bs-secondary-color: #69767C;
+  --bs-border-color: #E5DED2;
+  --bs-tertiary-bg: #F0EBE2;
+
+  --nt-accent: #F4A62A;
+  --nt-accent-rgb: 244, 166, 42;
+  --nt-surface: #FFFDF8;
+
+  --cz-ink: #28343B;
+  --cz-muted: #69767C;
+  --cz-petrol: #176B68;
+  --cz-amber: #F4A62A;
+  --cz-cream: #F8F5EF;
+  --cz-card: #FFFDF8;
+  --cz-border: #E5DED2;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
+/* Fondo general */
+html,
 body {
-  min-width: 320px;
-  background-color: var(--bs-body-bg);
-  color: var(--bs-body-color);
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--cz-cream) !important;
+  color: var(--cz-ink) !important;
 }
 
-section[id] {
-  scroll-margin-top: 4.5rem;
+/* Neutralizar tema oscuro de Bootstrap */
+[data-bs-theme="dark"] {
+  color-scheme: light;
 }
 
-/* ==========================================================================
-   UTILIDADES PROPIAS DE ACCESIBILIDAD Y ACENTO ELEGANTE
-   ========================================================================== */
-.text-accent {
-  color: var(--nt-accent) !important;
+.bg-dark,
+.bg-black,
+.bg-secondary,
+.text-bg-dark {
+  background-color: #EEE8DE !important;
+  color: var(--cz-ink) !important;
 }
 
-.bg-accent {
-  background-color: var(--nt-accent) !important;
-  color: #0B0F17;
+/* Textos que eran blancos sobre fondos claros */
+.text-white,
+.text-light {
+  color: var(--cz-ink) !important;
 }
 
-.text-secundario {
-  color: var(--bs-secondary-color);
+/* Conservar texto blanco cuando realmente hay un botón de color */
+.btn .text-white,
+button .text-white,
+.btn.text-white,
+button.text-white {
+  color: inherit !important;
 }
 
-.btn-accent {
-  background-color: var(--nt-accent);
-  border-color: var(--nt-accent);
-  color: #0B0F17;
+/* Títulos */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--cz-ink);
+}
+
+/* Navbar claro y elegante */
+.navbar {
+  background: #FFFDF8 !important;
+  border-bottom: 1px solid var(--cz-border);
+  box-shadow: 0 4px 16px rgba(40, 52, 59, 0.06);
+}
+
+.navbar-brand {
+  color: var(--cz-petrol) !important;
+  font-weight: 800;
+}
+
+.navbar .nav-link {
+  color: #46545A !important;
   font-weight: 600;
-  transition: all 0.2s ease;
 }
 
-.btn-accent:hover,
-.btn-accent:focus {
-  background-color: #d97706;
-  /* Tono bronce/ámbar un poco más profundo al pasar el mouse */
-  border-color: #d97706;
-  color: #0B0F17;
-  transform: translateY(-1px);
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  color: var(--cz-petrol) !important;
 }
 
-/* Enfoque accesible limpio y sutil */
-a:focus-visible,
-button:focus-visible,
-.btn:focus-visible,
-.form-control:focus-visible,
-.form-select:focus-visible {
-  outline: 0.15rem solid var(--nt-accent);
-  outline-offset: 0.15rem;
+.navbar .form-control {
+  background: #FFFFFF !important;
+  color: var(--cz-ink) !important;
+  border-color: var(--cz-border) !important;
 }
 
-/* Reducir movimiento para accesibilidad */
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  .card-gamer,
-  .category-card,
-  .product-card {
-    transition: none !important;
-    transform: none !important;
-  }
-}
-
-/* ==========================================================================
-   VISTA 1: ESTILOS DE LANDING/INICIO 
-   ========================================================================== */
+/* Portada */
 .hero {
-  background: radial-gradient(120% 140% at 15% 20%, rgba(99, 102, 241, 0.12), transparent 60%),
-    var(--bs-body-bg);
+  background:
+    radial-gradient(circle at 90% 15%,
+      rgba(244, 166, 42, 0.13),
+      transparent 32%),
+    radial-gradient(circle at 5% 90%,
+      rgba(23, 107, 104, 0.09),
+      transparent 38%),
+    #F8F5EF !important;
 }
 
-.eyebrow {
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--nt-accent);
-}
-
-.hero-image {
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
-  width: 100%;
-}
-
-/* Banner de oferta elegante */
-.alert-offer {
-  background-color: rgba(245, 158, 11, 0.08);
-  border: 1px solid rgba(245, 158, 11, 0.25);
-  color: #FDE68A;
-  border-radius: 0.75rem;
-}
-
-.alert-offer .alert-link {
-  color: var(--nt-accent);
-  font-weight: 600;
-}
-
-/* Categorías destacadas */
-.category-card {
-  background: var(--nt-surface);
-  border: 1px solid var(--bs-border-color);
-  border-radius: 0.9rem;
-  padding: 1.4rem 1rem;
-  text-align: center;
-  color: var(--bs-body-color);
-  transition: border-color 160ms ease, transform 160ms ease;
+/* Categorías y productos */
+.category-card,
+.product-card,
+.card-gamer,
+.card,
+.modal-content,
+.filter-box,
+aside {
+  background: var(--cz-card);
+  color: var(--cz-ink);
+  border-color: var(--cz-border);
 }
 
 .category-card:hover,
-.category-card:focus-visible {
-  border-color: var(--nt-accent);
-  transform: translateY(-0.2rem);
-}
-
-.category-icon {
-  display: block;
-  font-size: 1.8rem;
-  margin-bottom: 0.6rem;
-  color: var(--nt-accent);
-}
-
-/* Cards de producto */
-.product-card {
-  background: var(--nt-surface);
-  border: 1px solid var(--bs-border-color);
-  border-radius: 0.9rem;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.product-card__img-wrap {
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border-top-left-radius: 0.9rem;
-  border-top-right-radius: 0.9rem;
-}
-
-.product-card__img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.product-card__body {
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.product-card__price {
-  font-weight: 700;
-  font-size: 1.05rem;
-  color: var(--bs-body-color);
-}
-
-.product-card__price--old {
-  text-decoration: line-through;
-  color: var(--bs-secondary-color);
-  font-weight: 400;
-  font-size: 0.85rem;
-  margin-right: 0.4rem;
-}
-
-/* Franja de beneficios */
-.benefits-strip {
-  border-radius: 0.75rem;
-  overflow: hidden;
-}
-
-.benefits-strip .list-group-item {
-  background-color: var(--nt-surface);
-  border-color: var(--bs-border-color);
-  color: var(--bs-body-color);
-  flex: 1 1 0;
-  justify-content: center;
-  font-size: 0.9rem;
-}
-
-/* Enlaces del navbar/footer */
-.nav-icon {
-  color: var(--bs-body-color);
-  font-size: 1.2rem;
-  transition: color 0.2s ease;
-}
-
-.nav-icon:hover,
-.nav-icon:focus-visible {
-  color: var(--nt-accent);
-}
-
-.footer-link {
-  color: var(--bs-secondary-color);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.footer-link:hover,
-.footer-link:focus-visible {
-  color: var(--nt-accent);
-}
-
-/* ==========================================================================
-   VISTA 2 Y 3: COMPONENTES DE CATÁLOGO Y MODALES
-   ========================================================================== */
-.card-gamer {
-  background-color: var(--nt-surface);
-  border: 1px solid var(--bs-border-color);
-  color: var(--bs-body-color);
-  transition: transform 160ms ease, border-color 160ms ease;
-}
-
+.product-card:hover,
 .card-gamer:hover {
-  border-color: var(--nt-accent);
-  transform: translateY(-0.25rem);
+  border-color: var(--cz-amber);
+  box-shadow: 0 10px 24px rgba(40, 52, 59, 0.09);
 }
 
-.select-gamer {
-  width: 160px;
-  background: var(--nt-surface);
-  color: var(--bs-body-color);
-  border-color: var(--bs-border-color);
+.product-card__body,
+.card-body {
+  color: var(--cz-ink);
 }
 
-.select-gamer:focus {
-  background: var(--nt-surface);
-  color: var(--bs-body-color);
-  border-color: var(--nt-accent);
+.product-card__body h3,
+.product-card__body h4,
+.card-body h5,
+.card-body h6 {
+  color: var(--cz-ink) !important;
 }
 
-.producto-img {
-  height: 140px;
-  background: var(--bs-body-bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  color: var(--nt-accent);
-  font-size: 4rem;
-  border-bottom: 1px solid var(--bs-border-color);
+.product-card p,
+.card-text,
+.text-muted {
+  color: var(--cz-muted) !important;
 }
 
+.product-card__price,
 .precio-catalogo {
-  color: var(--nt-accent);
-  font-size: 1.25rem;
-  font-weight: 700;
+  color: var(--cz-petrol) !important;
+  font-weight: 800;
 }
 
-/* Pestañas de navegación estilizadas */
-.nav-tabs-gamer .nav-link {
-  color: var(--bs-secondary-color);
-  border: none;
-  font-weight: 500;
-  padding: 0.75rem 1.25rem;
-  background: transparent;
+.product-card__img-wrap,
+.producto-img {
+  background: #F0EBE2 !important;
 }
 
-.nav-tabs-gamer .nav-link.active {
-  color: var(--nt-accent) !important;
-  background: transparent !important;
-  border-bottom: 2px solid var(--nt-accent);
+/* Acordeones, como los pasos de compra */
+.accordion-item {
+  background: var(--cz-card) !important;
+  border-color: var(--cz-border) !important;
 }
 
-/* Acordeón limpio y ordenado */
 .accordion-button {
-  background-color: transparent !important;
-  color: var(--bs-body-color) !important;
-  box-shadow: none !important;
-  border: none !important;
+  background: var(--cz-card) !important;
+  color: var(--cz-ink) !important;
 }
 
 .accordion-button:not(.collapsed) {
-  background-color: rgba(245, 158, 11, 0.08) !important;
-  color: var(--nt-accent) !important;
+  background: #F4EFE5 !important;
+  color: var(--cz-petrol) !important;
+}
+
+.accordion-body {
+  background: var(--cz-card) !important;
+  color: var(--cz-ink) !important;
+}
+
+/* Resumen de compra y paneles */
+.list-group-item,
+.tab-content {
+  background: var(--cz-card) !important;
+  color: var(--cz-ink) !important;
+  border-color: var(--cz-border) !important;
+}
+
+/* Formularios */
+.form-control,
+.form-select,
+.select-gamer {
+  background: #FFFFFF !important;
+  color: var(--cz-ink) !important;
+  border-color: #D9D3C8 !important;
+}
+
+.form-control::placeholder {
+  color: #7D8588 !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--cz-petrol) !important;
+  box-shadow: 0 0 0 0.2rem rgba(23, 107, 104, 0.12) !important;
+}
+
+/* Botón principal: ámbar */
+.btn-accent,
+.btn-warning {
+  background: var(--cz-amber) !important;
+  border-color: var(--cz-amber) !important;
+  color: #28343B !important;
+  font-weight: 750;
+}
+
+.btn-accent:hover,
+.btn-warning:hover {
+  background: #E99A18 !important;
+  border-color: #E99A18 !important;
+  color: #28343B !important;
+}
+
+/* Botones secundarios: verde petróleo */
+.btn-primary {
+  background: var(--cz-petrol) !important;
+  border-color: var(--cz-petrol) !important;
+  color: #FFFFFF !important;
+}
+
+.btn-primary:hover {
+  background: #105653 !important;
+  border-color: #105653 !important;
+  color: #FFFFFF !important;
+}
+
+.btn-outline-primary {
+  color: var(--cz-petrol) !important;
+  border-color: var(--cz-petrol) !important;
+}
+
+.btn-outline-primary:hover {
+  background: var(--cz-petrol) !important;
+  color: #FFFFFF !important;
+}
+
+/* Precios, totales y descuentos */
+.precio-catalogo,
+.product-card__price {
+  color: var(--cz-petrol) !important;
+}
+
+.text-success {
+  color: #16805D !important;
+}
+
+/* Tablas */
+.table {
+  --bs-table-bg: #FFFDF8;
+  --bs-table-color: #28343B;
+  --bs-table-border-color: #E5DED2;
+  --bs-table-striped-bg: #F4EFE6;
+  --bs-table-striped-color: #28343B;
+  --bs-table-hover-bg: #EAF3EF;
+  --bs-table-hover-color: #28343B;
+}
+
+.table thead th {
+  background: #E9F0EB !important;
+  color: #28564F !important;
+}
+
+/* Alertas y ofertas */
+.alert-offer {
+  background: #FFF3D9 !important;
+  color: #624819 !important;
+  border-color: #F1D49A !important;
+}
+
+.alert-offer .alert-link {
+  color: #875700 !important;
+}
+
+/* Footer en tono oscuro suave, no negro puro */
+footer {
+  background: #28343B !important;
+  color: #F8F5EF !important;
+}
+
+footer h5,
+footer h6,
+footer p,
+footer span {
+  color: #F8F5EF !important;
+}
+
+footer a,
+.footer-link {
+  color: #E5D4B6 !important;
+}
+
+footer a:hover,
+.footer-link:hover {
+  color: #FFC45C !important;
 }
