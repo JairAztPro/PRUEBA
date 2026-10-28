@@ -1,0 +1,1354 @@
+/* ==========================================================================
+   CHIPZONE | GAMER PREMIUM
+   Paleta: Grafito + Ámbar + Gris hielo
+   Mantiene las clases del CSS original.
+   ========================================================================== */
+
+/* ==========================================================================
+   1. VARIABLES GLOBALES
+   ========================================================================== */
+
+:root,
+[data-bs-theme="light"],
+[data-bs-theme="dark"] {
+  color-scheme: light;
+
+  /* Bootstrap */
+  --bs-primary: #34383F;
+  --bs-primary-rgb: 52, 56, 63;
+  --bs-body-bg: #F1F2F4;
+  --bs-body-color: #292D32;
+  --bs-secondary-color: #4A525B;
+  --bs-border-color: #D9DDE2;
+  --bs-tertiary-bg: #E7E9ED;
+  --bs-link-color: #34383F;
+  --bs-link-hover-color: #17191D;
+
+  /* Identidad ChipZone */
+  --nt-primary: #34383F;
+  --nt-primary-hover: #202329;
+
+  --nt-accent: #F5B52E;
+  --nt-accent-rgb: 245, 181, 46;
+  --nt-accent-hover: #E5A51C;
+
+  --nt-surface: #FFFFFF;
+  --nt-surface-alt: #F1F2F4;
+  --nt-border: #D9DDE2;
+
+  --nt-text: #292D32;
+  --nt-muted: #4A525B;
+
+  --nt-success: #247447;
+  --nt-danger: #B33C36;
+
+  --nt-soft-amber: #FFF3D5;
+  --nt-soft-gray: #E7E9ED;
+  --nt-soft-green: #E8F2EA;
+  --nt-soft-red: #FCECEA;
+
+  --app-icon-size: 3rem;
+
+  --nt-radius-sm: 8px;
+  --nt-radius-md: 12px;
+  --nt-radius-lg: 16px;
+
+  --nt-shadow-sm: 0 2px 7px rgba(35, 39, 45, 0.05);
+  --nt-shadow: 0 5px 16px rgba(35, 39, 45, 0.07);
+  --nt-shadow-hover: 0 10px 24px rgba(35, 39, 45, 0.12);
+}
+
+/* ==========================================================================
+   2. CONFIGURACIÓN GENERAL
+   ========================================================================== */
+
+html {
+  scroll-behavior: smooth;
+  background: #F1F2F4;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  position: relative;
+  background: transparent; /* el fondo real lo pone body::before */
+  color: var(--nt-text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+}
+
+/* Fondo fijo en todas las páginas */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    /* velo claro: más alto = patrón más transparente */
+    linear-gradient(rgba(241, 242, 244, 0.25), rgba(241, 242, 244, 0.25)),
+    url("../img/fondo-chipzone.svg") center / cover no-repeat;
+}
+
+/* Secciones grises (Bootstrap): semitransparentes para dejar ver el fondo */
+main .bg-body-tertiary {
+  background-color: rgba(231, 233, 237, 0.55) !important;
+}
+
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: var(--nt-primary);
+  transition: color 180ms ease;
+}
+
+a:hover {
+  color: #111318;
+}
+
+hr {
+  border-color: var(--nt-border);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   3. UTILIDADES
+   ========================================================================== */
+
+.text-accent {
+  color: #966200 !important;
+}
+
+.bg-accent {
+  background: var(--nt-accent) !important;
+  color: #292D32 !important;
+}
+
+.text-secundario {
+  color: var(--nt-muted) !important;
+}
+
+.text-muted {
+  color: var(--nt-muted) !important;
+}
+
+/* Fondos claros para utilidades Bootstrap */
+.bg-light {
+  background-color: var(--nt-surface) !important;
+  color: var(--nt-text) !important;
+}
+
+/* Las secciones oscuras se definen individualmente.
+   Evitamos que una clase heredada vuelva negra toda la página. */
+.bg-dark,
+.bg-black,
+.bg-secondary,
+.text-bg-dark,
+.text-bg-secondary {
+  background-color: #E7E9ED !important;
+  color: var(--nt-text) !important;
+}
+
+/* No dejar texto blanco invisible en fondos claros */
+.bg-dark .text-white,
+.bg-black .text-white,
+.bg-secondary .text-white,
+.text-bg-dark,
+.text-bg-secondary {
+  color: var(--nt-text) !important;
+}
+
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible,
+.form-control:focus-visible,
+.form-select:focus-visible {
+  outline: 3px solid rgba(245, 181, 46, 0.9);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   4. BOTONES
+   ========================================================================== */
+
+.btn {
+  min-height: 40px;
+  padding: 0.58rem 1rem;
+  border-radius: var(--nt-radius-sm);
+  font-weight: 700;
+  line-height: 1.4;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+/* Botón principal de compra: ámbar */
+.btn-accent,
+.btn-warning {
+  background: var(--nt-accent) !important;
+  border: 1px solid var(--nt-accent-hover) !important;
+  color: #292D32 !important;
+  box-shadow: 0 3px 9px rgba(197, 135, 16, 0.16);
+}
+
+.btn-accent:hover,
+.btn-warning:hover {
+  background: #FFD16A !important;
+  border-color: #D69A19 !important;
+  color: #292D32 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(197, 135, 16, 0.24);
+}
+
+/* Botón oscuro secundario */
+.btn-primary {
+  background: #34383F !important;
+  border: 1px solid #34383F !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 3px 8px rgba(35, 39, 45, 0.12);
+}
+
+.btn-primary:hover {
+  background: #202329 !important;
+  border-color: #202329 !important;
+  color: #FFFFFF !important;
+  transform: translateY(-1px);
+}
+
+/* Botones de contorno */
+.btn-outline-primary {
+  background: #FFFFFF !important;
+  color: #34383F !important;
+  border: 1px solid #8B929B !important;
+}
+
+.btn-outline-primary:hover {
+  background: #E7E9ED !important;
+  border-color: #34383F !important;
+  color: #202329 !important;
+}
+
+.btn-outline-secondary {
+  background: #FFFFFF !important;
+  color: #454B53 !important;
+  border: 1px solid #C7CCD2 !important;
+}
+
+.btn-outline-secondary:hover {
+  background: #E7E9ED !important;
+  border-color: #8B929B !important;
+  color: #292D32 !important;
+}
+
+/* El botón blanco debe conservar contraste */
+.btn-light {
+  background: #FFFFFF !important;
+  color: #292D32 !important;
+  border: 1px solid #D0D4DA !important;
+}
+
+.btn-light:hover {
+  background: #E7E9ED !important;
+  color: #202329 !important;
+}
+
+/* ==========================================================================
+   5. NAVBAR
+   ========================================================================== */
+
+.navbar {
+  position: relative;
+  background: #292D32 !important;
+  border-bottom: 3px solid var(--nt-accent) !important;
+  box-shadow: 0 4px 16px rgba(25, 28, 33, 0.16);
+}
+
+/* Marca */
+.navbar .navbar-brand,
+.navbar .navbar-brand:hover,
+.navbar .navbar-brand:focus {
+  color: #FFFFFF !important;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+
+/* Enlaces */
+.navbar .nav-link {
+  color: #E5E8EC !important;
+  font-weight: 600;
+  border-radius: 7px;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+  color: #FFD16A !important;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.navbar .nav-link.active {
+  color: #FFD16A !important;
+}
+
+/* Iconos del navbar */
+.nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: #FFFFFF !important;
+  font-size: 1.15rem;
+  border-radius: 8px;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+.nav-icon:hover,
+.nav-icon:focus-visible {
+  color: #FFD16A !important;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Buscador */
+.navbar .form-control,
+.navbar .input-group-text {
+  background: #FFFFFF !important;
+  color: #292D32 !important;
+  border: 1px solid #D9DDE2 !important;
+}
+
+.navbar .form-control {
+  min-height: 40px;
+  border-radius: 8px !important;
+}
+
+.navbar .form-control::placeholder {
+  color: #66707A !important;
+  opacity: 1;
+}
+
+.navbar .input-group-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+}
+
+.navbar .dropdown-menu {
+  background: #FFFFFF !important;
+  border: 1px solid #D9DDE2 !important;
+  border-radius: 10px;
+  box-shadow: var(--nt-shadow-hover);
+  padding: 0.4rem;
+}
+
+.navbar .dropdown-item {
+  color: #292D32 !important;
+  border-radius: 6px;
+  padding: 0.55rem 0.75rem;
+}
+
+.navbar .dropdown-item:hover {
+  background: #FFF3D5 !important;
+  color: #292D32 !important;
+}
+
+.navbar .navbar-toggler {
+  border: 1px solid #777E87 !important;
+}
+
+.navbar .navbar-toggler-icon {
+  filter: brightness(0) invert(1);
+}
+
+/* ==========================================================================
+   6. TÍTULOS Y TEXTOS
+   ========================================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #292D32;
+  font-weight: 750;
+  line-height: 1.25;
+}
+
+h1 {
+  letter-spacing: -0.035em;
+}
+
+h2 {
+  letter-spacing: -0.02em;
+}
+
+.eyebrow {
+  margin-bottom: 0.5rem;
+  color: #956000;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   7. PORTADA / HERO
+   ========================================================================== */
+
+.hero {
+  background:
+    radial-gradient(circle at 90% 10%,
+      rgba(245, 181, 46, 0.15),
+      transparent 32%),
+    radial-gradient(circle at 5% 95%,
+      rgba(80, 88, 99, 0.07),
+      transparent 38%),
+    transparent; /* sin color sólido para que se vea el fondo de la página */
+  border-bottom: 1px solid #D9DDE2;
+}
+
+.hero h1,
+.hero h2,
+.hero h3,
+.hero p,
+.hero .lead {
+  color: #292D32;
+}
+
+.hero h1 {
+  font-weight: 850;
+}
+
+.hero p {
+  color: #626C76;
+}
+
+.hero .eyebrow {
+  color: #946000;
+}
+
+.hero-image {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border: 1px solid rgba(41, 45, 50, 0.1);
+  border-radius: var(--nt-radius-lg);
+  box-shadow: var(--nt-shadow-hover);
+}
+
+/* Botón claro de la portada */
+.hero .btn-outline-light {
+  background: #FFFFFF !important;
+  color: #34383F !important;
+  border: 1px solid #C7CCD2 !important;
+}
+
+.hero .btn-outline-light:hover {
+  background: #E7E9ED !important;
+  color: #202329 !important;
+  border-color: #A7ADB5 !important;
+}
+
+/* ==========================================================================
+   8. OFERTAS Y BENEFICIOS
+   ========================================================================== */
+
+.alert-offer {
+  background: #FFF3D5 !important;
+  color: #604819 !important;
+  border: 1px solid #EBD08D !important;
+  border-radius: var(--nt-radius-md);
+}
+
+.alert-offer .alert-link {
+  color: #795100 !important;
+  font-weight: 750;
+}
+
+.benefits-strip {
+  overflow: hidden;
+  background: #FFFFFF;
+  border: 1px solid #D9DDE2;
+  border-radius: var(--nt-radius-md);
+  box-shadow: var(--nt-shadow-sm);
+}
+
+.benefits-strip .list-group-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 0;
+  gap: 0.5rem;
+  background: #FFFFFF;
+  color: #454B53;
+  border-color: #D9DDE2;
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   9. CATEGORÍAS
+   ========================================================================== */
+
+.category-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 1.4rem 1rem;
+  text-align: center;
+
+  background: #FFFFFF;
+  color: #292D32;
+  border: 1px solid #D9DDE2;
+  border-radius: var(--nt-radius-lg);
+  box-shadow: var(--nt-shadow-sm);
+
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.category-card:hover,
+.category-card:focus-visible {
+  border-color: #D9A53D;
+  transform: translateY(-3px);
+  box-shadow: var(--nt-shadow-hover);
+}
+
+.category-card h3,
+.category-card h4,
+.category-card .category-title {
+  color: #292D32;
+  font-weight: 750;
+}
+
+/* Iconos perfectamente centrados */
+.category-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 0.85rem;
+  background: #E7E9ED;
+  color: #34383F;
+  border: 1px solid #D9DDE2;
+  border-radius: 14px;
+  font-size: 1.65rem;
+  line-height: 1;
+}
+
+.category-icon i,
+.category-icon svg {
+  display: block;
+  margin: 0;
+}
+
+/* ==========================================================================
+   10. PRODUCTOS DESTACADOS
+   ========================================================================== */
+
+#productos-destacados,
+.productos-section,
+#catalogo {
+  background: transparent;
+  color: #292D32;
+}
+
+.product-card,
+.card-gamer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: #FFFFFF;
+  color: #292D32;
+  border: 1px solid #D9DDE2;
+  border-radius: var(--nt-radius-lg);
+  box-shadow: var(--nt-shadow-sm);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.product-card:hover,
+.card-gamer:hover {
+  border-color: #D9A53D;
+  transform: translateY(-3px);
+  box-shadow: var(--nt-shadow-hover);
+}
+
+.product-card__img-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #FFFFFF;
+  border-bottom: 1px solid #E1E4E8;
+}
+
+.product-card__img-wrap img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0.75rem;
+  object-fit: contain;
+  transition: transform 220ms ease;
+}
+
+.product-card:hover .product-card__img-wrap img {
+  transform: scale(1.035);
+}
+
+.product-card__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1rem;
+  color: #292D32;
+}
+
+.product-card__body h3,
+.product-card__body h4,
+.product-card__body h5 {
+  color: #292D32;
+  font-weight: 750;
+}
+
+.product-card__body p {
+  color: var(--nt-muted);
+}
+
+.product-card__price {
+  color: #292D32;
+  font-size: 1.15rem;
+  font-weight: 850;
+}
+
+.product-card__price--old {
+  margin-right: 0.4rem;
+  color: var(--nt-muted);
+  font-size: 0.88rem;
+  font-weight: 400;
+  text-decoration: line-through;
+}
+
+/* ==========================================================================
+   11. CATÁLOGO Y FILTROS
+   ========================================================================== */
+
+.filter-box,
+aside {
+  background: #FFFFFF;
+  color: #292D32;
+  border: 1px solid #D9DDE2;
+  border-radius: var(--nt-radius-lg);
+  box-shadow: var(--nt-shadow);
+}
+
+.filter-box {
+  padding: 1rem;
+}
+
+.filter-box h3,
+.filter-box h4,
+.filter-box h5,
+aside h3,
+aside h4,
+aside h5 {
+  color: #292D32;
+}
+
+/* Mantiene compacto el selector de orden */
+.select-gamer {
+  width: 190px;
+  max-width: 100%;
+  min-height: 40px;
+  margin-left: auto;
+  background: #FFFFFF !important;
+  color: #292D32 !important;
+  border: 1px solid #C7CCD2 !important;
+  border-radius: var(--nt-radius-sm) !important;
+}
+
+.select-gamer:focus {
+  background: #FFFFFF !important;
+  color: #292D32 !important;
+  border-color: #8C929A !important;
+}
+
+/* Iconos o imágenes del catálogo */
+.producto-img {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 190px;
+  overflow: hidden;
+  background: #FFFFFF;
+  color: #34383F;
+  font-size: 3.5rem;
+  text-align: center;
+  border-bottom: 1px solid #D9DDE2;
+}
+
+.producto-img>i,
+.producto-img>svg {
+  display: block;
+  margin: auto;
+}
+
+.producto-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0.6rem;
+  object-fit: contain;
+  transition: transform 220ms ease;
+}
+
+.card-gamer:hover .producto-img img {
+  transform: scale(1.035);
+}
+
+.precio-catalogo {
+  color: #292D32;
+  font-size: 1.25rem;
+  font-weight: 850;
+}
+
+/* ==========================================================================
+   12. FORMULARIOS
+   ========================================================================== */
+
+.form-control,
+.form-select {
+  min-height: 42px;
+  background: #FFFFFF !important;
+  color: #292D32 !important;
+  border: 1px solid #C7CCD2 !important;
+  border-radius: var(--nt-radius-sm) !important;
+}
+
+.form-control::placeholder {
+  color: #66707A !important;
+  opacity: 1;
+}
+
+.form-control:hover,
+.form-select:hover {
+  border-color: #9CA3AC !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background: #FFFFFF !important;
+  color: #292D32 !important;
+  border-color: #D5A32F !important;
+  box-shadow: 0 0 0 3px rgba(245, 181, 46, 0.2) !important;
+}
+
+.form-label {
+  margin-bottom: 0.4rem;
+  color: #292D32;
+  font-weight: 650;
+}
+
+.form-check-input {
+  background-color: #FFFFFF;
+  border-color: #AEB4BC;
+  cursor: pointer;
+}
+
+.form-check-input:checked {
+  background-color: #34383F !important;
+  border-color: #34383F !important;
+}
+
+.form-check-label {
+  color: #454B53;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   13. PESTAÑAS
+   ========================================================================== */
+
+.nav-tabs-gamer {
+  gap: 0.25rem;
+  border-bottom: 1px solid #D9DDE2;
+}
+
+.nav-tabs-gamer .nav-link {
+  padding: 0.7rem 1rem;
+  background: transparent;
+  color: var(--nt-muted);
+  border: 0;
+  border-bottom: 3px solid transparent;
+  border-radius: 8px 8px 0 0;
+  font-weight: 650;
+}
+
+.nav-tabs-gamer .nav-link:hover {
+  background: #E7E9ED;
+  color: #292D32;
+}
+
+.nav-tabs-gamer .nav-link.active {
+  background: #FFFFFF;
+  color: #292D32 !important;
+  border-bottom: 3px solid var(--nt-accent);
+  font-weight: 800;
+}
+
+.nav-tabs {
+  border-bottom-color: #D9DDE2;
+}
+
+.nav-tabs .nav-link {
+  color: var(--nt-muted);
+}
+
+.nav-tabs .nav-link:hover {
+  color: #292D32;
+  border-color: transparent;
+}
+
+.nav-tabs .nav-link.active {
+  background: #FFFFFF;
+  color: #292D32;
+  border-color: #D9DDE2 #D9DDE2 #FFFFFF;
+}
+
+/* ==========================================================================
+   14. ACORDEONES
+   ========================================================================== */
+
+.accordion {
+  --bs-accordion-bg: #FFFFFF;
+  --bs-accordion-color: #292D32;
+  --bs-accordion-border-color: #D9DDE2;
+  --bs-accordion-btn-color: #292D32;
+  --bs-accordion-btn-bg: #FFFFFF;
+  --bs-accordion-active-color: #292D32;
+  --bs-accordion-active-bg: #FFF3D5;
+  --bs-accordion-btn-focus-box-shadow:
+    0 0 0 3px rgba(245, 181, 46, 0.2);
+}
+
+.accordion-item {
+  overflow: hidden;
+  background: #FFFFFF !important;
+  border-color: #D9DDE2 !important;
+}
+
+.accordion-button {
+  min-height: 52px;
+  background: #FFFFFF !important;
+  color: #292D32 !important;
+  font-weight: 650;
+  box-shadow: none !important;
+}
+
+.accordion-button:hover {
+  background: #F7F7F5 !important;
+}
+
+.accordion-button:not(.collapsed) {
+  background: #FFF3D5 !important;
+  color: #292D32 !important;
+}
+
+.accordion-body {
+  background: #FFFFFF !important;
+  color: #292D32 !important;
+  border-top: 1px solid #E1E4E8;
+}
+
+/* ==========================================================================
+   15. TABLAS
+   ========================================================================== */
+
+.table {
+  --bs-table-bg: #FFFFFF;
+  --bs-table-color: #292D32;
+  --bs-table-border-color: #D9DDE2;
+  --bs-table-striped-bg: #F1F2F4;
+  --bs-table-striped-color: #292D32;
+  --bs-table-hover-bg: #FFF3D5;
+  --bs-table-hover-color: #292D32;
+
+  overflow: hidden;
+  border-radius: var(--nt-radius-md);
+}
+
+.table thead th {
+  background: #34383F;
+  color: #FFFFFF;
+  border-color: #454A52;
+  font-weight: 750;
+}
+
+.table tbody td {
+  color: #292D32;
+}
+
+/* ==========================================================================
+   16. ALERTAS
+   ========================================================================== */
+
+.alert {
+  border-radius: var(--nt-radius-md);
+}
+
+.alert-success {
+  background: #E8F2EA !important;
+  color: #245D39 !important;
+  border-color: #C5DDCA !important;
+}
+
+.alert-warning {
+  background: #FFF3D5 !important;
+  color: #604819 !important;
+  border-color: #EBD08D !important;
+}
+
+.alert-danger {
+  background: #FCECEA !important;
+  color: #963D36 !important;
+  border-color: #F0C5C0 !important;
+}
+
+.alert-info {
+  background: #EAF0F5 !important;
+  color: #354D64 !important;
+  border-color: #CFDAE5 !important;
+}
+
+/* ==========================================================================
+   17. PAGINACIÓN
+   ========================================================================== */
+
+.pagination {
+  gap: 3px;
+}
+
+.pagination .page-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  min-height: 38px;
+  background: #FFFFFF;
+  color: #34383F;
+  border-color: #D9DDE2;
+  border-radius: 7px;
+}
+
+.pagination .page-link:hover {
+  background: #FFF3D5;
+  color: #292D32;
+  border-color: #E4C77E;
+}
+
+.pagination .page-item.active .page-link {
+  background: #34383F !important;
+  color: #FFFFFF !important;
+  border-color: #34383F !important;
+}
+
+.pagination .page-item.disabled .page-link {
+  background: #E7E9ED;
+  color: #8B929B;
+}
+
+/* ==========================================================================
+   18. ICONOS
+   ========================================================================== */
+
+.category-icon,
+.nav-icon {
+  line-height: 1;
+}
+
+i.bi,
+.bi,
+svg {
+  vertical-align: middle;
+}
+
+/* ==========================================================================
+   19. FOOTER
+   ========================================================================== */
+
+footer {
+  background: #292D32 !important;
+  color: #F1F2F4 !important;
+  border-top: 3px solid var(--nt-accent);
+}
+
+footer h1,
+footer h2,
+footer h3,
+footer h4,
+footer h5,
+footer h6,
+footer p,
+footer span {
+  color: #F1F2F4;
+}
+
+.footer-link,
+footer a {
+  color: #D5D9DF;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.footer-link:hover,
+.footer-link:focus-visible,
+footer a:hover {
+  color: #FFD16A;
+}
+
+/* ==========================================================================
+   20. RESPONSIVE
+   ========================================================================== */
+
+@media (max-width: 991.98px) {
+  .navbar .navbar-collapse {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .navbar .navbar-nav .nav-link {
+    padding: 0.65rem 0.75rem;
+  }
+
+  .benefits-strip .list-group-item {
+    font-size: 0.84rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  body {
+    font-size: 0.95rem;
+  }
+
+  .hero {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .hero-image {
+    border-radius: var(--nt-radius-md);
+  }
+
+  .category-card {
+    padding: 1rem 0.65rem;
+  }
+
+  .category-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.45rem;
+  }
+
+  .product-card__body {
+    padding: 0.85rem;
+  }
+
+  .btn {
+    min-height: 42px;
+  }
+
+  .benefits-strip .list-group-item {
+    flex-basis: 100%;
+  }
+}
+
+/* ==========================================================================
+   21. ACCESIBILIDAD
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   22. CONTRASTE (WCAG AA) Y CLASES USADAS EN EL HTML/JS SIN ESTILO
+   ========================================================================== */
+
+/* Textos secundarios de Bootstrap: oscurecidos para llegar a 4.5:1 o más */
+.text-secondary,
+.text-body-secondary {
+  color: var(--nt-muted) !important;
+}
+
+/* Breadcrumb */
+.breadcrumb-item.active {
+  color: #292D32;
+  font-weight: 650;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+  color: var(--nt-muted);
+}
+
+/* Estrellas de calificación e iconos "info" legibles sobre fondo claro */
+.text-warning {
+  color: #B97A00 !important;
+}
+
+.text-info {
+  color: #34383F !important;
+}
+
+.btn-outline-info {
+  background: #FFFFFF !important;
+  color: #34383F !important;
+  border: 1px solid #8B929B !important;
+}
+
+.btn-outline-info:hover {
+  background: #E7E9ED !important;
+  border-color: #34383F !important;
+  color: #202329 !important;
+}
+
+/* Insignia de descuento y etiquetas de la ficha */
+.badge.bg-danger {
+  background: var(--nt-danger) !important;
+  color: #FFFFFF !important;
+}
+
+.badge-descuento {
+  z-index: 2;
+}
+
+.bg-purple-gamer {
+  background: #34383F !important;
+  color: #FFFFFF !important;
+  font-weight: 650;
+}
+
+/* Fondos que el HTML ya usaba (bg-surface, bg-depth) */
+.bg-surface {
+  background-color: var(--nt-surface) !important;
+  color: var(--nt-text);
+}
+
+.bg-depth {
+  background-color: var(--nt-surface-alt) !important;
+}
+
+.tracking-wider {
+  letter-spacing: 0.08em;
+}
+
+/* Navbar y footer son oscuros: sus textos y acentos van en claro */
+.navbar .text-accent,
+footer .text-accent {
+  color: var(--nt-accent) !important;
+}
+
+footer .text-body-secondary,
+footer .text-secondary,
+footer .small {
+  color: #D5D9DF !important;
+}
+
+/* Selector de cantidad de la ficha */
+.btn-qty {
+  background: #FFFFFF !important;
+  color: #292D32 !important;
+  border: 1px solid #8B929B !important;
+  font-weight: 800;
+}
+
+.btn-qty:hover {
+  background: #FFF3D5 !important;
+  border-color: #34383F !important;
+}
+
+.qty-input {
+  font-weight: 700;
+}
+
+/* Botón de favoritos (inicio) */
+.btn-wishlist {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  background: #FFFFFF;
+  color: #34383F;
+  border: 1px solid #8B929B;
+  border-radius: var(--nt-radius-sm);
+  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.btn-wishlist:hover {
+  background: #E7E9ED;
+  border-color: #34383F;
+}
+
+.btn-wishlist.is-active {
+  background: var(--nt-soft-red);
+  color: var(--nt-danger);
+  border-color: var(--nt-danger);
+}
+
+/* Cuando una imagen no carga o el producto no tiene foto: icono de categoría */
+.imagen-reemplazo {
+  display: block;
+  color: #4A525B;
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+.carrito-miniatura {
+  background: #FFFFFF;
+  border-color: var(--nt-border) !important;
+}
+
+.carrito-miniatura .imagen-reemplazo {
+  font-size: 1.75rem;
+}
+
+/* ==========================================================================
+   23. FICHA DE PRODUCTO: CARRUSEL DE IMÁGENES DE REFERENCIA
+   ========================================================================== */
+
+#modalCarousel {
+  overflow: hidden;
+  background: #FFFFFF;
+  border: 1px solid var(--nt-border);
+  border-radius: var(--nt-radius-md);
+}
+
+.carrusel-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 320px;
+  padding: 1rem 3.5rem 2.5rem;
+  background: #FFFFFF;
+}
+
+.carrusel-slide img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.carrusel-slide .imagen-reemplazo {
+  font-size: 7rem;
+}
+
+.carrusel-leyenda {
+  color: var(--nt-muted);
+  letter-spacing: 0.08em;
+}
+
+/* Botones anterior / siguiente: círculos grafito visibles sobre fondo blanco */
+#modalCarousel .carousel-control-prev,
+#modalCarousel .carousel-control-next {
+  top: 50%;
+  bottom: auto;
+  width: 40px;
+  height: 40px;
+  margin: 0 0.6rem;
+  background: #34383F;
+  border: 2px solid #FFFFFF;
+  border-radius: 50%;
+  opacity: 0.95;
+  transform: translateY(-50%);
+  transition: background-color 180ms ease, opacity 180ms ease;
+}
+
+#modalCarousel .carousel-control-prev {
+  left: 0;
+}
+
+#modalCarousel .carousel-control-next {
+  right: 0;
+}
+
+#modalCarousel .carousel-control-prev:hover,
+#modalCarousel .carousel-control-next:hover,
+#modalCarousel .carousel-control-prev:focus-visible,
+#modalCarousel .carousel-control-next:focus-visible {
+  background: #202329;
+  opacity: 1;
+}
+
+#modalCarousel .carousel-control-prev-icon,
+#modalCarousel .carousel-control-next-icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+/* Indicadores */
+#modalCarousel .carousel-indicators {
+  margin-bottom: 0.6rem;
+}
+
+#modalCarousel .carousel-indicators [data-bs-target] {
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  background-color: #8B929B;
+  border: 0;
+  border-radius: 50%;
+  opacity: 1;
+}
+
+#modalCarousel .carousel-indicators .active {
+  background-color: #34383F;
+  outline: 2px solid var(--nt-accent);
+  outline-offset: 2px;
+}
+
+/* Sin imágenes suficientes no se muestran botones ni indicadores */
+#modalCarousel.carrusel-unico .carousel-control-prev,
+#modalCarousel.carrusel-unico .carousel-control-next,
+#modalCarousel.carrusel-unico .carousel-indicators {
+  display: none;
+}
+
+@media (max-width: 575.98px) {
+  .carrusel-slide {
+    height: 260px;
+    padding: 0.75rem 3rem 2.25rem;
+  }
+}

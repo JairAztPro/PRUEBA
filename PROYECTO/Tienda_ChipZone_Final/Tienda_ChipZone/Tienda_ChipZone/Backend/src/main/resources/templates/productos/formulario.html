@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${productoId == null ? #messages.msg('form.titulo.nuevo') : #messages.msg('form.titulo.editar')})}"></head>
+<body class="d-flex flex-column min-vh-100">
+<header th:replace="~{fragments/layout :: cabecera(${productoId == null ? 'nuevo' : 'productos'})}"></header>
+
+<main id="contenido-principal" class="container py-4">
+  <section class="form-panel mx-auto">
+    <p class="text-primary fw-semibold mb-2" th:text="#{form.eyebrow}">Gestión del catálogo</p>
+    <h1 class="h3 fw-bold"
+        th:text="${productoId == null ? #messages.msg('form.titulo.nuevo') : #messages.msg('form.titulo.editar')}">Nuevo producto</h1>
+    <p class="text-body-secondary" th:text="#{form.intro}">Los datos se validan también en el servidor.</p>
+
+    <div class="alert alert-danger" role="alert" th:if="${error}" th:text="${error}">Revise los datos enviados</div>
+
+    <form method="post" th:object="${form}"
+          th:action="${productoId == null} ? @{/admin/productos} : @{/admin/productos/{id}(id=${productoId})}"
+          novalidate>
+      <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('*')}" th:text="#{form.errores.resumen}">Revise los campos marcados.</div>
+      <div class="row g-3">
+        <div class="col-12 col-md-6">
+          <label class="form-label" for="nombre" th:text="#{form.nombre}">Nombre</label>
+          <input class="form-control" id="nombre" type="text" th:field="*{nombre}" required maxlength="120"
+                 placeholder="Ejemplo: RTX 4060 Gaming" th:classappend="${#fields.hasErrors('nombre')} ? 'is-invalid'"
+                 th:attr="aria-invalid=${#fields.hasErrors('nombre')} ? 'true' : 'false', aria-describedby=${#fields.hasErrors('nombre')} ? 'nombre-ayuda nombre-error' : 'nombre-ayuda'">
+          <div id="nombre-ayuda" class="form-text" th:text="#{form.nombre.ayuda}">Nombre único de hasta 120 caracteres.</div>
+          <div id="nombre-error" class="invalid-feedback" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error</div>
+        </div>
+        <div class="col-12 col-md-6">
+          <label class="form-label" for="nombreCompleto" th:text="#{form.nombreCompleto}">Nombre completo</label>
+          <input class="form-control" id="nombreCompleto" type="text" th:field="*{nombreCompleto}" maxlength="200"
+                 placeholder="Ejemplo: Tarjeta Gráfica MSI RTX 4060 Gaming" th:classappend="${#fields.hasErrors('nombreCompleto')} ? 'is-invalid'"
+                 th:attr="aria-invalid=${#fields.hasErrors('nombreCompleto')} ? 'true' : 'false', aria-describedby=${#fields.hasErrors('nombreCompleto')} ? 'nombreCompleto-ayuda nombreCompleto-error' : 'nombreCompleto-ayuda'">
+          <div id="nombreCompleto-ayuda" class="form-text" th:text="#{form.nombreCompleto.ayuda}">Hasta 200 caracteres.</div>
+          <div id="nombreCompleto-error" class="invalid-feedback" th:if="${#fields.hasErrors('nombreCompleto')}" th:errors="*{nombreCompleto}">Error</div>
+        </div>
+        <div class="col-12 col-md-6">
+          <label class="form-label" for="marca" th:text="#{form.marca}">Marca</label>
+          <input class="form-control" id="marca" type="text" th:field="*{marca}" required maxlength="40"
+                 placeholder="Ejemplo: msi" th:classappend="${#fields.hasErrors('marca')} ? 'is-invalid'"
+                 th:attr="aria-invalid=${#fields.hasErrors('marca')} ? 'true' : 'false', aria-describedby=${#fields.hasErrors('marca')} ? 'marca-ayuda marca-error' : 'marca-ayuda'">
+          <div id="marca-ayuda" class="form-text" th:text="#{form.marca.ayuda}">Se guarda en minúsculas.</div>
+          <div id="marca-error" class="invalid-feedback" th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}">Error</div>
+        </div>
+        <div class="col-12 col-md-6">
+          <label class="form-label" for="categoriaId" th:text="#{form.categoria}">Categoría</label>
+          <select class="form-select" id="categoriaId" th:field="*{categoriaId}" required
+                  th:classappend="${#fields.hasErrors('categoriaId')} ? 'is-invalid'"
+                  th:attr="aria-invalid=${#fields.hasErrors('categoriaId')} ? 'true' : 'false', aria-describedby=${#fields.hasErrors('categoriaId')} ? 'categoriaId-ayuda categoriaId-error' : 'categoriaId-ayuda'">
+            <option value="" th:text="#{form.categoria.seleccione}">Seleccione una categoría</option>
+            <option th:each="c : ${categorias}" th:value="${c.id}" th:text="${c.nombre}">gaming</option>
+          </select>
+          <div id="categoriaId-ayuda" class="form-text" th:text="#{form.categoria.ayuda}">Elija una categoría.</div>
+          <div id="categoriaId-error" class="invalid-feedback" th:if="${#fields.hasErrors('categoriaId')}" th:errors="*{categoriaId}">Error</div>
+        </div>
+        <div class="col-12 col-md-4">
+          <label class="form-label" for="precio" th:text="#{form.precio}">Precio (S/)</label>
+          <input class="form-control" id="precio" type="number" th:field="*{precio}" required min="1" max="1000000"
+                 inputmode="numeric" placeholder="749" th:classappend="${#fields.hasErrors('precio')} ? 'is-invalid'"
+                 th:attr="aria-invalid=${#fields.hasErrors('precio')} ? 'true' : 'false', aria-describedby=${#fields.hasErrors('precio')} ? 'precio-ayuda precio-error' : 'precio-ayuda'">
+          <div id="precio-ayuda" class="form-text" th:text="#{form.precio.ayuda}">Entero entre 1 y 1000000.</div>
+          <div id="precio-error" class="invalid-feedback" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}">Error</div>
+        </div>
+        <div class="col-12 col-md-4">
+          <label class="form-label" for="descuento" th:text="#{form.descuento}">Descuento (%)</label>
+          <input class="form-control" id="descuento" type="number" th:field="*{descuento}" min="0" max="100"
+                 inputmode="numeric" placeholder="0" th:classappend="${#fields.hasErrors('descuento')} ? 'is-invalid'"
+                 th:attr="aria-invalid=${#fields.hasErrors('descuento')} ? 'true' : 'false', aria-describedby=${#fields.hasErrors('descuento')} ? 'descuento-ayuda descuento-error' : 'descuento-ayuda'">
+          <div id="descuento-ayuda" class="form-text" th:text="#{form.descuento.ayuda}">Opcional.</div>
+          <div id="descuento-error" class="invalid-feedback" th:if="${#fields.hasErrors('descuento')}" th:errors="*{descuento}">Error</div>
+        </div>
+        <div class="col-12 col-md-4 d-flex align-items-center">
+          <div class="form-check form-switch mt-md-2">
+            <input class="form-check-input" id="stock" type="checkbox" role="switch" th:field="*{stock}">
+            <label class="form-check-label" for="stock" th:text="#{form.stock}">Producto en stock</label>
+          </div>
+        </div>
+        <div class="col-12">
+          <label class="form-label" for="resumen" th:text="#{form.resumen}">Resumen</label>
+          <input class="form-control" id="resumen" type="text" th:field="*{resumen}" maxlength="255"
+                 placeholder="Frase corta para el listado" th:classappend="${#fields.hasErrors('resumen')} ? 'is-invalid'"
+                 th:attr="aria-invalid=${#fields.hasErrors('resumen')} ? 'true' : 'false', aria-describedby=${#fields.hasErrors('resumen')} ? 'resumen-ayuda resumen-error' : 'resumen-ayuda'">
+          <div id="resumen-ayuda" class="form-text" th:text="#{form.resumen.ayuda}">Opcional.</div>
+          <div id="resumen-error" class="invalid-feedback" th:if="${#fields.hasErrors('resumen')}" th:errors="*{resumen}">Error</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label" for="descripcion" th:text="#{form.descripcion}">Descripción</label>
+          <textarea class="form-control" id="descripcion" rows="4" th:field="*{descripcion}" maxlength="2000"
+                    placeholder="Descripción del producto" th:classappend="${#fields.hasErrors('descripcion')} ? 'is-invalid'"
+                 th:attr="aria-invalid=${#fields.hasErrors('descripcion')} ? 'true' : 'false', aria-describedby=${#fields.hasErrors('descripcion')} ? 'descripcion-ayuda descripcion-error' : 'descripcion-ayuda'"></textarea>
+          <div id="descripcion-ayuda" class="form-text" th:text="#{form.descripcion.ayuda}">Opcional.</div>
+          <div id="descripcion-error" class="invalid-feedback" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">Error</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label" for="imagenes" th:text="#{form.imagenes}">Imágenes</label>
+          <textarea class="form-control" id="imagenes" rows="3" th:field="*{imagenes}"
+                    placeholder="https://ejemplo.com/foto.jpg" th:classappend="${#fields.hasErrors('imagenes')} ? 'is-invalid'"
+                 th:attr="aria-invalid=${#fields.hasErrors('imagenes')} ? 'true' : 'false', aria-describedby=${#fields.hasErrors('imagenes')} ? 'imagenes-ayuda imagenes-error' : 'imagenes-ayuda'"></textarea>
+          <div id="imagenes-ayuda" class="form-text" th:text="#{form.imagenes.ayuda}">Una URL por línea.</div>
+          <div id="imagenes-error" class="invalid-feedback" th:if="${#fields.hasErrors('imagenes')}" th:errors="*{imagenes}">Error</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label" for="etiquetas" th:text="#{form.etiquetas}">Etiquetas</label>
+          <input class="form-control" id="etiquetas" type="text" th:field="*{etiquetas}"
+                 placeholder="Ray Tracing, DLSS 3" th:classappend="${#fields.hasErrors('etiquetas')} ? 'is-invalid'"
+                 th:attr="aria-invalid=${#fields.hasErrors('etiquetas')} ? 'true' : 'false', aria-describedby=${#fields.hasErrors('etiquetas')} ? 'etiquetas-ayuda etiquetas-error' : 'etiquetas-ayuda'">
+          <div id="etiquetas-ayuda" class="form-text" th:text="#{form.etiquetas.ayuda}">Separadas por coma.</div>
+          <div id="etiquetas-error" class="invalid-feedback" th:if="${#fields.hasErrors('etiquetas')}" th:errors="*{etiquetas}">Error</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label" for="especificaciones" th:text="#{form.especificaciones}">Especificaciones técnicas</label>
+          <textarea class="form-control" id="especificaciones" rows="4" th:field="*{especificaciones}"
+                    placeholder="Socket: AMD AM4" th:classappend="${#fields.hasErrors('especificaciones')} ? 'is-invalid'"
+                 th:attr="aria-invalid=${#fields.hasErrors('especificaciones')} ? 'true' : 'false', aria-describedby=${#fields.hasErrors('especificaciones')} ? 'especificaciones-ayuda especificaciones-error' : 'especificaciones-ayuda'"></textarea>
+          <div id="especificaciones-ayuda" class="form-text" th:text="#{form.especificaciones.ayuda}">Una por línea.</div>
+          <div id="especificaciones-error" class="invalid-feedback" th:if="${#fields.hasErrors('especificaciones')}" th:errors="*{especificaciones}">Error</div>
+        </div>
+      </div>
+
+      <div class="d-flex flex-wrap gap-2 mt-4">
+        <button class="btn btn-primary" type="submit"
+                th:text="${productoId == null ? #messages.msg('form.boton.nuevo') : #messages.msg('form.boton.editar')}">Guardar</button>
+        <a class="btn btn-outline-secondary" href="lista.html"
+           th:href="${productoId == null} ? @{/admin/productos} : @{/admin/productos/{id}(id=${productoId})}"
+           th:text="#{accion.cancelar}">Cancelar</a>
+      </div>
+    </form>
+  </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+</body>
+</html>

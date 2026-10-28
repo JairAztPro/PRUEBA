@@ -1,0 +1,41 @@
+.visually-hidden-focusable:focus {
+  z-index: 1080;
+  outline: 3px solid #0d6efd;
+  outline-offset: 2px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid #6ea8fe;
+  outline-offset: 3px;
+}
+
+.miniatura {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+}
+
+.miniatura-vacia {
+  width: 56px;
+  height: 56px;
+}
+
+.form-panel {
+  max-width: 48rem;
+  padding: clamp(1.25rem, 4vw, 3rem);
+  background: var(--bs-tertiary-bg);
+  border: 1px solid var(--bs-border-color);
+  border-radius: 1rem;
+}
+
+.form-control:invalid:not(:placeholder-shown) {
+  border-color: #dc3545;
+}
+
+textarea:focus-visible {
+  outline: 3px solid #6ea8fe;
+  outline-offset: 3px;
+}
