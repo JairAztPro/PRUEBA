@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* ==========================================================================
    CHIPZONE | GAMER PREMIUM
    Paleta: Grafito + Ámbar + Gris hielo
@@ -8,35 +7,6 @@
 /* ==========================================================================
    1. VARIABLES GLOBALES
    ========================================================================== */
-=======
-<<<<<<< HEAD
-/* ==========================================================================
-   VARIABLES GLOBALES (Paleta: Cyber-Noir Elegante & Minimalista)
-   ========================================================================== */
-[data-bs-theme="dark"],
-:root {
-  /* Índigo ejecutivo (Moderno y sobrio) */
-  --bs-primary: #6366F1;
-  /* Valor RGB del color primario para transparencias (rgba) */
-  --bs-primary-rgb: 99, 102, 241;
-  
-  --bs-body-bg: #ffffff;
-  /* Fondo grafito oscuro profundo y suave */
-  --bs-body-color: #E2E8F0;
-  /* Texto gris platino / marfil legible */
-  --bs-secondary-color: #94A3B8;
-  /* Texto secundario equilibrado */
-  --bs-border-color: #1E293B;
-  /* Bordes oscuros y limpios */
-  --bs-tertiary-bg: #111827;
-  /* Fondo de tarjetas y contenedores */
-=======
-/* ==========================================================
-   CHIPZONE — TECH PREMIUM CLARO
-   Carbón + ámbar + verde petróleo + crema
-   ========================================================== */
->>>>>>> 5af769535b5555635cbbde77ce95d755e9644a55
->>>>>>> 1c030a8b548e4ddcb15d739eff3c590f3ce5a2a8
 
 :root,
 [data-bs-theme="light"],
