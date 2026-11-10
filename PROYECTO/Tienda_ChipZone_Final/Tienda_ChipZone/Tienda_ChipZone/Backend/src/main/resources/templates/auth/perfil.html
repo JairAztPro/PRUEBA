@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(#{perfil.titulo})}"></head>
+<body class="d-flex flex-column min-vh-100">
+<header th:replace="~{fragments/layout :: cabecera('perfil')}"></header>
+
+<main id="contenido-principal" class="container py-5">
+  <section class="login-panel mx-auto" aria-labelledby="perfil-title">
+    <p class="text-primary fw-semibold mb-2" th:text="#{login.eyebrow}">Semana 13</p>
+    <h1 id="perfil-title" class="h3 fw-bold" th:text="#{perfil.titulo}">Mi sesión</h1>
+    <p class="fs-5">
+      <span th:text="#{perfil.sesion.de}">Sesión de</span>
+      <strong th:text="${security.username}">docente</strong>
+    </p>
+    <p class="text-body-secondary" th:text="#{perfil.explicacion}">
+      Esta identidad proviene del SecurityContext de Spring Security.
+    </p>
+    <a class="btn btn-primary" href="/admin/productos" th:href="@{/admin/productos}"
+       th:text="#{accion.volver}">Volver al listado</a>
+  </section>
+</main>
+
+<footer th:replace="~{fragments/layout :: pie}"></footer>
+</body>
+</html>

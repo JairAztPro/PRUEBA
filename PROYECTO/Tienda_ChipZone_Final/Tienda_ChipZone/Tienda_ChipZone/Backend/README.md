@@ -116,6 +116,34 @@ Los errores de la API (400, 404, 409) responden con `application/problem+json`.
 CORS solo permite GET desde `http://localhost:5500` y `http://127.0.0.1:5500`.
 Para otro origen, cambiar `techlab.cors.origins` en `application.properties`.
 
+## Seguridad - Semana 13 (Spring Security)
+Spring Security actua **antes** de los controladores. Hay dos cadenas de filtros (`config/SecurityConfig`):
+
+| Cadena | Alcance | Mecanismo | Reglas |
+|---|---|---|---|
+| API (`@Order(1)`) | `/api/**` | Basic en cada solicitud, `STATELESS`, CSRF desactivado solo aqui | `GET` de productos publico (lo consume la tienda del Frontend); `POST/PUT/DELETE` exigen Basic (401 si falta o es incorrecto) |
+| Panel web | el resto | Formulario de login, sesion, CSRF activo | Listado y detalle publicos; `/admin/productos/nuevo`, `/{id}/editar`, todos los `POST` y `/perfil` exigen sesion (302 a `/login`; `POST` sin token CSRF = 403) |
+
+La cuenta es temporal y vive en memoria (contrasena guardada con BCrypt). **La clave no va en Git**: se exige la variable
+`APP_DEMO_PASSWORD` y, si falta, la aplicacion no inicia.
+```
+export APP_DEMO_USERNAME='docente'                         (PowerShell: $env:APP_DEMO_USERNAME='docente')
+export APP_DEMO_PASSWORD='Laboratorio-S13-Temporal!'       (PowerShell: $env:APP_DEMO_PASSWORD='Laboratorio-S13-Temporal!')
+```
+Rutas nuevas: `GET /login` (el `POST /login` lo procesa Spring Security), `POST /logout` (boton en la cabecera, nunca por GET) y `GET /perfil`
+(reto "Mi sesion"). Las plantillas reciben el modelo global `security` (`web/GlobalViewModel`) y ocultan Nuevo/Editar/Eliminar si no hay sesion.
+
+Comprobacion con curl (la app debe estar corriendo):
+```
+curl -i http://localhost:8080/api/v1/productos                                   # 200 (lectura publica)
+curl -i http://localhost:8080/admin/productos/nuevo                              # 302 -> /login
+curl -i -X POST -H 'Content-Type: application/json' -d '{}' http://localhost:8080/api/v1/productos            # 401
+curl -i -u 'docente:incorrecta' -X POST -H 'Content-Type: application/json' -d '{}' http://localhost:8080/api/v1/productos   # 401
+curl -i -u 'docente:Laboratorio-S13-Temporal!' -X POST -H 'Content-Type: application/json' -d '{}' http://localhost:8080/api/v1/productos   # 400 (autenticado; el cuerpo es invalido)
+```
+Pruebas: `security/WebSecurityTests` y `security/ApiSecurityTests`; `WebRoutesTests` y `ProductoVistaTests` se adaptaron (Basic / usuario + CSRF).
+`src/test/resources/config/application.properties` aporta la clave solo para las pruebas. Basic requiere HTTPS fuera del laboratorio; en la semana 15 se reemplaza por tokens.
+
 ## Estructura
 - `controller/`: `ProductoController` (API), `ProductoVistaController` (vistas), `PortalController`.
 - `entity/` (`Producto`, `Especificacion`; sin setters), `repository/ProductoRepository`, `mapper/ProductoMapper` y `service/ProductoService`: datos en MySQL.

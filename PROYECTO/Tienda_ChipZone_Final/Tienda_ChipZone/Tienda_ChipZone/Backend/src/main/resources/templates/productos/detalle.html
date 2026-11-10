@@ -62,10 +62,10 @@
          th:text="#{accion.volver}">Volver al listado</a>
       <a class="btn btn-outline-secondary mt-3 ms-2" href="/api/v1/productos/1"
          th:href="@{/api/v1/productos/{id}(id=${producto.id})}" th:text="#{detalle.ver.json}">Ver JSON de este producto</a>
-      <a class="btn btn-outline-primary mt-3 ms-2" href="formulario.html"
+      <a class="btn btn-outline-primary mt-3 ms-2" href="formulario.html" th:if="${security?.authenticated}"
          th:href="@{/admin/productos/{id}/editar(id=${producto.id})}" th:text="#{accion.editar}">Editar</a>
       <form class="d-inline" method="post" th:action="@{/admin/productos/{id}/eliminar(id=${producto.id})}"
-            data-confirm-delete th:attr="data-producto-nombre=${producto.nombre}">
+            th:if="${security?.authenticated}" data-confirm-delete th:attr="data-producto-nombre=${producto.nombre}">
         <button class="btn btn-outline-danger mt-3 ms-2" type="submit" th:text="#{accion.eliminar}">Eliminar</button>
       </form>
     </div>

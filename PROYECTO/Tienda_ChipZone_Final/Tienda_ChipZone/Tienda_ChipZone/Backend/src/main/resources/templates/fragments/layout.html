@@ -22,10 +22,27 @@
       th:href="@{/admin/productos}" th:classappend="${activo == 'productos'} ? 'fw-bold'"
       th:attr="aria-current=${activo == 'productos'} ? 'page'" th:text="#{nav.productos}">Productos</a>
     <a class="link-body-emphasis text-decoration-none" href="/admin/productos/nuevo"
+      th:if="${security?.authenticated}"
       th:href="@{/admin/productos/nuevo}" th:classappend="${activo == 'nuevo'} ? 'fw-bold'"
       th:attr="aria-current=${activo == 'nuevo'} ? 'page'" th:text="#{nav.nuevo}">Nuevo producto</a>
+    <a class="link-body-emphasis text-decoration-none" href="/perfil"
+      th:if="${security?.authenticated}"
+      th:href="@{/perfil}" th:classappend="${activo == 'perfil'} ? 'fw-bold'"
+      th:attr="aria-current=${activo == 'perfil'} ? 'page'" th:text="#{nav.perfil}">Mi sesión</a>
     <a class="link-body-emphasis text-decoration-none" href="/api/v1/productos"
       th:href="@{/api/v1/productos}" th:text="#{nav.api}">API JSON</a>
+    <a class="btn btn-outline-primary btn-sm" href="/login" th:unless="${security?.authenticated}"
+      th:href="@{/login}" th:text="#{nav.login}">Iniciar sesión</a>
+    <div class="d-flex align-items-center gap-2" th:if="${security?.authenticated}">
+      <span class="small text-body-secondary">
+        <span th:text="#{nav.sesion.de}">Sesión de</span>
+        <strong th:text="${security.username}">docente</strong>
+      </span>
+      <form method="post" th:action="@{/logout}">
+        <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
+        <button class="btn btn-outline-secondary btn-sm" type="submit" th:text="#{nav.logout}">Cerrar sesión</button>
+      </form>
+    </div>
   </nav>
 </header>
 

@@ -39,3 +39,19 @@ textarea:focus-visible {
   outline: 3px solid #6ea8fe;
   outline-offset: 3px;
 }
+
+.login-panel {
+  max-width: 30rem;
+}
+
+.login-panel .form-control {
+  min-height: 2.75rem;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid #6ea8fe;
+  outline-offset: 3px;
+}

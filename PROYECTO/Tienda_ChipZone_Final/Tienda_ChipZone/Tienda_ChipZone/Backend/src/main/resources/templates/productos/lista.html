@@ -8,7 +8,7 @@
   <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
     <h1 class="h3 fw-bold mb-0" th:text="#{lista.titulo}">Productos</h1>
     <a class="btn btn-primary" href="formulario.html" th:href="@{/admin/productos/nuevo}"
-       th:text="#{accion.nuevo}">Nuevo producto</a>
+       th:if="${security?.authenticated}" th:text="#{accion.nuevo}">Nuevo producto</a>
   </div>
   <p class="text-body-secondary mt-2" th:text="#{lista.intro}">Vista generada en el servidor con Spring MVC y Thymeleaf.</p>
 
@@ -91,10 +91,10 @@
           <div class="d-flex flex-wrap gap-1">
             <a class="btn btn-sm btn-outline-primary" href="detalle.html"
                th:href="@{/admin/productos/{id}(id=${p.id})}" th:text="#{producto.ver}">Ver detalle</a>
-            <a class="btn btn-sm btn-outline-secondary" href="formulario.html"
+            <a class="btn btn-sm btn-outline-secondary" href="formulario.html" th:if="${security?.authenticated}"
                th:href="@{/admin/productos/{id}/editar(id=${p.id})}" th:text="#{accion.editar}">Editar</a>
             <form method="post" th:action="@{/admin/productos/{id}/eliminar(id=${p.id})}"
-                  data-confirm-delete th:attr="data-producto-nombre=${p.nombre}">
+                  th:if="${security?.authenticated}" data-confirm-delete th:attr="data-producto-nombre=${p.nombre}">
               <button class="btn btn-sm btn-outline-danger" type="submit" th:text="#{accion.eliminar}">Eliminar</button>
             </form>
           </div>

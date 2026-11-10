@@ -9,6 +9,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -25,8 +26,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.MockMvc;
+import pe.edu.utp.techlab.config.SecurityConfig;
 import pe.edu.utp.techlab.dto.ProductoDto;
 import pe.edu.utp.techlab.dto.ProductoInputDto;
 import pe.edu.utp.techlab.exception.DuplicateProductoNombreException;
@@ -36,7 +41,14 @@ import pe.edu.utp.techlab.dto.CategoriaDto;
 import pe.edu.utp.techlab.exception.CategoriaNotFoundException;
 
 @WebMvcTest({ProductoVistaController.class, PortalController.class})
+@Import(SecurityConfig.class)
+@WithMockUser(username = "docente")
 class ProductoVistaTests {
+
+    // Semana 13: estas pruebas verifican el CRUD ya con sesion iniciada; el envio lleva token CSRF.
+    private static MockHttpServletRequestBuilder conCsrf(MockHttpServletRequestBuilder solicitud) {
+        return solicitud.with(csrf());
+    }
 
     @Autowired
     private MockMvc mvc;
@@ -192,7 +204,7 @@ class ProductoVistaTests {
                 List.of(), List.of(), List.of());
         given(service.crear(any(ProductoInputDto.class))).willReturn(creado);
 
-        mvc.perform(post("/admin/productos")
+        mvc.perform(conCsrf(post("/admin/productos"))
                         .param("nombre", "Mouse Nuevo")
                         .param("marca", "msi")
                         .param("categoriaId", "1")
@@ -207,7 +219,7 @@ class ProductoVistaTests {
         given(service.crear(any(ProductoInputDto.class)))
                 .willThrow(new DuplicateProductoNombreException("ROG Strix B550-F"));
 
-        mvc.perform(post("/admin/productos")
+        mvc.perform(conCsrf(post("/admin/productos"))
                         .param("nombre", "ROG Strix B550-F")
                         .param("marca", "asus")
                         .param("categoriaId", "3")
@@ -221,7 +233,7 @@ class ProductoVistaTests {
 
     @Test
     void crearConFormularioVacioMuestraErroresPorCampoSinLlamarAlServicio() throws Exception {
-        mvc.perform(post("/admin/productos"))
+        mvc.perform(conCsrf(post("/admin/productos")))
                 .andExpect(status().isOk())
                 .andExpect(view().name("productos/formulario"))
                 .andExpect(model().attributeHasFieldErrors("form", "nombre", "marca", "categoriaId", "precio"))
@@ -236,7 +248,7 @@ class ProductoVistaTests {
 
     @Test
     void crearConPrecioNoNumericoMuestraErrorEnElCampoSinLlamarAlServicio() throws Exception {
-        mvc.perform(post("/admin/productos")
+        mvc.perform(conCsrf(post("/admin/productos"))
                         .param("nombre", "Mouse Nuevo")
                         .param("marca", "msi")
                         .param("categoriaId", "1")
@@ -251,7 +263,7 @@ class ProductoVistaTests {
 
     @Test
     void crearConPrecioCeroYDescuentoFueraDeRangoUsaLasReglasDelDto() throws Exception {
-        mvc.perform(post("/admin/productos")
+        mvc.perform(conCsrf(post("/admin/productos"))
                         .param("nombre", "Mouse Nuevo")
                         .param("marca", "msi")
                         .param("categoriaId", "1")
@@ -267,7 +279,7 @@ class ProductoVistaTests {
 
     @Test
     void crearConImagenInvalidaYEspecificacionMalFormadaMarcaEsosCampos() throws Exception {
-        mvc.perform(post("/admin/productos")
+        mvc.perform(conCsrf(post("/admin/productos"))
                         .param("nombre", "Mouse Nuevo")
                         .param("marca", "msi")
                         .param("categoriaId", "1")
@@ -276,7 +288,7 @@ class ProductoVistaTests {
                 .andExpect(status().isOk())
                 .andExpect(model().attributeHasFieldErrors("form", "imagenes"));
 
-        mvc.perform(post("/admin/productos")
+        mvc.perform(conCsrf(post("/admin/productos"))
                         .param("nombre", "Mouse Nuevo")
                         .param("marca", "msi")
                         .param("categoriaId", "1")
@@ -291,7 +303,7 @@ class ProductoVistaTests {
 
     @Test
     void erroresDeValidacionConservanLoEscritoEnElFormulario() throws Exception {
-        mvc.perform(post("/admin/productos")
+        mvc.perform(conCsrf(post("/admin/productos"))
                         .param("nombre", "Mouse Gamer")
                         .param("marca", "msi")
                         .param("categoriaId", "1")
@@ -305,7 +317,7 @@ class ProductoVistaTests {
 
     @Test
     void actualizarConDatosInvalidosVuelveAlFormularioDeEdicion() throws Exception {
-        mvc.perform(post("/admin/productos/2")
+        mvc.perform(conCsrf(post("/admin/productos/2"))
                         .param("nombre", "")
                         .param("marca", "msi")
                         .param("categoriaId", "3")
@@ -323,7 +335,7 @@ class ProductoVistaTests {
     void actualizarValidoRedirigeAlDetalleConMensajeFlash() throws Exception {
         given(service.actualizar(eq(2L), any(ProductoInputDto.class))).willReturn(rtx);
 
-        mvc.perform(post("/admin/productos/2")
+        mvc.perform(conCsrf(post("/admin/productos/2"))
                         .param("nombre", "RTX 4060 Gaming")
                         .param("marca", "msi")
                         .param("categoriaId", "3")
@@ -335,7 +347,7 @@ class ProductoVistaTests {
 
     @Test
     void eliminarRedirigeAlListadoConMensajeFlash() throws Exception {
-        mvc.perform(post("/admin/productos/2/eliminar"))
+        mvc.perform(conCsrf(post("/admin/productos/2/eliminar")))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/admin/productos"))
                 .andExpect(flash().attribute("mensaje", "Producto eliminado correctamente"));
@@ -352,9 +364,9 @@ class ProductoVistaTests {
 
         mvc.perform(get("/admin/productos/999/editar"))
                 .andExpect(status().isNotFound());
-        mvc.perform(post("/admin/productos/999/eliminar"))
+        mvc.perform(conCsrf(post("/admin/productos/999/eliminar")))
                 .andExpect(status().isNotFound());
-        mvc.perform(post("/admin/productos/999")
+        mvc.perform(conCsrf(post("/admin/productos/999"))
                         .param("nombre", "X")
                         .param("marca", "x")
                         .param("categoriaId", "1")
@@ -374,7 +386,7 @@ class ProductoVistaTests {
         given(service.crear(any(ProductoInputDto.class)))
                 .willThrow(new CategoriaNotFoundException(99L));
 
-        mvc.perform(post("/admin/productos")
+        mvc.perform(conCsrf(post("/admin/productos"))
                         .param("nombre", "Mouse")
                         .param("marca", "msi")
                         .param("categoriaId", "99")

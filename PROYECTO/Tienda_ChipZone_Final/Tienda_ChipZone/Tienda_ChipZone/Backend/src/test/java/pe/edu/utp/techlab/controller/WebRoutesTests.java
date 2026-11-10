@@ -6,6 +6,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -22,9 +23,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import pe.edu.utp.techlab.config.SecurityConfig;
 import pe.edu.utp.techlab.dto.ProductoDto;
 import pe.edu.utp.techlab.dto.ProductoInputDto;
 import pe.edu.utp.techlab.exception.DuplicateProductoNombreException;
@@ -34,7 +38,16 @@ import pe.edu.utp.techlab.service.ProductoService;
 import pe.edu.utp.techlab.exception.CategoriaNotFoundException;
 
 @WebMvcTest({ProductoController.class, PortalController.class})
+@Import(SecurityConfig.class)
 class WebRoutesTests {
+
+    // Semana 13: la lectura de la API es publica; crear, actualizar y eliminar exigen Basic.
+    private static final String USUARIO = "docente";
+    private static final String CLAVE = "Laboratorio-S13-Temporal!";
+
+    private static MockHttpServletRequestBuilder autenticado(MockHttpServletRequestBuilder solicitud) {
+        return solicitud.with(httpBasic(USUARIO, CLAVE));
+    }
 
     @Autowired
     private MockMvc mvc;
@@ -111,7 +124,7 @@ class WebRoutesTests {
 
     @Test
     void metodoNoPermitidoYRedireccion() throws Exception {
-        mvc.perform(delete("/api/v1/productos"))
+        mvc.perform(autenticado(delete("/api/v1/productos")))
                 .andExpect(status().isMethodNotAllowed());
 
         mvc.perform(get("/portal"))
@@ -126,7 +139,7 @@ class WebRoutesTests {
                 List.of(), List.of(), List.of());
         given(service.crear(any(ProductoInputDto.class))).willReturn(creado);
 
-        mvc.perform(post("/api/v1/productos")
+        mvc.perform(autenticado(post("/api/v1/productos"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JSON_PRODUCTO))
                 .andExpect(status().isCreated())
@@ -139,7 +152,7 @@ class WebRoutesTests {
     void putActualizaProductoConEstado200() throws Exception {
         given(service.actualizar(eq(2L), any(ProductoInputDto.class))).willReturn(rtx);
 
-        mvc.perform(put("/api/v1/productos/2")
+        mvc.perform(autenticado(put("/api/v1/productos/2"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JSON_PRODUCTO))
                 .andExpect(status().isOk())
@@ -148,7 +161,7 @@ class WebRoutesTests {
 
     @Test
     void deleteEliminaProductoConEstado204() throws Exception {
-        mvc.perform(delete("/api/v1/productos/2"))
+        mvc.perform(autenticado(delete("/api/v1/productos/2")))
                 .andExpect(status().isNoContent());
 
         verify(service).eliminar(2L);
@@ -159,7 +172,7 @@ class WebRoutesTests {
         given(service.crear(any(ProductoInputDto.class)))
                 .willThrow(new InvalidProductoDataException("El nombre es obligatorio"));
 
-        mvc.perform(post("/api/v1/productos")
+        mvc.perform(autenticado(post("/api/v1/productos"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JSON_PRODUCTO))
                 .andExpect(status().isBadRequest())
@@ -170,7 +183,7 @@ class WebRoutesTests {
 
     @Test
     void cuerpoSinCamposObligatoriosDevuelve400ConErroresPorCampo() throws Exception {
-        mvc.perform(post("/api/v1/productos")
+        mvc.perform(autenticado(post("/api/v1/productos"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{}"))
                 .andExpect(status().isBadRequest())
@@ -192,7 +205,7 @@ class WebRoutesTests {
                  "descuento":101,"stock":true,"imagenes":["javascript:alert(1)"]}
                 """;
 
-        mvc.perform(post("/api/v1/productos")
+        mvc.perform(autenticado(post("/api/v1/productos"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isBadRequest())
@@ -207,7 +220,7 @@ class WebRoutesTests {
 
     @Test
     void putConDatosInvalidosDevuelve400SinLlamarAlServicio() throws Exception {
-        mvc.perform(put("/api/v1/productos/2")
+        mvc.perform(autenticado(put("/api/v1/productos/2"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"nombre\":\"\",\"marca\":\"msi\",\"categoriaId\":3,"
                                 + "\"precio\":749,\"stock\":true}"))
@@ -220,7 +233,7 @@ class WebRoutesTests {
 
     @Test
     void cuerpoQueNoEsJsonDevuelve400ComoProblemJson() throws Exception {
-        mvc.perform(post("/api/v1/productos")
+        mvc.perform(autenticado(post("/api/v1/productos"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("esto no es json"))
                 .andExpect(status().isBadRequest())
@@ -232,7 +245,7 @@ class WebRoutesTests {
         given(service.crear(any(ProductoInputDto.class)))
                 .willThrow(new DuplicateProductoNombreException("Mouse Nuevo"));
 
-        mvc.perform(post("/api/v1/productos")
+        mvc.perform(autenticado(post("/api/v1/productos"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JSON_PRODUCTO))
                 .andExpect(status().isConflict())
@@ -246,13 +259,13 @@ class WebRoutesTests {
                 .willThrow(new ProductoNotFoundException(999L));
         willThrow(new ProductoNotFoundException(999L)).given(service).eliminar(999L);
 
-        mvc.perform(put("/api/v1/productos/999")
+        mvc.perform(autenticado(put("/api/v1/productos/999"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(JSON_PRODUCTO))
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON));
 
-        mvc.perform(delete("/api/v1/productos/999"))
+        mvc.perform(autenticado(delete("/api/v1/productos/999")))
                 .andExpect(status().isNotFound())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_PROBLEM_JSON));
     }
@@ -275,7 +288,7 @@ class WebRoutesTests {
         given(service.crear(any(ProductoInputDto.class)))
                 .willThrow(new CategoriaNotFoundException(99L));
 
-        mvc.perform(post("/api/v1/productos")
+        mvc.perform(autenticado(post("/api/v1/productos"))
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"nombre\":\"Mouse\",\"marca\":\"msi\",\"categoriaId\":99,\"precio\":89,\"stock\":true}"))
                 .andExpect(status().isBadRequest())
