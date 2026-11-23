@@ -1,31 +1,37 @@
 package pe.edu.utp.techlab.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
- * Semana 13: frontera de seguridad de ChipZone. La politica de acceso se declara aqui y los
- * controladores no repiten comprobaciones de login.
+ * Semanas 13 a 15: frontera de seguridad de ChipZone. La politica de acceso se declara aqui y los
+ * controladores no repiten comprobaciones de login ni de rol.
  *
- * Hay dos clientes con necesidades distintas y por eso dos cadenas:
- * - API REST ({@code /api/**}): Basic en cada solicitud, sin sesion y sin CSRF. La lectura del
- *   catalogo es publica porque la tienda (carpeta Frontend) la consume con fetch sin credenciales;
- *   crear, actualizar y eliminar exigen autenticacion (401 si falta).
- * - Panel Thymeleaf ({@code /admin/**}): formulario de login, sesion y CSRF activo.
+ * <p>Dos clientes con necesidades distintas, por eso dos cadenas:
+ * <ul>
+ *   <li><b>API REST</b> ({@code /api/**}): sin sesion, sin cookies y sin CSRF. Se autentica solo con
+ *       {@code Authorization: Bearer <JWT>}. La lectura del catalogo sigue publica porque la tienda
+ *       (carpeta Frontend) la consume con fetch sin credenciales. Crear, actualizar y eliminar
+ *       exigen un JWT valido con rol ADMIN. {@code POST /api/v1/auth/token} emite el JWT.</li>
+ *   <li><b>Panel Thymeleaf</b> ({@code /admin/**}): formulario de login, sesion y CSRF activo.
+ *       La lectura es publica; gestionar productos exige rol ADMIN.</li>
+ * </ul>
+ * La proteccion CSRF de la API solo esta desactivada porque no usa cookies ni Basic. Si algun dia
+ * el token pasa a una cookie, hay que volver a evaluar CSRF.
  */
 @Configuration
 public class SecurityConfig {
@@ -35,43 +41,49 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    /** Identidad temporal en memoria; la clave llega por variable de entorno y se guarda como hash. */
     @Bean
-    UserDetailsService userDetailsService(
-            @Value("${app.security.demo-username}") String username,
-            @Value("${app.security.demo-password}") String rawPassword,
-            PasswordEncoder encoder) {
-        UserDetails user = User.builder()
-                .username(username)
-                .password(encoder.encode(rawPassword))
-                .roles("USER")
-                .build();
-        return new InMemoryUserDetailsManager(user);
+    AuthenticationProvider authenticationProvider(UserDetailsService users, PasswordEncoder encoder) {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider(users);
+        provider.setPasswordEncoder(encoder);
+        return provider;
     }
 
     /** Debe declararse primero (Order 1): es la cadena mas especifica. */
     @Bean
     @Order(1)
-    SecurityFilterChain apiSecurity(HttpSecurity http) throws Exception {
+    SecurityFilterChain apiSecurity(HttpSecurity http, JwtDecoder decoder,
+            JwtAuthenticationConverter converter) throws Exception {
         http
                 .securityMatcher("/api/**")
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/token").permitAll()
+                        // Lectura publica: la consume el Frontend sin credenciales.
                         .requestMatchers(HttpMethod.GET, "/api/v1/productos", "/api/v1/productos/*").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers(HttpMethod.HEAD, "/api/v1/productos", "/api/v1/productos/*").permitAll()
+                        // Escrituras: JWT valido con rol ADMIN. Se incluye la ruta base y la anidada para que
+                        // un DELETE sin id llegue al MVC (405) en lugar de ser denegado aqui.
+                        .requestMatchers(HttpMethod.POST, "/api/v1/productos", "/api/v1/productos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/productos", "/api/v1/productos/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/productos", "/api/v1/productos/**").hasRole("ADMIN")
+                        // Cualquier otra operacion (PATCH, OPTIONS, rutas desconocidas) se deniega.
+                        .anyRequest().denyAll()
                 )
-                .httpBasic(Customizer.withDefaults())
+                .oauth2ResourceServer(oauth -> oauth
+                        .jwt(jwt -> jwt.decoder(decoder).jwtAuthenticationConverter(converter))
+                )
                 .cors(Customizer.withDefaults())
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                // Solo en esta cadena: es sin estado, no usa cookies de sesion y el cliente envia Basic cada vez.
                 .csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
 
     @Bean
-    SecurityFilterChain webSecurity(HttpSecurity http) throws Exception {
+    @Order(2)
+    SecurityFilterChain webSecurity(HttpSecurity http, AuthenticationProvider provider) throws Exception {
         http
+                .authenticationProvider(provider)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(
                                 "/",
@@ -89,12 +101,15 @@ public class SecurityConfig {
                                 HttpMethod.GET,
                                 "/admin/productos/nuevo",
                                 "/admin/productos/*/editar"
-                        ).authenticated()
+                        ).hasRole("ADMIN")
                         .requestMatchers(
                                 HttpMethod.GET,
                                 "/admin/productos",
+                                "/admin/productos/",
                                 "/admin/productos/*"
                         ).permitAll()
+                        // Todo el resto del panel (POST de crear, actualizar y eliminar): solo ADMIN.
+                        .requestMatchers("/admin/productos", "/admin/productos/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

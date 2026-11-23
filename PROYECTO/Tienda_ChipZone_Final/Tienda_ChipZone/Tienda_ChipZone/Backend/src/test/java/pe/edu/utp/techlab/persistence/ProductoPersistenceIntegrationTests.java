@@ -45,7 +45,7 @@ class ProductoPersistenceIntegrationTests {
     void flywayRegistroLasMigracionesAplicadas() {
         Integer exitosas = jdbc.queryForObject(
                 "select count(*) from flyway_schema_history where success = 1", Integer.class);
-        assertEquals(3, exitosas);
+        assertEquals(4, exitosas);
     }
 
     @Test

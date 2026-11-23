@@ -33,6 +33,8 @@ El catalogo ya no se crea desde Java: **Flyway** manda sobre el esquema y Hibern
 |---|---|
 | `V1__create_productos_tables.sql` | Tablas `productos`, `producto_imagenes`, `producto_etiquetas`, `producto_especificaciones` |
 | `V2__seed_productos.sql` | Catalogo inicial: 47 productos, 4 categorias |
+| `V3__add_categorias_and_relationship.sql` | Tabla `categorias` y relacion con `productos` |
+| `V4__create_users_and_roles.sql` | Semana 14: tablas `app_users` y `app_user_roles` (usuarios con hash BCrypt y roles) |
 
 1. Crear el archivo de secretos local (no se sube a git):
    ```
@@ -116,33 +118,57 @@ Los errores de la API (400, 404, 409) responden con `application/problem+json`.
 CORS solo permite GET desde `http://localhost:5500` y `http://127.0.0.1:5500`.
 Para otro origen, cambiar `techlab.cors.origins` en `application.properties`.
 
-## Seguridad - Semana 13 (Spring Security)
+## Seguridad - Semanas 13 a 15 (Spring Security, usuarios en MySQL y JWT)
 Spring Security actua **antes** de los controladores. Hay dos cadenas de filtros (`config/SecurityConfig`):
 
 | Cadena | Alcance | Mecanismo | Reglas |
 |---|---|---|---|
-| API (`@Order(1)`) | `/api/**` | Basic en cada solicitud, `STATELESS`, CSRF desactivado solo aqui | `GET` de productos publico (lo consume la tienda del Frontend); `POST/PUT/DELETE` exigen Basic (401 si falta o es incorrecto) |
-| Panel web | el resto | Formulario de login, sesion, CSRF activo | Listado y detalle publicos; `/admin/productos/nuevo`, `/{id}/editar`, todos los `POST` y `/perfil` exigen sesion (302 a `/login`; `POST` sin token CSRF = 403) |
+| API (`@Order(1)`) | `/api/**` | JWT en `Authorization: Bearer`, `STATELESS`, sin cookies, CSRF desactivado solo aqui | `GET` de productos **publico** (lo consume la tienda del Frontend); `POST/PUT/DELETE` exigen JWT valido con rol `ADMIN` (401 sin token o con token invalido; 403 con rol `USER`). `POST /api/v1/auth/token` emite el JWT |
+| Panel web (`@Order(2)`) | el resto | Formulario de login, sesion, CSRF activo | Listado y detalle publicos; `/admin/productos/nuevo`, `/{id}/editar` y todos los `POST` exigen rol `ADMIN` (302 a `/login` si no hay sesion; 403 con rol `USER`; `POST` sin token CSRF = 403). `/perfil` exige sesion |
 
-La cuenta es temporal y vive en memoria (contrasena guardada con BCrypt). **La clave no va en Git**: se exige la variable
-`APP_DEMO_PASSWORD` y, si falta, la aplicacion no inicia.
-```
-export APP_DEMO_USERNAME='docente'                         (PowerShell: $env:APP_DEMO_USERNAME='docente')
-export APP_DEMO_PASSWORD='Laboratorio-S13-Temporal!'       (PowerShell: $env:APP_DEMO_PASSWORD='Laboratorio-S13-Temporal!')
-```
-Rutas nuevas: `GET /login` (el `POST /login` lo procesa Spring Security), `POST /logout` (boton en la cabecera, nunca por GET) y `GET /perfil`
-(reto "Mi sesion"). Las plantillas reciben el modelo global `security` (`web/GlobalViewModel`) y ocultan Nuevo/Editar/Eliminar si no hay sesion.
+**Usuarios (semana 14).** Viven en MySQL (`app_users`, `app_user_roles`, migracion `V4`) con la clave guardada solo como hash BCrypt.
+Roles: `ROLE_USER` (consulta) y `ROLE_ADMIN` (consulta y gestiona). Las cuentas de laboratorio las crea `LabUserSeeder`
+**solo con el perfil `lab`** y solo si no existen; las claves llegan por variables de entorno y no van en Git.
 
-Comprobacion con curl (la app debe estar corriendo):
+**JWT (semana 15).** HS256, vida maxima 600 s, claims `iss`, `sub`, `aud`, `iat`, `exp`, `jti` y `roles`. La clave se obtiene
+solo de `TECHLAB_JWT_SECRET_B64` (Base64, minimo 32 bytes); si falta, la aplicacion no inicia. Un JWT ya emitido sigue valido
+hasta vencer aunque despues se deshabilite la cuenta (no hay revocacion inmediata).
+
+Generar la clave y arrancar con las cuentas de laboratorio (solo en la terminal local, nunca en Git):
 ```
-curl -i http://localhost:8080/api/v1/productos                                   # 200 (lectura publica)
-curl -i http://localhost:8080/admin/productos/nuevo                              # 302 -> /login
-curl -i -X POST -H 'Content-Type: application/json' -d '{}' http://localhost:8080/api/v1/productos            # 401
-curl -i -u 'docente:incorrecta' -X POST -H 'Content-Type: application/json' -d '{}' http://localhost:8080/api/v1/productos   # 401
-curl -i -u 'docente:Laboratorio-S13-Temporal!' -X POST -H 'Content-Type: application/json' -d '{}' http://localhost:8080/api/v1/productos   # 400 (autenticado; el cuerpo es invalido)
+export TECHLAB_JWT_SECRET_B64="$(openssl rand -base64 32)"
+export TECHLAB_ADMIN_USER=admin        TECHLAB_ADMIN_PASSWORD='clave-local-admin-12+'
+export TECHLAB_STUDENT_USER=estudiante TECHLAB_STUDENT_PASSWORD='clave-local-estudiante-12+'
+export SPRING_PROFILES_ACTIVE=lab
+./mvnw spring-boot:run
 ```
-Pruebas: `security/WebSecurityTests` y `security/ApiSecurityTests`; `WebRoutesTests` y `ProductoVistaTests` se adaptaron (Basic / usuario + CSRF).
-`src/test/resources/config/application.properties` aporta la clave solo para las pruebas. Basic requiere HTTPS fuera del laboratorio; en la semana 15 se reemplaza por tokens.
+PowerShell:
+```
+$b = New-Object byte[] 32; [System.Security.Cryptography.RandomNumberGenerator]::Create().GetBytes($b)
+$env:TECHLAB_JWT_SECRET_B64 = [Convert]::ToBase64String($b)
+$env:TECHLAB_ADMIN_USER='admin';        $env:TECHLAB_ADMIN_PASSWORD='clave-local-admin-12+'
+$env:TECHLAB_STUDENT_USER='estudiante'; $env:TECHLAB_STUDENT_PASSWORD='clave-local-estudiante-12+'
+$env:SPRING_PROFILES_ACTIVE='lab'
+.\mvnw.cmd spring-boot:run
+```
+El perfil `lab` ata el servidor a `127.0.0.1`. Sin ese perfil la aplicacion funciona igual, pero no crea cuentas.
+
+Comprobacion con curl (la app debe estar corriendo; el cliente `scripts/probar_jwt.py` hace lo mismo sin exponer la clave):
+```
+curl -i http://localhost:8080/api/v1/productos                                      # 200 (lectura publica)
+curl -i http://localhost:8080/admin/productos/nuevo                                 # 302 -> /login
+curl -i -X POST -H 'Content-Type: application/json' -d '{}' http://localhost:8080/api/v1/productos   # 401 (sin token)
+curl -i -X POST -H 'Content-Type: application/json' -d '{"username":"estudiante","password":"..."}' http://localhost:8080/api/v1/auth/token   # 200 + access_token
+curl -i -X POST -H 'Authorization: Bearer <JWT>' -H 'Content-Type: application/json' -d '{}' http://localhost:8080/api/v1/productos   # USER: 403 / ADMIN: 400
+```
+Rutas: `GET /login` (el `POST /login` lo procesa Spring Security), `POST /logout` (boton en la cabecera, nunca por GET), `GET /perfil`
+y `POST /api/v1/auth/token`. Las plantillas reciben el modelo global `security` (`web/GlobalViewModel`: `authenticated`, `username`,
+`admin`) y solo muestran Nuevo/Editar/Eliminar al administrador. Ocultar un boton no protege la ruta: la regla real esta en `SecurityConfig`.
+
+Pruebas de seguridad: `security/WebSecurityTests` y `security/ApiSecurityTests` (`@WebMvcTest`, sin base de datos),
+`security/PersistentSecurityIntegrationTests` (usuarios reales en MySQL) y `security/JwtSecurityIntegrationTests` (JWT firmados
+reales: vencido, audiencia, emisor y firma incorrectos). `src/test/resources/config/application.properties` aporta una clave JWT fija
+y publica **solo para las pruebas**. Detalle de cambios: `CAMBIOS_SEMANA14_15.md`.
 
 ## Estructura
 - `controller/`: `ProductoController` (API), `ProductoVistaController` (vistas), `PortalController`.
@@ -175,9 +201,12 @@ Con MySQL levantado y `DB_USER`/`DB_PASSWORD` exportadas:
 ./mvnw clean test            (macOS / Linux)
 ```
 - `ProductoFormDtoTests`, `ProductoInputDtoValidationTests` y `ProductoFormDtoValidationTests`: pruebas unitarias puras (sin Spring ni base de datos).
-- `ProductoVistaTests` y `WebRoutesTests`: `@WebMvcTest` con `ProductoService` simulado (`@MockitoBean`); no usan base de datos.
-- `ProductoPersistenceIntegrationTests`, `ProductoCrudIntegrationTests`, `ProductoServiceTests` y `TechLabWebApplicationTests`:
-  `@SpringBootTest` contra **MySQL real** (Flyway aplica V1 y V2). Si MySQL no esta encendido, estas fallan.
+- `ProductoVistaTests`, `WebRoutesTests`, `WebSecurityTests` y `ApiSecurityTests`: `@WebMvcTest` con `ProductoService` y `UserDetailsService`
+  simulados (`@MockitoBean`); no usan base de datos.
+- `ProductoPersistenceIntegrationTests`, `ProductoCrudIntegrationTests`, `ProductoServiceTests`, `TechLabWebApplicationTests`,
+  `PersistentSecurityIntegrationTests` y `JwtSecurityIntegrationTests`:
+  `@SpringBootTest` contra **MySQL real** (Flyway aplica V1 a V4). Si MySQL no esta encendido, estas fallan.
+  Para aislar las pruebas de la base de trabajo, cree una base `techlab_test` y apunte `DB_URL` a ella antes de `clean test`.
   `ProductoCrudIntegrationTests` usa `@Transactional` y hace rollback: el catalogo de 47 productos no cambia.
   Estas pruebas asumen el catalogo inicial intacto (47 productos): no ejecutarlas sobre una base con altas o bajas manuales.
 - Ya no se usa H2: los scripts de Flyway son de MySQL.
@@ -193,10 +222,12 @@ java -jar target/techlab-web-0.0.1-SNAPSHOT.jar --spring.profiles.active=local  
 El perfil `local` solo cambia el puerto y no contiene secretos.
 
 ## Alcance actual
-Catalogo guardado en MySQL y versionado con Flyway, con CRUD completo en el panel y en la API. Todavia no hay login ni
-autorizacion: **cualquiera con acceso a la URL puede crear, editar o eliminar productos** (semanas posteriores).
+Catalogo guardado en MySQL y versionado con Flyway, con CRUD completo en el panel y en la API. Desde la semana 14 el panel y las
+escrituras de la API exigen rol `ADMIN` (usuarios en MySQL con BCrypt) y desde la semana 15 la API se protege con JWT.
+La lectura del catalogo sigue siendo publica a proposito, porque la tienda del Frontend la consume sin credenciales.
 Las categorias Laptops y Celulares existen en el menu de la tienda, pero aun no tienen productos.
-El carrito, el login y el registro de la tienda siguen simulados con JavaScript en el frontend.
+El carrito, el login y el registro de la **tienda** (carpeta Frontend) siguen simulados con JavaScript; conectarlos a
+`POST /api/v1/auth/token` exigiria ampliar `CorsConfig` (POST y cabecera `Authorization`) y revisar CSRF.
 
 ## Matriz de pruebas (registrar resultado real)
 | ID | Procedimiento | Esperado | Resultado real | Estado | Correccion |
@@ -249,6 +280,21 @@ El carrito, el login y el registro de la tienda siguen simulados con JavaScript 
 | S11-07 | Formulario con nombre repetido | Error junto al campo Nombre y datos conservados | | | |
 | S11-08 | Lector de pantalla / teclado en un campo invalido | `aria-invalid="true"` y el mensaje enlazado con `aria-describedby`; no depende solo del color | | | |
 | S11-09 | Crear un producto valido, reiniciar la aplicacion y abrirlo | Sigue en el listado; `flyway_schema_history` solo muestra V1 y V2 | | | |
+
+| S14-01 | `SELECT version, success FROM flyway_schema_history` | V1 a V4 con `success = 1` | | | |
+| S14-02 | Roles de las cuentas lab (sin seleccionar `password_hash`) | `admin`: USER y ADMIN; `estudiante`: USER | | | |
+| S14-03 | /admin/productos/nuevo sin sesion | 302 a /login | | | |
+| S14-04 | Mismo formulario con sesion de `estudiante` | 403; en el listado no aparecen Nuevo, Editar ni Eliminar | | | |
+| S14-05 | Mismo formulario con sesion de `admin` | 200 | | | |
+| S14-06 | POST web sin token CSRF | 403 | | | |
+| S15-01 | POST /api/v1/auth/token con credenciales validas | 200, `access_token` y `Cache-Control: no-store` | | | |
+| S15-02 | Clave incorrecta o cuenta deshabilitada | 401 | | | |
+| S15-03 | GET /api/v1/productos sin token | 200 (lectura publica) | | | |
+| S15-04 | POST /api/v1/productos sin token | 401 | | | |
+| S15-05 | POST con JWT de `estudiante` | 403 | | | |
+| S15-06 | POST con JWT de `admin` y cuerpo `{}` | 400 por validacion | | | |
+| S15-07 | JWT con firma, emisor o audiencia incorrectos / vencido | 401 | | | |
+| S15-08 | `./mvnw clean test` (DB_URL a `techlab_test`) | BUILD SUCCESS, 0 fallos | | | |
 
 ## Creditos
 Bootstrap 5.3.8 via CDN. Imagenes de sitios de los fabricantes y tiendas (enlaces remotos).

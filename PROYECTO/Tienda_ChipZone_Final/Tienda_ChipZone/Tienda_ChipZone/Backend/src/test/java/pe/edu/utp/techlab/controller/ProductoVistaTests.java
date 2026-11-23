@@ -27,10 +27,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.MockMvc;
+import pe.edu.utp.techlab.config.JwtConfig;
 import pe.edu.utp.techlab.config.SecurityConfig;
 import pe.edu.utp.techlab.dto.ProductoDto;
 import pe.edu.utp.techlab.dto.ProductoInputDto;
@@ -41,14 +43,17 @@ import pe.edu.utp.techlab.dto.CategoriaDto;
 import pe.edu.utp.techlab.exception.CategoriaNotFoundException;
 
 @WebMvcTest({ProductoVistaController.class, PortalController.class})
-@Import(SecurityConfig.class)
-@WithMockUser(username = "docente")
+@Import({SecurityConfig.class, JwtConfig.class})
+@WithMockUser(username = "docente", roles = "ADMIN")
 class ProductoVistaTests {
 
-    // Semana 13: estas pruebas verifican el CRUD ya con sesion iniciada; el envio lleva token CSRF.
+    // Semana 14: estas pruebas verifican el CRUD con una sesion ADMIN; el envio lleva token CSRF.
     private static MockHttpServletRequestBuilder conCsrf(MockHttpServletRequestBuilder solicitud) {
         return solicitud.with(csrf());
     }
+
+    @MockitoBean
+    private UserDetailsService usuarios;
 
     @Autowired
     private MockMvc mvc;

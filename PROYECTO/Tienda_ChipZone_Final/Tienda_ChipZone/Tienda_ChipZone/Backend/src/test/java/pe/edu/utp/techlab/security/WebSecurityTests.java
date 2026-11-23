@@ -18,9 +18,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.TestPropertySource;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import pe.edu.utp.techlab.config.JwtConfig;
 import pe.edu.utp.techlab.config.SecurityConfig;
 import pe.edu.utp.techlab.controller.LoginController;
 import pe.edu.utp.techlab.controller.PerfilController;
@@ -32,7 +34,7 @@ import pe.edu.utp.techlab.dto.ProductoInputDto;
 import pe.edu.utp.techlab.service.ProductoService;
 import pe.edu.utp.techlab.web.GlobalViewModel;
 
-/** Frontera del panel Thymeleaf: anonimo frente a autenticado, POST con y sin CSRF, ruta publica frente a privada. */
+/** Frontera del panel Thymeleaf: anonimo, USER y ADMIN, POST con y sin CSRF, ruta publica frente a privada. */
 @WebMvcTest({
         ProductoVistaController.class,
         LoginController.class,
@@ -40,12 +42,21 @@ import pe.edu.utp.techlab.web.GlobalViewModel;
         PortalController.class,
         GlobalViewModel.class
 })
-@Import(SecurityConfig.class)
-@TestPropertySource(properties = {
-        "app.security.demo-username=docente",
-        "app.security.demo-password=Laboratorio-S13-Temporal!"
-})
+@Import({SecurityConfig.class, JwtConfig.class})
 class WebSecurityTests {
+
+    /** Semana 14: administrar productos exige ROLE_ADMIN; cualquier otra sesion es solo lectura. */
+    private static RequestPostProcessor admin() {
+        return user("docente").roles("ADMIN");
+    }
+
+    private static RequestPostProcessor estudiante() {
+        return user("estudiante").roles("USER");
+    }
+
+    // Sin base de datos en esta prueba: SecurityConfig solo necesita que exista el bean.
+    @MockitoBean
+    private UserDetailsService usuarios;
 
     @Autowired
     private MockMvc mvc;
@@ -101,8 +112,8 @@ class WebSecurityTests {
     }
 
     @Test
-    void usuarioAutenticadoAbreFormulario() throws Exception {
-        mvc.perform(get("/admin/productos/nuevo").with(user("docente")))
+    void adminAbreFormulario() throws Exception {
+        mvc.perform(get("/admin/productos/nuevo").with(admin()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("productos/formulario"));
     }
@@ -122,7 +133,7 @@ class WebSecurityTests {
     @Test
     void postSinCsrfEsRechazado() throws Exception {
         mvc.perform(post("/admin/productos")
-                        .with(user("docente"))
+                        .with(admin())
                         .param("nombre", "Mouse Nuevo")
                         .param("marca", "msi")
                         .param("categoriaId", "1")
@@ -132,7 +143,7 @@ class WebSecurityTests {
 
     @Test
     void eliminarSinCsrfEsRechazado() throws Exception {
-        mvc.perform(post("/admin/productos/2/eliminar").with(user("docente")))
+        mvc.perform(post("/admin/productos/2/eliminar").with(admin()))
                 .andExpect(status().isForbidden());
     }
 
@@ -143,7 +154,7 @@ class WebSecurityTests {
                 List.of(), List.of(), List.of()));
 
         mvc.perform(post("/admin/productos")
-                        .with(user("docente"))
+                        .with(admin())
                         .with(csrf())
                         .param("nombre", "Mouse Nuevo")
                         .param("marca", "msi")
@@ -155,13 +166,13 @@ class WebSecurityTests {
 
     @Test
     void logoutPorGetNoCierraLaSesion() throws Exception {
-        mvc.perform(get("/logout").with(user("docente")))
+        mvc.perform(get("/logout").with(estudiante()))
                 .andExpect(status().is4xxClientError());
     }
 
     @Test
     void logoutPorPostConCsrfRedirigeAlLogin() throws Exception {
-        mvc.perform(post("/logout").with(user("docente")).with(csrf()))
+        mvc.perform(post("/logout").with(estudiante()).with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/login?logout"));
     }
@@ -175,8 +186,45 @@ class WebSecurityTests {
 
     @Test
     void perfilAutenticadoMuestraLaVista() throws Exception {
-        mvc.perform(get("/perfil").with(user("docente")))
+        mvc.perform(get("/perfil").with(estudiante()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("auth/perfil"));
+    }
+
+    @Test
+    void estudianteNoPuedeAbrirElFormularioDeAlta() throws Exception {
+        mvc.perform(get("/admin/productos/nuevo").with(estudiante()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void estudianteNoPuedeAbrirLaEdicion() throws Exception {
+        mvc.perform(get("/admin/productos/2/editar").with(estudiante()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void estudianteNoPuedeCrearNiConCsrfValido() throws Exception {
+        mvc.perform(post("/admin/productos")
+                        .with(estudiante())
+                        .with(csrf())
+                        .param("nombre", "Mouse Nuevo")
+                        .param("marca", "msi")
+                        .param("categoriaId", "1")
+                        .param("precio", "89"))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void estudianteNoPuedeEliminarNiConCsrfValido() throws Exception {
+        mvc.perform(post("/admin/productos/2/eliminar").with(estudiante()).with(csrf()))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void estudianteSiPuedeConsultarElCatalogo() throws Exception {
+        mvc.perform(get("/admin/productos").with(estudiante()))
+                .andExpect(status().isOk())
+                .andExpect(view().name("productos/lista"));
     }
 }

@@ -17,6 +17,8 @@ public class GlobalViewModel {
         if (!authenticated) {
             return SecurityView.anonymous();
         }
-        return new SecurityView(true, authentication.getName());
+        boolean admin = authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        return new SecurityView(true, authentication.getName(), admin);
     }
 }

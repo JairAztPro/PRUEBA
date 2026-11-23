@@ -6,7 +6,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -25,9 +25,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import pe.edu.utp.techlab.config.JwtConfig;
 import pe.edu.utp.techlab.config.SecurityConfig;
 import pe.edu.utp.techlab.dto.ProductoDto;
 import pe.edu.utp.techlab.dto.ProductoInputDto;
@@ -38,16 +41,18 @@ import pe.edu.utp.techlab.service.ProductoService;
 import pe.edu.utp.techlab.exception.CategoriaNotFoundException;
 
 @WebMvcTest({ProductoController.class, PortalController.class})
-@Import(SecurityConfig.class)
+@Import({SecurityConfig.class, JwtConfig.class})
 class WebRoutesTests {
 
-    // Semana 13: la lectura de la API es publica; crear, actualizar y eliminar exigen Basic.
-    private static final String USUARIO = "docente";
-    private static final String CLAVE = "Laboratorio-S13-Temporal!";
-
+    // Semana 15: la lectura de la API es publica; crear, actualizar y eliminar exigen un JWT con rol ADMIN.
+    // jwt() aisla la autorizacion: la firma real se prueba en JwtSecurityIntegrationTests.
     private static MockHttpServletRequestBuilder autenticado(MockHttpServletRequestBuilder solicitud) {
-        return solicitud.with(httpBasic(USUARIO, CLAVE));
+        return solicitud.with(jwt().authorities(new SimpleGrantedAuthority("ROLE_ADMIN")));
     }
+
+    // SecurityConfig necesita un UserDetailsService; en esta prueba de controlador no hay base de datos.
+    @MockitoBean
+    private UserDetailsService usuarios;
 
     @Autowired
     private MockMvc mvc;

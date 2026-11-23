@@ -22,7 +22,7 @@
       th:href="@{/admin/productos}" th:classappend="${activo == 'productos'} ? 'fw-bold'"
       th:attr="aria-current=${activo == 'productos'} ? 'page'" th:text="#{nav.productos}">Productos</a>
     <a class="link-body-emphasis text-decoration-none" href="/admin/productos/nuevo"
-      th:if="${security?.authenticated}"
+      th:if="${security?.admin}"
       th:href="@{/admin/productos/nuevo}" th:classappend="${activo == 'nuevo'} ? 'fw-bold'"
       th:attr="aria-current=${activo == 'nuevo'} ? 'page'" th:text="#{nav.nuevo}">Nuevo producto</a>
     <a class="link-body-emphasis text-decoration-none" href="/perfil"
