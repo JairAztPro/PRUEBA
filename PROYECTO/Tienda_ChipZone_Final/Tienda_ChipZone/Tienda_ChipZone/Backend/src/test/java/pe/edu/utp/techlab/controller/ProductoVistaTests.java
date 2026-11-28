@@ -10,6 +10,7 @@ import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -28,10 +29,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import pe.edu.utp.techlab.config.JwtConfig;
 import pe.edu.utp.techlab.config.SecurityConfig;
 import pe.edu.utp.techlab.dto.ProductoDto;
@@ -44,7 +45,6 @@ import pe.edu.utp.techlab.exception.CategoriaNotFoundException;
 
 @WebMvcTest({ProductoVistaController.class, PortalController.class})
 @Import({SecurityConfig.class, JwtConfig.class})
-@WithMockUser(username = "docente", roles = "ADMIN")
 class ProductoVistaTests {
 
     // Semana 14: estas pruebas verifican el CRUD con una sesion ADMIN; el envio lleva token CSRF.
@@ -54,6 +54,13 @@ class ProductoVistaTests {
 
     @MockitoBean
     private UserDetailsService usuarios;
+
+    // Todas las solicitudes de esta clase van con una sesion ADMIN. Se usa un post-procesador por
+    // solicitud (y no @WithMockUser) porque en este slice @WebMvcTest el contexto de @WithMockUser
+    // no llega a la cadena de filtros y la persona quedaba como anonima (302 a /login).
+    private ResultActions comoAdmin(MockHttpServletRequestBuilder solicitud) throws Exception {
+        return mvc.perform(solicitud.with(user("docente").roles("ADMIN")));
+    }
 
     @Autowired
     private MockMvc mvc;
@@ -85,7 +92,7 @@ class ProductoVistaTests {
 
     @Test
     void listadoRenderizaModeloYHtml() throws Exception {
-        mvc.perform(get("/admin/productos"))
+        comoAdmin(get("/admin/productos"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("productos/lista"))
                 .andExpect(model().attribute("q", ""))
@@ -101,14 +108,14 @@ class ProductoVistaTests {
         given(service.buscar("ryzen", "")).willReturn(List.of(rog));
         given(service.buscar("", "accesorios")).willReturn(List.of(ram));
 
-        mvc.perform(get("/admin/productos").param("q", "ryzen"))
+        comoAdmin(get("/admin/productos").param("q", "ryzen"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("q", "ryzen"))
                 .andExpect(model().attribute("productos", hasSize(1)))
                 .andExpect(content().string(containsString("ROG Strix B550-F")))
                 .andExpect(content().string(not(containsString("RTX 4060 Gaming"))));
 
-        mvc.perform(get("/admin/productos").param("categoria", "accesorios"))
+        comoAdmin(get("/admin/productos").param("categoria", "accesorios"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("productos", hasSize(1)));
     }
@@ -117,7 +124,7 @@ class ProductoVistaTests {
     void sinResultadosMuestraEstadoVacio() throws Exception {
         given(service.buscar("zzz", "")).willReturn(List.of());
 
-        mvc.perform(get("/admin/productos").param("q", "zzz"))
+        comoAdmin(get("/admin/productos").param("q", "zzz"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("productos", hasSize(0)))
                 .andExpect(content().string(containsString("No se encontraron productos")));
@@ -127,7 +134,7 @@ class ProductoVistaTests {
     void detalleRenderizaElProductoSolicitado() throws Exception {
         given(service.buscarPorId(2L)).willReturn(Optional.of(rtx));
 
-        mvc.perform(get("/admin/productos/2"))
+        comoAdmin(get("/admin/productos/2"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("productos/detalle"))
                 .andExpect(model().attribute("producto", rtx))
@@ -139,7 +146,7 @@ class ProductoVistaTests {
     void detalleConDescuentoMuestraPrecioFinalYAnterior() throws Exception {
         given(service.buscarPorId(1L)).willReturn(Optional.of(rog));
 
-        mvc.perform(get("/admin/productos/1"))
+        comoAdmin(get("/admin/productos/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("S/ 719")))
                 .andExpect(content().string(containsString("S/ 899")))
@@ -148,7 +155,7 @@ class ProductoVistaTests {
 
     @Test
     void listadoMuestraResumenDeStockYDescuentos() throws Exception {
-        mvc.perform(get("/admin/productos"))
+        comoAdmin(get("/admin/productos"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("2 en stock")))
                 .andExpect(content().string(containsString("1 sin stock")))
@@ -159,17 +166,17 @@ class ProductoVistaTests {
     void erroresConservanEstadosHttp() throws Exception {
         given(service.buscarPorId(999L)).willReturn(Optional.empty());
 
-        mvc.perform(get("/admin/productos/999"))
+        comoAdmin(get("/admin/productos/999"))
                 .andExpect(status().isNotFound());
-        mvc.perform(get("/admin/productos/abc"))
+        comoAdmin(get("/admin/productos/abc"))
                 .andExpect(status().isBadRequest());
-        mvc.perform(get("/admin/productos").param("q", "x".repeat(61)))
+        comoAdmin(get("/admin/productos").param("q", "x".repeat(61)))
                 .andExpect(status().isBadRequest());
     }
 
     @Test
     void listadoOfreceLasAccionesDelCrud() throws Exception {
-        mvc.perform(get("/admin/productos"))
+        comoAdmin(get("/admin/productos"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("/admin/productos/nuevo")))
                 .andExpect(content().string(containsString("/admin/productos/1/editar")))
@@ -179,7 +186,7 @@ class ProductoVistaTests {
 
     @Test
     void formularioNuevoRenderizaCamposVacios() throws Exception {
-        mvc.perform(get("/admin/productos/nuevo"))
+        comoAdmin(get("/admin/productos/nuevo"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("productos/formulario"))
                 .andExpect(model().attributeExists("form"))
@@ -192,7 +199,7 @@ class ProductoVistaTests {
     void formularioEditarCargaLosDatosDelProducto() throws Exception {
         given(service.buscarPorId(1L)).willReturn(Optional.of(rog));
 
-        mvc.perform(get("/admin/productos/1/editar"))
+        comoAdmin(get("/admin/productos/1/editar"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("productos/formulario"))
                 .andExpect(model().attribute("productoId", 1L))
@@ -209,7 +216,7 @@ class ProductoVistaTests {
                 List.of(), List.of(), List.of());
         given(service.crear(any(ProductoInputDto.class))).willReturn(creado);
 
-        mvc.perform(conCsrf(post("/admin/productos"))
+        comoAdmin(conCsrf(post("/admin/productos"))
                         .param("nombre", "Mouse Nuevo")
                         .param("marca", "msi")
                         .param("categoriaId", "1")
@@ -224,7 +231,7 @@ class ProductoVistaTests {
         given(service.crear(any(ProductoInputDto.class)))
                 .willThrow(new DuplicateProductoNombreException("ROG Strix B550-F"));
 
-        mvc.perform(conCsrf(post("/admin/productos"))
+        comoAdmin(conCsrf(post("/admin/productos"))
                         .param("nombre", "ROG Strix B550-F")
                         .param("marca", "asus")
                         .param("categoriaId", "3")
@@ -238,7 +245,7 @@ class ProductoVistaTests {
 
     @Test
     void crearConFormularioVacioMuestraErroresPorCampoSinLlamarAlServicio() throws Exception {
-        mvc.perform(conCsrf(post("/admin/productos")))
+        comoAdmin(conCsrf(post("/admin/productos")))
                 .andExpect(status().isOk())
                 .andExpect(view().name("productos/formulario"))
                 .andExpect(model().attributeHasFieldErrors("form", "nombre", "marca", "categoriaId", "precio"))
@@ -253,7 +260,7 @@ class ProductoVistaTests {
 
     @Test
     void crearConPrecioNoNumericoMuestraErrorEnElCampoSinLlamarAlServicio() throws Exception {
-        mvc.perform(conCsrf(post("/admin/productos"))
+        comoAdmin(conCsrf(post("/admin/productos"))
                         .param("nombre", "Mouse Nuevo")
                         .param("marca", "msi")
                         .param("categoriaId", "1")
@@ -268,7 +275,7 @@ class ProductoVistaTests {
 
     @Test
     void crearConPrecioCeroYDescuentoFueraDeRangoUsaLasReglasDelDto() throws Exception {
-        mvc.perform(conCsrf(post("/admin/productos"))
+        comoAdmin(conCsrf(post("/admin/productos"))
                         .param("nombre", "Mouse Nuevo")
                         .param("marca", "msi")
                         .param("categoriaId", "1")
@@ -284,7 +291,7 @@ class ProductoVistaTests {
 
     @Test
     void crearConImagenInvalidaYEspecificacionMalFormadaMarcaEsosCampos() throws Exception {
-        mvc.perform(conCsrf(post("/admin/productos"))
+        comoAdmin(conCsrf(post("/admin/productos"))
                         .param("nombre", "Mouse Nuevo")
                         .param("marca", "msi")
                         .param("categoriaId", "1")
@@ -293,7 +300,7 @@ class ProductoVistaTests {
                 .andExpect(status().isOk())
                 .andExpect(model().attributeHasFieldErrors("form", "imagenes"));
 
-        mvc.perform(conCsrf(post("/admin/productos"))
+        comoAdmin(conCsrf(post("/admin/productos"))
                         .param("nombre", "Mouse Nuevo")
                         .param("marca", "msi")
                         .param("categoriaId", "1")
@@ -308,7 +315,7 @@ class ProductoVistaTests {
 
     @Test
     void erroresDeValidacionConservanLoEscritoEnElFormulario() throws Exception {
-        mvc.perform(conCsrf(post("/admin/productos"))
+        comoAdmin(conCsrf(post("/admin/productos"))
                         .param("nombre", "Mouse Gamer")
                         .param("marca", "msi")
                         .param("categoriaId", "1")
@@ -322,7 +329,7 @@ class ProductoVistaTests {
 
     @Test
     void actualizarConDatosInvalidosVuelveAlFormularioDeEdicion() throws Exception {
-        mvc.perform(conCsrf(post("/admin/productos/2"))
+        comoAdmin(conCsrf(post("/admin/productos/2"))
                         .param("nombre", "")
                         .param("marca", "msi")
                         .param("categoriaId", "3")
@@ -340,7 +347,7 @@ class ProductoVistaTests {
     void actualizarValidoRedirigeAlDetalleConMensajeFlash() throws Exception {
         given(service.actualizar(eq(2L), any(ProductoInputDto.class))).willReturn(rtx);
 
-        mvc.perform(conCsrf(post("/admin/productos/2"))
+        comoAdmin(conCsrf(post("/admin/productos/2"))
                         .param("nombre", "RTX 4060 Gaming")
                         .param("marca", "msi")
                         .param("categoriaId", "3")
@@ -352,7 +359,7 @@ class ProductoVistaTests {
 
     @Test
     void eliminarRedirigeAlListadoConMensajeFlash() throws Exception {
-        mvc.perform(conCsrf(post("/admin/productos/2/eliminar")))
+        comoAdmin(conCsrf(post("/admin/productos/2/eliminar")))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/admin/productos"))
                 .andExpect(flash().attribute("mensaje", "Producto eliminado correctamente"));
@@ -367,11 +374,11 @@ class ProductoVistaTests {
         willThrow(new ProductoNotFoundException(999L)).given(service)
                 .actualizar(eq(999L), any(ProductoInputDto.class));
 
-        mvc.perform(get("/admin/productos/999/editar"))
+        comoAdmin(get("/admin/productos/999/editar"))
                 .andExpect(status().isNotFound());
-        mvc.perform(conCsrf(post("/admin/productos/999/eliminar")))
+        comoAdmin(conCsrf(post("/admin/productos/999/eliminar")))
                 .andExpect(status().isNotFound());
-        mvc.perform(conCsrf(post("/admin/productos/999"))
+        comoAdmin(conCsrf(post("/admin/productos/999"))
                         .param("nombre", "X")
                         .param("marca", "x")
                         .param("categoriaId", "1")
@@ -381,7 +388,7 @@ class ProductoVistaTests {
 
     @Test
     void portalRedirigeAlPanel() throws Exception {
-        mvc.perform(get("/"))
+        comoAdmin(get("/"))
                 .andExpect(status().isFound())
                 .andExpect(header().string("Location", "/admin/productos"));
     }
@@ -391,7 +398,7 @@ class ProductoVistaTests {
         given(service.crear(any(ProductoInputDto.class)))
                 .willThrow(new CategoriaNotFoundException(99L));
 
-        mvc.perform(conCsrf(post("/admin/productos"))
+        comoAdmin(conCsrf(post("/admin/productos"))
                         .param("nombre", "Mouse")
                         .param("marca", "msi")
                         .param("categoriaId", "99")

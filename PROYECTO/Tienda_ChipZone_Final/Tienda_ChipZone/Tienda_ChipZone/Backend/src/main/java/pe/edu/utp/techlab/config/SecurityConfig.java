@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -33,6 +34,7 @@ import org.springframework.security.web.SecurityFilterChain;
  * La proteccion CSRF de la API solo esta desactivada porque no usa cookies ni Basic. Si algun dia
  * el token pasa a una cookie, hay que volver a evaluar CSRF.
  */
+@EnableWebSecurity
 @Configuration
 public class SecurityConfig {
 
